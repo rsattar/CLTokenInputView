@@ -61,9 +61,11 @@
 {
     if ([text isEqualToString:@""]){
         self.filteredNames = nil;
+        self.tableView.hidden = YES;
     } else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[cd] %@", text];
         self.filteredNames = [self.names filteredArrayUsingPredicate:predicate];
+        self.tableView.hidden = NO;
     }
     [self.tableView reloadData];
 }
@@ -121,7 +123,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     NSString *name = self.filteredNames[indexPath.row];
-    NSLog(@"Add '%@' as a token", name);
     CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
     [self.tokenInputView addToken:token];
 }
