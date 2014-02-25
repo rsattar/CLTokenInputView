@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const PADDING_X = 3.0;
+static CGFloat const PADDING_X = 4.0;
 static CGFloat const PADDING_Y = 2.0;
 
 

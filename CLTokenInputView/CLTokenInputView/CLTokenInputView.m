@@ -12,6 +12,7 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
+static CGFloat const TEXT_FIELD_HSPACE = 4.0; // Note: Same as CLTokenView.PADDING_X
 static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 static CGFloat const PADDING_TOP = 10.0;
@@ -127,7 +128,10 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
     CGFloat availableWidthForTextField = availableWidth;
     if (!CGRectIsNull(tokenRect)) {
-        availableWidth -= CGRectGetMaxX(tokenRect) + HSPACE;
+        availableWidth -= CGRectGetMaxX(tokenRect) + TEXT_FIELD_HSPACE;
+        // Remove HSPACE, replace with TEXT_FIELD_HSPACE
+        curX -= HSPACE;
+        curX += TEXT_FIELD_HSPACE;
     }
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
         availableWidthForTextField = CGRectGetWidth(bounds);
