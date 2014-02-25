@@ -35,7 +35,7 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 {
     self.backgroundColor = [UIColor clearColor];
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
-    self.textField.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
+    self.textField.backgroundColor = [UIColor clearColor];
     self.textField.delegate = self;
     [self.textField addTarget:self
                        action:@selector(onTextFieldDidChange:)
