@@ -183,14 +183,11 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 - (void)textFieldDidDeleteBackwards:(UITextField *)textField
 {
     if (textField.text.length == 0) {
-        NSLog(@"Attempt to select last token");
         CLTokenView *tokenView = self.tokenViews.lastObject;
         if (tokenView) {
             [self selectTokenView:tokenView animated:YES];
             [self.textField resignFirstResponder];
         }
-    } else {
-        NSLog(@"Deleted");
     }
 }
 
