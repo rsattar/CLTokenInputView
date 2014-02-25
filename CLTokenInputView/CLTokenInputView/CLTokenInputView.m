@@ -128,7 +128,7 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
     CGFloat availableWidthForTextField = availableWidth;
     if (!CGRectIsNull(tokenRect)) {
-        availableWidth -= CGRectGetMaxX(tokenRect) + TEXT_FIELD_HSPACE;
+        availableWidthForTextField -= curX - HSPACE + TEXT_FIELD_HSPACE;
         // Remove HSPACE, replace with TEXT_FIELD_HSPACE
         curX -= HSPACE;
         curX += TEXT_FIELD_HSPACE;
