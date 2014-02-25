@@ -18,7 +18,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 static CGFloat const PADDING_TOP = 10.0;
 static CGFloat const PADDING_BOTTOM = 10.0;
 static CGFloat const PADDING_LEFT = 8.0;
-static CGFloat const PADDING_RIGHT = 8.0;
+static CGFloat const PADDING_RIGHT = 16.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
 static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDING_X
@@ -119,10 +119,13 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 {
     CGRect bounds = self.bounds;
     CGFloat availableWidth = CGRectGetWidth(bounds) - PADDING_LEFT - PADDING_RIGHT;
+    CGFloat rightBoundary = CGRectGetWidth(bounds) - PADDING_RIGHT;
+    CGFloat firstLineRightBoundary = rightBoundary;
 
     CGFloat curX = PADDING_LEFT;
     CGFloat curY = PADDING_TOP;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
+    BOOL isOnFirstLine = YES;
 
     // Position field label (if field name is set)
     if (!self.fieldLabel.hidden) {
@@ -134,16 +137,28 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
         curX = CGRectGetMaxX(fieldLabelRect) + HSPACE;
     }
 
+    // Position accessory view (if set)
+    if (self.accessoryView) {
+        CGRect accessoryRect = self.accessoryView.frame;
+        accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
+        accessoryRect.origin.y = curY;
+        self.accessoryView.frame = accessoryRect;
+
+        firstLineRightBoundary = CGRectGetMinX(accessoryRect) - HSPACE;
+    }
+
     // Position token views
     CGRect tokenRect = CGRectNull;
     for (UIView *tokenView in self.tokenViews) {
         tokenRect = tokenView.frame;
 
-        if (curX + CGRectGetWidth(tokenRect) > availableWidth) {
+        CGFloat tokenBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
+        if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
             // Need a new line
             curX = PADDING_LEFT;
             curY += STANDARD_ROW_HEIGHT+VSPACE;
             totalHeight += STANDARD_ROW_HEIGHT;
+            isOnFirstLine = NO;
         }
 
         tokenRect.origin.x = curX;
@@ -154,21 +169,18 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
         curX = CGRectGetMaxX(tokenRect) + HSPACE;
     }
 
-    CGFloat availableWidthForTextField = availableWidth;
-    if (!CGRectIsNull(tokenRect)) {
-        availableWidthForTextField -= curX - HSPACE + TEXT_FIELD_HSPACE;
-        // Remove HSPACE, replace with TEXT_FIELD_HSPACE
-        curX -= HSPACE;
-    }
+    // Always indent textfield by a little bit
+    curX += TEXT_FIELD_HSPACE;
+    CGFloat textBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
+    CGFloat availableWidthForTextField = textBoundary - curX;
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
-        availableWidthForTextField = availableWidth;
-        curX = PADDING_LEFT;
+        isOnFirstLine = NO;
+        curX = PADDING_LEFT + TEXT_FIELD_HSPACE;
         curY += STANDARD_ROW_HEIGHT+VSPACE;
         totalHeight += STANDARD_ROW_HEIGHT;
+        // Adjust the width
+        availableWidthForTextField = rightBoundary - curX;
     }
-    // Always indent by a little bit
-    curX += TEXT_FIELD_HSPACE;
-    availableWidthForTextField -= TEXT_FIELD_HSPACE;
 
     CGRect textFieldRect = self.textField.frame;
     textFieldRect.origin.x = curX;
@@ -305,7 +317,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 }
 
 
-#pragma mark - (Optional) Field Name
+#pragma mark - (Optional Views)
 
 - (void)setFieldName:(NSString *)fieldName
 {
@@ -328,6 +340,20 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     if (oldFieldName == nil || ![oldFieldName isEqualToString:fieldName]) {
         [self repositionViews];
     }
+}
+
+- (void)setAccessoryView:(UIView *)accessoryView
+{
+    if (_accessoryView == accessoryView) {
+        return;
+    }
+    [_accessoryView removeFromSuperview];
+    _accessoryView = accessoryView;
+
+    if (_accessoryView != nil) {
+        [self addSubview:_accessoryView];
+    }
+    [self repositionViews];
 }
 
 /*
