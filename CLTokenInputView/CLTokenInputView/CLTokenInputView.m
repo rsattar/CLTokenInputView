@@ -147,7 +147,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         NSLog(@"Attempt to select last token");
         CLTokenView *tokenView = self.tokenViews.lastObject;
         if (tokenView) {
-            [tokenView setSelected:YES animated:YES];
+            [self selectTokenView:tokenView animated:YES];
             [self.textField resignFirstResponder];
         }
     } else {
@@ -181,6 +181,25 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     [self.tokens removeObjectAtIndex:index];
     [self.delegate tokenInputView:self didRemoveToken:removedToken];
     [self repositionViews];
+}
+
+#pragma mark - Token selection
+
+- (void)selectTokenView:(CLTokenView *)tokenView animated:(BOOL)animated
+{
+    [tokenView setSelected:YES animated:animated];
+    for (CLTokenView *otherTokenView in self.tokenViews) {
+        if (otherTokenView != tokenView) {
+            [otherTokenView setSelected:NO animated:animated];
+        }
+    }
+}
+
+- (void)unselectAllTokenViewsAnimated:(BOOL)animated
+{
+    for (CLTokenView *tokenView in self.tokenViews) {
+        [tokenView setSelected:NO animated:animated];
+    }
 }
 
 /*
