@@ -248,6 +248,15 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 }
 
 
+#pragma mark - Measurements (text field offset, etc.)
+
+- (CGFloat)textFieldDisplayOffset
+{
+    // Essentially the textfield's y with PADDING_TOP
+    return CGRectGetMinY(self.textField.frame) - PADDING_TOP;
+}
+
+
 #pragma mark - CLTokenViewDelegate
 
 - (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText

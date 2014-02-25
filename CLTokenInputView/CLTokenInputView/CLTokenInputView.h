@@ -36,6 +36,8 @@
 @property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
 
+@property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
+
 - (void)addToken:(CLToken *)token;
 
 @end
