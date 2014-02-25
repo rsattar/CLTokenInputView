@@ -47,8 +47,18 @@ static CGFloat const PADDING_Y = 2.0;
         [self addSubview:self.selectedLabel];
         self.selectedLabel.hidden = YES;
 
-        // Configure for the token
-        self.label.text = self.selectedLabel.text = token.displayText;
+        // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
+        NSString *labelString = [NSString stringWithFormat:@"%@,", token.displayText];
+        NSMutableAttributedString *attrString =
+        [[NSMutableAttributedString alloc] initWithString:labelString
+                                               attributes:@{NSFontAttributeName : self.label.font,
+                                                            NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+        NSRange tintRange = [labelString rangeOfString:token.displayText];
+        // Make the name part the system tint color
+        [attrString setAttributes:@{NSForegroundColorAttributeName : self.tintColor}
+                            range:tintRange];
+        self.label.attributedText = attrString;
+        self.selectedLabel.text = token.displayText;
 
         // Listen for taps
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
@@ -62,14 +72,14 @@ static CGFloat const PADDING_Y = 2.0;
 
 - (CGSize)intrinsicContentSize
 {
-    CGSize labelIntrinsicSize = self.label.intrinsicContentSize;
+    CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
     return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
-    CGSize labelSize = [self.label sizeThatFits:fittingSize];
+    CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
     return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
 }
 
@@ -135,8 +145,9 @@ static CGFloat const PADDING_Y = 2.0;
     self.selectedBackgroundView.frame = bounds;
 
     CGRect labelFrame = CGRectInset(bounds, PADDING_X, PADDING_Y);
-    self.label.frame = labelFrame;
     self.selectedLabel.frame = labelFrame;
+    labelFrame.size.width += PADDING_X*2.0;
+    self.label.frame = labelFrame;
 }
 
 /*
