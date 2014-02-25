@@ -23,7 +23,9 @@
 
 @property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
 @property (copy, nonatomic) NSString *fieldName;
-
+@property (assign, nonatomic) UIKeyboardType keyboardType;
+@property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;
+@property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
 
 - (void)addToken:(CLToken *)token;
 

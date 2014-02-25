@@ -42,6 +42,9 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     self.backgroundColor = [UIColor clearColor];
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
+    self.textField.keyboardType = UIKeyboardTypeEmailAddress;
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.delegate = self;
     [self.textField addTarget:self
                        action:@selector(onTextFieldDidChange:)
@@ -202,6 +205,27 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 - (void)onTextFieldDidChange:(id)sender
 {
     [self.delegate tokenInputView:self didChangeText:self.textField.text];
+}
+
+
+#pragma mark - Text Field Customization
+
+- (void)setKeyboardType:(UIKeyboardType)keyboardType
+{
+    _keyboardType = keyboardType;
+    self.textField.keyboardType = _keyboardType;
+}
+
+- (void)setAutocapitalizationType:(UITextAutocapitalizationType)autocapitalizationType
+{
+    _autocapitalizationType = autocapitalizationType;
+    self.textField.autocapitalizationType = _autocapitalizationType;
+}
+
+- (void)setAutocorrectionType:(UITextAutocorrectionType)autocorrectionType
+{
+    _autocorrectionType = autocorrectionType;
+    self.textField.autocorrectionType = _autocorrectionType;
 }
 
 
