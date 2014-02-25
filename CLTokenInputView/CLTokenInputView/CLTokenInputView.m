@@ -23,6 +23,9 @@
     self.backgroundColor = [UIColor redColor];
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.delegate = self;
+    [self.textField addTarget:self
+                       action:@selector(onTextFieldDidChange:)
+             forControlEvents:UIControlEventEditingChanged];
     [self addSubview:self.textField];
 }
 
@@ -67,6 +70,14 @@
     } else {
         NSLog(@"Deleted");
     }
+}
+
+
+#pragma mark - Text Field Changes
+
+- (void)onTextFieldDidChange:(id)sender
+{
+    [self.delegate tokenInputView:self didChangeText:self.textField.text];
 }
 
 @end
