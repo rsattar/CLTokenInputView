@@ -79,6 +79,18 @@
     [self.selectedNames removeObject:name];
 }
 
+- (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text
+{
+    if (self.filteredNames.count > 0) {
+        NSString *matchingName = self.filteredNames[0];
+        CLToken *match = [[CLToken alloc] initWithDisplayText:matchingName context:nil];
+        return match;
+    }
+    // TODO: Perhaps if the text is a valid phone number, or email address, create a token
+    // to "accept" it.
+    return nil;
+}
+
 
 #pragma mark - UITableViewDataSource
 

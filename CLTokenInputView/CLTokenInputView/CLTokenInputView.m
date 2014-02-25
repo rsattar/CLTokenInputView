@@ -182,7 +182,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 }
 
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - CLBackspaceDetectingTextFieldDelegate
 
 - (void)textFieldDidDeleteBackwards:(UITextField *)textField
 {
@@ -195,9 +195,27 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     }
 }
 
+
+#pragma mark - UITextFieldDelegate
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self unselectAllTokenViewsAnimated:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSString *text = textField.text;
+    if (text.length > 0 &&
+        [self.delegate respondsToSelector:@selector(tokenInputView:tokenForText:)]) {
+        CLToken *token = [self.delegate tokenInputView:self tokenForText:text];
+        if (token != nil) {
+            [self addToken:token];
+            self.textField.text = @"";
+            [self onTextFieldDidChange:self.textField];
+        }
+    }
+    return NO;
 }
 
 
