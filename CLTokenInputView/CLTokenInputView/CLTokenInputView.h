@@ -14,6 +14,7 @@
 @protocol CLTokenInputViewDelegate <NSObject>
 
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text;
+- (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
 
 @end
 

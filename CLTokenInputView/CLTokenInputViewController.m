@@ -67,6 +67,12 @@
     [self.tableView reloadData];
 }
 
+- (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token
+{
+    NSString *name = token.displayText;
+    [self.selectedNames removeObject:name];
+}
+
 
 #pragma mark - UITableViewDataSource
 
