@@ -155,6 +155,11 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self unselectAllTokenViewsAnimated:YES];
+}
+
 
 #pragma mark - Text Field Changes
 
