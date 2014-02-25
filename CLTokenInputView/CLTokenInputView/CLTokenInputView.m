@@ -141,6 +141,11 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 {
     if (textField.text.length == 0) {
         NSLog(@"Attempt to select last token");
+        CLTokenView *tokenView = self.tokenViews.lastObject;
+        if (tokenView) {
+            [tokenView setSelected:YES animated:YES];
+            [self.textField resignFirstResponder];
+        }
     } else {
         NSLog(@"Deleted");
     }
