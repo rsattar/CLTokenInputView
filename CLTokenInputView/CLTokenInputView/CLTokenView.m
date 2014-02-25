@@ -81,6 +81,9 @@ static CGFloat const PADDING_Y = 2.0;
 {
     _selected = selected;
 
+    if (selected) {
+        [self becomeFirstResponder];
+    }
     CGFloat selectedAlpha = (_selected ? 1.0 : 0.0);
     if (animated) {
         if (_selected) {
@@ -129,5 +132,32 @@ static CGFloat const PADDING_Y = 2.0;
     // Drawing code
 }
 */
+
+
+#pragma mark - UIKeyInput protocol
+
+- (BOOL)hasText
+{
+    return YES;
+}
+
+- (void)insertText:(NSString *)text
+{
+    [self.delegate tokenViewDidRequestDelete:self replaceWithText:text];
+}
+
+- (void)deleteBackward
+{
+    [self.delegate tokenViewDidRequestDelete:self replaceWithText:nil];
+}
+
+
+#pragma mark - First Responder (needed to capture keyboard)
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
 
 @end

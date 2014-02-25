@@ -10,8 +10,18 @@
 
 #import "CLToken.h"
 
-@interface CLTokenView : UIView
+@class CLTokenView;
+@protocol CLTokenViewDelegate <NSObject>
 
+@required
+- (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText;
+
+@end
+
+
+@interface CLTokenView : UIView <UIKeyInput>
+
+@property (weak, nonatomic) NSObject <CLTokenViewDelegate> *delegate;
 @property (assign, nonatomic) BOOL selected;
 
 - (id)initWithToken:(CLToken *)token;
