@@ -19,4 +19,7 @@
 /** Used for storing anything that would be useful later on */
 @property (strong, nonatomic) NSObject *context;
 
+
+- (id)initWithDisplayText:(NSString *)displayText context:(NSObject *)context;
+
 @end

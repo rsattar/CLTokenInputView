@@ -12,6 +12,8 @@
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate>
 
+@property (strong, nonatomic) NSMutableArray *tokens;
+@property (strong, nonatomic) NSMutableArray *tokenViews;
 @property (strong, nonatomic) CLBackspaceDetectingTextField *textField;
 
 @end
@@ -27,6 +29,9 @@
                        action:@selector(onTextFieldDidChange:)
              forControlEvents:UIControlEventEditingChanged];
     [self addSubview:self.textField];
+
+    self.tokens = [NSMutableArray arrayWithCapacity:20];
+    self.tokenViews = [NSMutableArray arrayWithCapacity:20];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -52,14 +57,18 @@
     return CGSizeMake(UIViewNoIntrinsicMetric, 44.0);
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+
+#pragma mark - Adding / Removing Tokens
+
+- (void)addToken:(CLToken *)token
 {
-    // Drawing code
+    if ([self.tokens containsObject:token]) {
+        return;
+    }
+
+    [self.tokens addObject:token];
 }
-*/
+
 
 #pragma mark - UITextFieldDelegate
 
@@ -79,5 +88,14 @@
 {
     [self.delegate tokenInputView:self didChangeText:self.textField.text];
 }
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

@@ -10,6 +10,16 @@
 
 @implementation CLToken
 
+- (id)initWithDisplayText:(NSString *)displayText context:(NSObject *)context
+{
+    self = [super init];
+    if (self) {
+        self.displayText = displayText;
+        self.context = context;
+    }
+    return self;
+}
+
 - (BOOL)isEqual:(id)object
 {
     if (self == object) {

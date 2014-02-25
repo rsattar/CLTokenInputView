@@ -8,6 +8,8 @@
 
 #import "CLTokenInputViewController.h"
 
+#import "CLToken.h"
+
 @interface CLTokenInputViewController ()
 
 @property (strong, nonatomic) NSArray *names;
@@ -95,6 +97,8 @@
 
     NSString *name = self.filteredNames[indexPath.row];
     NSLog(@"Add '%@' as a token", name);
+    CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
+    [self.tokenInputView addToken:token];
 }
 
 @end

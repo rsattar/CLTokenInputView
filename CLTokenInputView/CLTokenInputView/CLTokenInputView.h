@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CLToken.h"
+
 @class CLTokenInputView;
 @protocol CLTokenInputViewDelegate <NSObject>
 
@@ -19,5 +21,7 @@
 @interface CLTokenInputView : UIView
 
 @property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
+
+- (void)addToken:(CLToken *)token;
 
 @end
