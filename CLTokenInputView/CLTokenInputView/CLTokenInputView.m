@@ -179,6 +179,9 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     }
     // First, refocus the text field
     [self.textField becomeFirstResponder];
+    if (replacementText.length > 0) {
+        self.textField.text = replacementText;
+    }
     // Then remove the view from our data
     [self.tokenViews removeObjectAtIndex:index];
     [tokenView removeFromSuperview];
