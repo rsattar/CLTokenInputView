@@ -17,6 +17,8 @@ static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 static CGFloat const PADDING_TOP = 10.0;
 static CGFloat const PADDING_BOTTOM = 10.0;
+static CGFloat const PADDING_LEFT = 8.0;
+static CGFloat const PADDING_RIGHT = 8.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
@@ -102,9 +104,9 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 - (void)repositionViews
 {
     CGRect bounds = self.bounds;
-    CGFloat availableWidth = CGRectGetWidth(bounds);
+    CGFloat availableWidth = CGRectGetWidth(bounds) - PADDING_LEFT - PADDING_RIGHT;
 
-    CGFloat curX = 0.0;
+    CGFloat curX = PADDING_LEFT;
     CGFloat curY = PADDING_TOP;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
     CGRect tokenRect = CGRectNull;
@@ -113,7 +115,7 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
         if (curX + CGRectGetWidth(tokenRect) > availableWidth) {
             // Need a new line
-            curX = 0.0;
+            curX = PADDING_LEFT;
             curY += STANDARD_ROW_HEIGHT+VSPACE;
             totalHeight += STANDARD_ROW_HEIGHT;
         }
@@ -131,14 +133,16 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
         availableWidthForTextField -= curX - HSPACE + TEXT_FIELD_HSPACE;
         // Remove HSPACE, replace with TEXT_FIELD_HSPACE
         curX -= HSPACE;
-        curX += TEXT_FIELD_HSPACE;
     }
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
-        availableWidthForTextField = CGRectGetWidth(bounds);
-        curX = 0.0;
+        availableWidthForTextField = availableWidth;
+        curX = PADDING_LEFT;
         curY += STANDARD_ROW_HEIGHT+VSPACE;
         totalHeight += STANDARD_ROW_HEIGHT;
     }
+    // Always indent by a little bit
+    curX += TEXT_FIELD_HSPACE;
+    availableWidthForTextField -= TEXT_FIELD_HSPACE;
 
     CGRect textFieldRect = self.textField.frame;
     textFieldRect.origin.x = curX;
