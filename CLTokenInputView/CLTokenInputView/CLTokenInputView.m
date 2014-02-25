@@ -118,7 +118,6 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 - (void)repositionViews
 {
     CGRect bounds = self.bounds;
-    CGFloat availableWidth = CGRectGetWidth(bounds) - PADDING_LEFT - PADDING_RIGHT;
     CGFloat rightBoundary = CGRectGetWidth(bounds) - PADDING_RIGHT;
     CGFloat firstLineRightBoundary = rightBoundary;
 
