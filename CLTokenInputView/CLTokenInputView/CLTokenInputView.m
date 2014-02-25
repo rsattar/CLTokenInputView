@@ -15,7 +15,7 @@ static CGFloat const HSPACE = 0.0;
 static CGFloat const VSPACE = 0.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
-@interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate>
+@interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *tokens;
 @property (strong, nonatomic) NSMutableArray *tokenViews;
@@ -78,6 +78,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
     [self.tokens addObject:token];
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token];
+    tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
     [self.tokenViews addObject:tokenView];
@@ -157,6 +158,26 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 - (void)onTextFieldDidChange:(id)sender
 {
     [self.delegate tokenInputView:self didChangeText:self.textField.text];
+}
+
+
+#pragma mark - CLTokenViewDelegate
+
+- (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText
+{
+    NSInteger index = [self.tokenViews indexOfObject:tokenView];
+    if (index == NSNotFound) {
+        return;
+    }
+    // First, refocus the text field
+    [self.textField becomeFirstResponder];
+    // Then remove the view from our data
+    [self.tokenViews removeObjectAtIndex:index];
+    [tokenView removeFromSuperview];
+    CLToken *removedToken = self.tokens[index];
+    [self.tokens removeObjectAtIndex:index];
+    [self.delegate tokenInputView:self didRemoveToken:removedToken];
+    [self repositionViews];
 }
 
 /*
