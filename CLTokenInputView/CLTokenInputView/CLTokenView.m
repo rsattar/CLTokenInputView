@@ -91,6 +91,9 @@ static CGFloat const PADDING_Y = 2.0;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+    if (_selected == selected) {
+        return;
+    }
     _selected = selected;
 
     if (selected) {
