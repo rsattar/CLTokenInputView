@@ -22,6 +22,8 @@
 @interface CLTokenInputView : UIView
 
 @property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
+@property (copy, nonatomic) NSString *fieldName;
+
 
 - (void)addToken:(CLToken *)token;
 

@@ -21,11 +21,15 @@ static CGFloat const PADDING_LEFT = 8.0;
 static CGFloat const PADDING_RIGHT = 8.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
+static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDING_X
+
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *tokens;
 @property (strong, nonatomic) NSMutableArray *tokenViews;
 @property (strong, nonatomic) CLBackspaceDetectingTextField *textField;
+@property (strong, nonatomic) UILabel *fieldLabel;
+
 
 @property (assign, nonatomic) CGFloat intrinsicContentHeight;
 
@@ -46,6 +50,12 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
     self.tokens = [NSMutableArray arrayWithCapacity:20];
     self.tokenViews = [NSMutableArray arrayWithCapacity:20];
+
+    self.fieldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.fieldLabel.font = self.textField.font;
+    self.fieldLabel.textColor = [UIColor lightGrayColor];
+    [self addSubview:self.fieldLabel];
+    self.fieldLabel.hidden = YES;
 
     self.intrinsicContentHeight = STANDARD_ROW_HEIGHT;
     [self repositionViews];
@@ -109,6 +119,18 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
     CGFloat curX = PADDING_LEFT;
     CGFloat curY = PADDING_TOP;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
+
+    // Position field label (if field name is set)
+    if (!self.fieldLabel.hidden) {
+        CGRect fieldLabelRect = self.fieldLabel.frame;
+        fieldLabelRect.origin.x = curX + FIELD_LABEL_MARGIN_LEFT;
+        fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
+        self.fieldLabel.frame = fieldLabelRect;
+
+        curX = CGRectGetMaxX(fieldLabelRect) + HSPACE;
+    }
+
+    // Position token views
     CGRect tokenRect = CGRectNull;
     for (UIView *tokenView in self.tokenViews) {
         tokenRect = tokenView.frame;
@@ -230,6 +252,32 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 {
     for (CLTokenView *tokenView in self.tokenViews) {
         [tokenView setSelected:NO animated:animated];
+    }
+}
+
+
+#pragma mark - (Optional) Field Name
+
+- (void)setFieldName:(NSString *)fieldName
+{
+    if (_fieldName == fieldName) {
+        return;
+    }
+    NSString *oldFieldName = _fieldName;
+    _fieldName = fieldName;
+
+    self.fieldLabel.text = _fieldName;
+    [self.fieldLabel sizeToFit];
+    BOOL showField = (_fieldName.length > 0);
+    self.fieldLabel.hidden = !showField;
+    if (showField && !self.fieldLabel.superview) {
+        [self addSubview:self.fieldLabel];
+    } else if (!showField && self.fieldLabel.superview) {
+        [self.fieldLabel removeFromSuperview];
+    }
+
+    if (oldFieldName == nil || ![oldFieldName isEqualToString:fieldName]) {
+        [self repositionViews];
     }
 }
 
