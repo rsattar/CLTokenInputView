@@ -9,6 +9,11 @@
 #import "CLTokenInputView.h"
 
 #import "CLBackspaceDetectingTextField.h"
+#import "CLTokenView.h"
+
+static CGFloat const HSPACE = 0.0;
+static CGFloat const VSPACE = 0.0;
+static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate>
 
@@ -16,14 +21,17 @@
 @property (strong, nonatomic) NSMutableArray *tokenViews;
 @property (strong, nonatomic) CLBackspaceDetectingTextField *textField;
 
+@property (assign, nonatomic) CGFloat intrinsicContentHeight;
+
 @end
 
 @implementation CLTokenInputView
 
 - (void)commonInit
 {
-    self.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor clearColor];
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
+    self.textField.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.2];
     self.textField.delegate = self;
     [self.textField addTarget:self
                        action:@selector(onTextFieldDidChange:)
@@ -32,6 +40,8 @@
 
     self.tokens = [NSMutableArray arrayWithCapacity:20];
     self.tokenViews = [NSMutableArray arrayWithCapacity:20];
+
+    self.intrinsicContentHeight = 44.0;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -54,7 +64,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 44.0);
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.intrinsicContentHeight);
 }
 
 
@@ -67,6 +77,61 @@
     }
 
     [self.tokens addObject:token];
+    CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token];
+    CGSize intrinsicSize = tokenView.intrinsicContentSize;
+    tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
+    [self.tokenViews addObject:tokenView];
+    [self addSubview:tokenView];
+
+    self.textField.text = @"";
+    // Clearing text programmatically doesn't call this automatically
+    [self onTextFieldDidChange:self.textField];
+
+    [self repositionViews];
+}
+
+
+#pragma mark - Repositioning Views
+
+- (void)repositionViews
+{
+    CGRect bounds = self.bounds;
+    CGFloat availableWidth = CGRectGetWidth(bounds);
+
+    CGFloat curX = 0.0;
+    CGFloat curY = 0.0;
+    CGRect tokenRect = CGRectNull;
+    for (UIView *tokenView in self.tokenViews) {
+        tokenRect = tokenView.frame;
+
+        if (curX + CGRectGetWidth(tokenRect) > availableWidth) {
+            // Need a new line
+            curY += 44.0;
+            curX = 0.0;
+        }
+
+        tokenRect.origin.x = curX;
+        tokenRect.origin.y = curY;
+        tokenView.frame = tokenRect;
+
+        curX = CGRectGetMaxX(tokenRect) + HSPACE;
+    }
+
+    CGFloat availableWidthForTextField = availableWidth - CGRectGetMaxX(tokenRect) - HSPACE;
+    if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
+        availableWidthForTextField = CGRectGetWidth(bounds);
+        curX = 0.0;
+        curY += 44.0;
+    }
+
+    CGRect textFieldRect = self.textField.frame;
+    textFieldRect.origin.x = curX;
+    textFieldRect.origin.y = curY;
+    textFieldRect.size.width = availableWidthForTextField;
+    self.textField.frame = textFieldRect;
+
+    self.intrinsicContentHeight = MAX(44.0, CGRectGetMaxY(textFieldRect));
+    [self invalidateIntrinsicContentSize];
 }
 
 
