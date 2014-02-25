@@ -12,8 +12,11 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
-static CGFloat const VSPACE = 0.0;
+static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
+static CGFloat const PADDING_TOP = 10.0;
+static CGFloat const PADDING_BOTTOM = 10.0;
+static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
@@ -41,7 +44,8 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     self.tokens = [NSMutableArray arrayWithCapacity:20];
     self.tokenViews = [NSMutableArray arrayWithCapacity:20];
 
-    self.intrinsicContentHeight = 44.0;
+    self.intrinsicContentHeight = STANDARD_ROW_HEIGHT;
+    [self repositionViews];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -64,7 +68,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, self.intrinsicContentHeight);
+    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(45, self.intrinsicContentHeight));
 }
 
 
@@ -100,19 +104,22 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     CGFloat availableWidth = CGRectGetWidth(bounds);
 
     CGFloat curX = 0.0;
-    CGFloat curY = 0.0;
+    CGFloat curY = PADDING_TOP;
+    CGFloat totalHeight = STANDARD_ROW_HEIGHT;
     CGRect tokenRect = CGRectNull;
     for (UIView *tokenView in self.tokenViews) {
         tokenRect = tokenView.frame;
 
         if (curX + CGRectGetWidth(tokenRect) > availableWidth) {
             // Need a new line
-            curY += 44.0;
             curX = 0.0;
+            curY += STANDARD_ROW_HEIGHT+VSPACE;
+            totalHeight += STANDARD_ROW_HEIGHT;
         }
 
         tokenRect.origin.x = curX;
-        tokenRect.origin.y = curY;
+        // Center our tokenView vertially within STANDARD_ROW_HEIGHT
+        tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/2.0);
         tokenView.frame = tokenRect;
 
         curX = CGRectGetMaxX(tokenRect) + HSPACE;
@@ -125,16 +132,18 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
         availableWidthForTextField = CGRectGetWidth(bounds);
         curX = 0.0;
-        curY += 44.0;
+        curY += STANDARD_ROW_HEIGHT+VSPACE;
+        totalHeight += STANDARD_ROW_HEIGHT;
     }
 
     CGRect textFieldRect = self.textField.frame;
     textFieldRect.origin.x = curX;
     textFieldRect.origin.y = curY;
     textFieldRect.size.width = availableWidthForTextField;
+    textFieldRect.size.height = STANDARD_ROW_HEIGHT;
     self.textField.frame = textFieldRect;
 
-    self.intrinsicContentHeight = MAX(44.0, CGRectGetMaxY(textFieldRect));
+    self.intrinsicContentHeight = CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM;
     [self invalidateIntrinsicContentSize];
 }
 
