@@ -59,7 +59,7 @@
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text
 {
     if ([text isEqualToString:@""]){
-        self.filteredNames = [self.names mutableCopy];
+        self.filteredNames = nil;
     } else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[cd] %@", text];
         self.filteredNames = [self.names filteredArrayUsingPredicate:predicate];
