@@ -118,7 +118,10 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         curX = CGRectGetMaxX(tokenRect) + HSPACE;
     }
 
-    CGFloat availableWidthForTextField = availableWidth - CGRectGetMaxX(tokenRect) - HSPACE;
+    CGFloat availableWidthForTextField = availableWidth;
+    if (!CGRectIsNull(tokenRect)) {
+        availableWidth -= CGRectGetMaxX(tokenRect) + HSPACE;
+    }
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
         availableWidthForTextField = CGRectGetWidth(bounds);
         curX = 0.0;
