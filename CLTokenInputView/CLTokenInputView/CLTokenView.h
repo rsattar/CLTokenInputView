@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CLToken.h"
+
 @interface CLTokenView : UIView
+
+@property (assign, nonatomic) BOOL selected;
+
+- (id)initWithToken:(CLToken *)token;
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 @end
