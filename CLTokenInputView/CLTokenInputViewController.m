@@ -67,6 +67,12 @@
     [self.tableView reloadData];
 }
 
+- (void)tokenInputView:(CLTokenInputView *)view didAddToken:(CLToken *)token
+{
+    NSString *name = token.displayText;
+    [self.selectedNames addObject:name];
+}
+
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token
 {
     NSString *name = token.displayText;

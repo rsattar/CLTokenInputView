@@ -103,6 +103,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
     [self.tokenViews addObject:tokenView];
     [self addSubview:tokenView];
+    [self.delegate tokenInputView:self didAddToken:token];
 
     self.textField.text = @"";
     // Clearing text programmatically doesn't call this automatically
