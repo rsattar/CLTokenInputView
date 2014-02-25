@@ -50,6 +50,10 @@ static CGFloat const PADDING_Y = 2.0;
         // Configure for the token
         self.label.text = self.selectedLabel.text = token.displayText;
 
+        // Listen for taps
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
+        [self addGestureRecognizer:tapRecognizer];
+
         [self setNeedsLayout];
 
     }
@@ -67,6 +71,14 @@ static CGFloat const PADDING_Y = 2.0;
     CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
     CGSize labelSize = [self.label sizeThatFits:fittingSize];
     return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+}
+
+
+#pragma mark - Taps
+
+-(void)handleTapGestureRecognizer:(id)sender
+{
+    [self.delegate tokenViewDidRequestSelection:self];
 }
 
 

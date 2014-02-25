@@ -15,6 +15,7 @@
 
 @required
 - (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText;
+- (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView;
 
 @end
 

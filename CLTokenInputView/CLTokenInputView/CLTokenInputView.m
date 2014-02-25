@@ -183,6 +183,12 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     [self repositionViews];
 }
 
+- (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView
+{
+    [self selectTokenView:tokenView animated:YES];
+}
+
+
 #pragma mark - Token selection
 
 - (void)selectTokenView:(CLTokenView *)tokenView animated:(BOOL)animated
