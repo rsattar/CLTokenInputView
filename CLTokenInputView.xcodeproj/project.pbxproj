@@ -19,6 +19,16 @@
 		65B16B9918BC16F7003AA819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B8118BC16F6003AA819 /* UIKit.framework */; };
 		65B16BA118BC16F7003AA819 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65B16B9F18BC16F7003AA819 /* InfoPlist.strings */; };
 		65B16BA318BC16F7003AA819 /* CLTokenInputViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BA218BC16F7003AA819 /* CLTokenInputViewTests.m */; };
+		65B16BAF18BC17D2003AA819 /* CLTokenInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */; };
+		65B16BB018BC17D2003AA819 /* CLTokenInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */; };
+		65B16BB318BC17EC003AA819 /* CLTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BB218BC17EC003AA819 /* CLTokenView.m */; };
+		65B16BB418BC17EC003AA819 /* CLTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BB218BC17EC003AA819 /* CLTokenView.m */; };
+		65B16BB818BC1826003AA819 /* CLTokenInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */; };
+		65B16BB918BC1826003AA819 /* CLTokenInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */; };
+		65B16BBA18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */; };
+		65B16BBB18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */; };
+		65B16BBE18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */; };
+		65B16BBF18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +58,15 @@
 		65B16B9E18BC16F7003AA819 /* CLTokenInputViewTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CLTokenInputViewTests-Info.plist"; sourceTree = "<group>"; };
 		65B16BA018BC16F7003AA819 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65B16BA218BC16F7003AA819 /* CLTokenInputViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLTokenInputViewTests.m; sourceTree = "<group>"; };
+		65B16BAD18BC17D2003AA819 /* CLTokenInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLTokenInputView.h; path = CLTokenInputView/CLTokenInputView.h; sourceTree = "<group>"; };
+		65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLTokenInputView.m; path = CLTokenInputView/CLTokenInputView.m; sourceTree = "<group>"; };
+		65B16BB118BC17EC003AA819 /* CLTokenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLTokenView.h; path = CLTokenInputView/CLTokenView.h; sourceTree = "<group>"; };
+		65B16BB218BC17EC003AA819 /* CLTokenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLTokenView.m; path = CLTokenInputView/CLTokenView.m; sourceTree = "<group>"; };
+		65B16BB518BC1826003AA819 /* CLTokenInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLTokenInputViewController.h; sourceTree = "<group>"; };
+		65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLTokenInputViewController.m; sourceTree = "<group>"; };
+		65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLTokenInputViewController.xib; sourceTree = "<group>"; };
+		65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLBackspaceDetectingTextField.h; path = CLTokenInputView/CLBackspaceDetectingTextField.h; sourceTree = "<group>"; };
+		65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLBackspaceDetectingTextField.m; path = CLTokenInputView/CLBackspaceDetectingTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +126,12 @@
 		65B16B8318BC16F6003AA819 /* CLTokenInputView */ = {
 			isa = PBXGroup;
 			children = (
+				65B16BAC18BC17A5003AA819 /* CLTokenInputView */,
 				65B16B8C18BC16F6003AA819 /* CLAppDelegate.h */,
 				65B16B8D18BC16F6003AA819 /* CLAppDelegate.m */,
+				65B16BB518BC1826003AA819 /* CLTokenInputViewController.h */,
+				65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */,
+				65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */,
 				65B16B8F18BC16F6003AA819 /* Images.xcassets */,
 				65B16B8418BC16F6003AA819 /* Supporting Files */,
 			);
@@ -142,6 +165,19 @@
 				65B16B9F18BC16F7003AA819 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		65B16BAC18BC17A5003AA819 /* CLTokenInputView */ = {
+			isa = PBXGroup;
+			children = (
+				65B16BAD18BC17D2003AA819 /* CLTokenInputView.h */,
+				65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */,
+				65B16BB118BC17EC003AA819 /* CLTokenView.h */,
+				65B16BB218BC17EC003AA819 /* CLTokenView.m */,
+				65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */,
+				65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */,
+			);
+			name = CLTokenInputView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +258,7 @@
 			files = (
 				65B16B8818BC16F6003AA819 /* InfoPlist.strings in Resources */,
 				65B16B9018BC16F6003AA819 /* Images.xcassets in Resources */,
+				65B16BBA18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B16BBB18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */,
 				65B16BA118BC16F7003AA819 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,8 +278,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B16BBE18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */,
+				65B16BAF18BC17D2003AA819 /* CLTokenInputView.m in Sources */,
+				65B16BB818BC1826003AA819 /* CLTokenInputViewController.m in Sources */,
 				65B16B8A18BC16F6003AA819 /* main.m in Sources */,
 				65B16B8E18BC16F6003AA819 /* CLAppDelegate.m in Sources */,
+				65B16BB318BC17EC003AA819 /* CLTokenView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65B16BB018BC17D2003AA819 /* CLTokenInputView.m in Sources */,
 				65B16BA318BC16F7003AA819 /* CLTokenInputViewTests.m in Sources */,
+				65B16BB918BC1826003AA819 /* CLTokenInputViewController.m in Sources */,
+				65B16BBF18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */,
+				65B16BB418BC17EC003AA819 /* CLTokenView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +488,7 @@
 				65B16BA818BC16F7003AA819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65B16BA918BC16F7003AA819 /* Build configuration list for PBXNativeTarget "CLTokenInputViewTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +497,7 @@
 				65B16BAB18BC16F7003AA819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
