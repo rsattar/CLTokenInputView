@@ -29,6 +29,8 @@
 		65B16BBB18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */; };
 		65B16BBE18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */; };
 		65B16BBF18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */; };
+		65B16BC218BC26C9003AA819 /* CLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BC118BC26C9003AA819 /* CLToken.m */; };
+		65B16BC318BC26C9003AA819 /* CLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BC118BC26C9003AA819 /* CLToken.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLTokenInputViewController.xib; sourceTree = "<group>"; };
 		65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLBackspaceDetectingTextField.h; path = CLTokenInputView/CLBackspaceDetectingTextField.h; sourceTree = "<group>"; };
 		65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLBackspaceDetectingTextField.m; path = CLTokenInputView/CLBackspaceDetectingTextField.m; sourceTree = "<group>"; };
+		65B16BC018BC26C9003AA819 /* CLToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLToken.h; path = CLTokenInputView/CLToken.h; sourceTree = "<group>"; };
+		65B16BC118BC26C9003AA819 /* CLToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLToken.m; path = CLTokenInputView/CLToken.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +180,8 @@
 				65B16BB218BC17EC003AA819 /* CLTokenView.m */,
 				65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */,
 				65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */,
+				65B16BC018BC26C9003AA819 /* CLToken.h */,
+				65B16BC118BC26C9003AA819 /* CLToken.m */,
 			);
 			name = CLTokenInputView;
 			sourceTree = "<group>";
@@ -284,6 +290,7 @@
 				65B16B8A18BC16F6003AA819 /* main.m in Sources */,
 				65B16B8E18BC16F6003AA819 /* CLAppDelegate.m in Sources */,
 				65B16BB318BC17EC003AA819 /* CLTokenView.m in Sources */,
+				65B16BC218BC26C9003AA819 /* CLToken.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +300,7 @@
 			files = (
 				65B16BB018BC17D2003AA819 /* CLTokenInputView.m in Sources */,
 				65B16BA318BC16F7003AA819 /* CLTokenInputViewTests.m in Sources */,
+				65B16BC318BC26C9003AA819 /* CLToken.m in Sources */,
 				65B16BB918BC1826003AA819 /* CLTokenInputViewController.m in Sources */,
 				65B16BBF18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */,
 				65B16BB418BC17EC003AA819 /* CLTokenView.m in Sources */,
