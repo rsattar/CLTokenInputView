@@ -48,6 +48,7 @@
     }
     self.tokenInputView.fieldName = @"To:";
     self.tokenInputView.accessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    self.tokenInputView.drawBottomBorder = YES;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 

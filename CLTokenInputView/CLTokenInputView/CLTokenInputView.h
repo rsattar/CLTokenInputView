@@ -37,6 +37,7 @@
 @property (assign, nonatomic) UIKeyboardType keyboardType;
 @property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
+@property (assign, nonatomic) BOOL drawBottomBorder;
 
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 

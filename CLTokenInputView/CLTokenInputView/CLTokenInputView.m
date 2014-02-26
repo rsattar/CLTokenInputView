@@ -202,6 +202,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
             [self.delegate tokenInputView:self didChangeHeightTo:self.intrinsicContentSize.height];
         }
     }
+    [self setNeedsDisplay];
 }
 
 
@@ -367,13 +368,35 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     [self repositionViews];
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+
+#pragma mark - Drawing
+
+- (void)setDrawBottomBorder:(BOOL)drawBottomBorder
+{
+    if (_drawBottomBorder == drawBottomBorder) {
+        return;
+    }
+    _drawBottomBorder = drawBottomBorder;
+    [self setNeedsDisplay];
+}
+
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    if (self.drawBottomBorder) {
+
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGRect bounds = self.bounds;
+        CGContextSetStrokeColorWithColor(context, [UIColor lightGrayColor].CGColor);
+        CGContextSetLineWidth(context, 0.5);
+
+        CGContextMoveToPoint(context, 0, bounds.size.height);
+        CGContextAddLineToPoint(context, CGRectGetWidth(bounds), bounds.size.height);
+        CGContextStrokePath(context);
+    }
+}
 
 @end
