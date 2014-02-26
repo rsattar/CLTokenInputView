@@ -114,6 +114,7 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
     // Clearing text programmatically doesn't call this automatically
     [self onTextFieldDidChange:self.textField];
 
+    [self updatePlaceholderTextVisibility];
     [self repositionViews];
 }
 
@@ -137,6 +138,7 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
     CLToken *removedToken = self.tokens[index];
     [self.tokens removeObjectAtIndex:index];
     [self.delegate tokenInputView:self didRemoveToken:removedToken];
+    [self updatePlaceholderTextVisibility];
     [self repositionViews];
 }
 
@@ -146,7 +148,7 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
 }
 
 
-#pragma mark - Repositioning Views
+#pragma mark - Updating/Repositioning Views
 
 - (void)repositionViews
 {
@@ -241,6 +243,15 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
         }
     }
     [self setNeedsDisplay];
+}
+
+- (void)updatePlaceholderTextVisibility
+{
+    if (self.tokens.count > 0) {
+        self.textField.placeholder = nil;
+    } else {
+        self.textField.placeholder = self.placeholderText;
+    }
 }
 
 
@@ -398,6 +409,15 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
         [self addSubview:_fieldView];
     }
     [self repositionViews];
+}
+
+- (void)setPlaceholderText:(NSString *)placeholderText
+{
+    if (_placeholderText == placeholderText) {
+        return;
+    }
+    _placeholderText = placeholderText;
+    [self updatePlaceholderTextVisibility];
 }
 
 - (void)setAccessoryView:(UIView *)accessoryView

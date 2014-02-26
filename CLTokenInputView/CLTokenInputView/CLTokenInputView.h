@@ -36,6 +36,7 @@
 @property (strong, nonatomic) UIView *fieldView;
 /** Option text which can be displayed before the first line (e.g. "To:") */
 @property (copy, nonatomic) NSString *fieldName;
+@property (copy, nonatomic) NSString *placeholderText;
 @property (strong, nonatomic) UIView *accessoryView;
 @property (assign, nonatomic) UIKeyboardType keyboardType;
 @property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;

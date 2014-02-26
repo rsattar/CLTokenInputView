@@ -47,6 +47,8 @@
         self.tokenInputTopSpace.constant = 0.0;
     }
     self.tokenInputView.fieldName = @"To:";
+    self.tokenInputView.fieldView = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    self.tokenInputView.placeholderText = @"Enter a name";
     self.tokenInputView.accessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
     self.tokenInputView.drawBottomBorder = YES;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
