@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CLTokenInputViewController">
             <connections>
                 <outlet property="tableView" destination="ngG-oE-HZd" id="rqO-aj-eUD"/>
+                <outlet property="tokenInputTopSpace" destination="qyJ-Ha-dKK" id="XgZ-DT-9mT"/>
                 <outlet property="tokenInputView" destination="FM2-Aw-6xi" id="1Up-Uk-d1l"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>

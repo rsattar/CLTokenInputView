@@ -43,6 +43,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    if (![self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.tokenInputTopSpace.constant = 0.0;
+    }
     self.tokenInputView.fieldName = @"To:";
     self.tokenInputView.accessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
