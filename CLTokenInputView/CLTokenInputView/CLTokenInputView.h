@@ -32,6 +32,9 @@
 @interface CLTokenInputView : UIView
 
 @property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
+/** An optional view that shows up presumably on the first line */
+@property (strong, nonatomic) UIView *fieldView;
+/** Option text which can be displayed before the first line (e.g. "To:") */
 @property (copy, nonatomic) NSString *fieldName;
 @property (strong, nonatomic) UIView *accessoryView;
 @property (assign, nonatomic) UIKeyboardType keyboardType;
