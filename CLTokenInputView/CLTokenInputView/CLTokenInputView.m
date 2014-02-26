@@ -21,7 +21,7 @@ static CGFloat const PADDING_LEFT = 8.0;
 static CGFloat const PADDING_RIGHT = 16.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
-static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDING_X
+static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
@@ -164,21 +164,21 @@ static CGFloat const FIELD_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView.PADDI
     // Position field view (if set)
     if (self.fieldView) {
         CGRect fieldViewRect = self.fieldView.frame;
-        fieldViewRect.origin.x = curX + FIELD_MARGIN_LEFT;
+        fieldViewRect.origin.x = curX + FIELD_MARGIN_X;
         fieldViewRect.origin.y = curY + ((STANDARD_ROW_HEIGHT - CGRectGetHeight(fieldViewRect))/2.0);
         self.fieldView.frame = fieldViewRect;
 
-        curX = CGRectGetMaxX(fieldViewRect) + HSPACE;
+        curX = CGRectGetMaxX(fieldViewRect) + FIELD_MARGIN_X;
     }
 
     // Position field label (if field name is set)
     if (!self.fieldLabel.hidden) {
         CGRect fieldLabelRect = self.fieldLabel.frame;
-        fieldLabelRect.origin.x = curX + FIELD_MARGIN_LEFT;
+        fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
         fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
         self.fieldLabel.frame = fieldLabelRect;
 
-        curX = CGRectGetMaxX(fieldLabelRect) + HSPACE;
+        curX = CGRectGetMaxX(fieldLabelRect) + FIELD_MARGIN_X;
     }
 
     // Position accessory view (if set)
