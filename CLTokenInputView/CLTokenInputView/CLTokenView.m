@@ -30,13 +30,18 @@ static CGFloat const PADDING_Y = 2.0;
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
+        UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
+        if ([self respondsToSelector:@selector(tintColor)]) {
+            tintColor = self.tintColor;
+        }
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
         self.label.font = [UIFont systemFontOfSize:17.0];
-        self.label.textColor = self.tintColor; // TODO(Riz): use the application tint color here
+        self.label.textColor = tintColor;
+        self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
 
         self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.selectedBackgroundView.backgroundColor = [self tintColor];
+        self.selectedBackgroundView.backgroundColor = tintColor;
         self.selectedBackgroundView.layer.cornerRadius = 3.0;
         [self addSubview:self.selectedBackgroundView];
         self.selectedBackgroundView.hidden = YES;
@@ -44,6 +49,7 @@ static CGFloat const PADDING_Y = 2.0;
         self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
         self.selectedLabel.font = self.label.font;
         self.selectedLabel.textColor = [UIColor whiteColor];
+        self.selectedLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.selectedLabel];
         self.selectedLabel.hidden = YES;
 
@@ -55,7 +61,7 @@ static CGFloat const PADDING_Y = 2.0;
                                                             NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
         NSRange tintRange = [labelString rangeOfString:token.displayText];
         // Make the name part the system tint color
-        [attrString setAttributes:@{NSForegroundColorAttributeName : self.tintColor}
+        [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
                             range:tintRange];
         self.label.attributedText = attrString;
         self.selectedLabel.text = token.displayText;
