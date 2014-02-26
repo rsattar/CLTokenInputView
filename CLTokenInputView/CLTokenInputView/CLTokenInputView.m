@@ -117,6 +117,34 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     [self repositionViews];
 }
 
+- (void)removeToken:(CLToken *)token
+{
+    NSInteger index = [self.tokens indexOfObject:token];
+    if (index == NSNotFound) {
+        return;
+    }
+    [self removeTokenAtIndex:index];
+}
+
+- (void)removeTokenAtIndex:(NSInteger)index
+{
+    if (index == NSNotFound) {
+        return;
+    }
+    CLTokenView *tokenView = self.tokenViews[index];
+    [tokenView removeFromSuperview];
+    [self.tokenViews removeObjectAtIndex:index];
+    CLToken *removedToken = self.tokens[index];
+    [self.tokens removeObjectAtIndex:index];
+    [self.delegate tokenInputView:self didRemoveToken:removedToken];
+    [self repositionViews];
+}
+
+- (NSArray *)allTokens
+{
+    return [self.tokens copy];
+}
+
 
 #pragma mark - Repositioning Views
 
@@ -285,22 +313,17 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 
 - (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText
 {
-    NSInteger index = [self.tokenViews indexOfObject:tokenView];
-    if (index == NSNotFound) {
-        return;
-    }
     // First, refocus the text field
     [self.textField becomeFirstResponder];
     if (replacementText.length > 0) {
         self.textField.text = replacementText;
     }
     // Then remove the view from our data
-    [self.tokenViews removeObjectAtIndex:index];
-    [tokenView removeFromSuperview];
-    CLToken *removedToken = self.tokens[index];
-    [self.tokens removeObjectAtIndex:index];
-    [self.delegate tokenInputView:self didRemoveToken:removedToken];
-    [self repositionViews];
+    NSInteger index = [self.tokenViews indexOfObject:tokenView];
+    if (index == NSNotFound) {
+        return;
+    }
+    [self removeTokenAtIndex:index];
 }
 
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView

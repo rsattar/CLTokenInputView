@@ -39,8 +39,10 @@
 @property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
 @property (assign, nonatomic) BOOL drawBottomBorder;
 
+@property (readonly, nonatomic) NSArray *allTokens;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 
 - (void)addToken:(CLToken *)token;
+- (void)removeToken:(CLToken *)token;
 
 @end
