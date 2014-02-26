@@ -32,6 +32,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 
 
 @property (assign, nonatomic) CGFloat intrinsicContentHeight;
+@property (assign, nonatomic) CGFloat additionalTextFieldYOffset;
 
 @end
 
@@ -46,6 +47,10 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.textField.delegate = self;
+    self.additionalTextFieldYOffset = 0.0;
+    if (![self.textField respondsToSelector:@selector(defaultTextAttributes)]) {
+        self.additionalTextFieldYOffset = 1.5;
+    }
     [self.textField addTarget:self
                        action:@selector(onTextFieldDidChange:)
              forControlEvents:UIControlEventEditingChanged];
@@ -183,7 +188,7 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
 
     CGRect textFieldRect = self.textField.frame;
     textFieldRect.origin.x = curX;
-    textFieldRect.origin.y = curY;
+    textFieldRect.origin.y = curY + self.additionalTextFieldYOffset;
     textFieldRect.size.width = availableWidthForTextField;
     textFieldRect.size.height = STANDARD_ROW_HEIGHT;
     self.textField.frame = textFieldRect;
