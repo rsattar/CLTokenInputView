@@ -60,6 +60,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (!self.tokenInputView.editing) {
+        [self.tokenInputView beginEditing];
+    }
+}
+
 
 #pragma mark - CLTokenInputViewDelegate
 

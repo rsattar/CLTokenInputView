@@ -373,6 +373,29 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 
+#pragma mark - Editing
+
+- (BOOL)isEditing
+{
+    return self.textField.editing;
+}
+
+
+- (void)beginEditing
+{
+    [self.textField becomeFirstResponder];
+    [self unselectAllTokenViewsAnimated:NO];
+}
+
+
+- (void)endEditing
+{
+    if (self.textField.isFirstResponder) {
+        [self.textField resignFirstResponder];
+    }
+}
+
+
 #pragma mark - (Optional Views)
 
 - (void)setFieldName:(NSString *)fieldName

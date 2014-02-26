@@ -44,9 +44,14 @@
 @property (assign, nonatomic) BOOL drawBottomBorder;
 
 @property (readonly, nonatomic) NSArray *allTokens;
+@property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
+
+// Editing
+- (void)beginEditing;
+- (void)endEditing;
 
 @end
