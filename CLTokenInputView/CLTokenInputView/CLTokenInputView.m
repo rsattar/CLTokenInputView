@@ -193,8 +193,15 @@ static CGFloat const FIELD_LABEL_MARGIN_LEFT = 4.0; // Note: Same as CLTokenView
     textFieldRect.size.height = STANDARD_ROW_HEIGHT;
     self.textField.frame = textFieldRect;
 
+    CGFloat oldContentHeight = self.intrinsicContentHeight;
     self.intrinsicContentHeight = CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM;
     [self invalidateIntrinsicContentSize];
+
+    if (oldContentHeight != self.intrinsicContentHeight) {
+        if ([self.delegate respondsToSelector:@selector(tokenInputView:didChangeHeightTo:)]) {
+            [self.delegate tokenInputView:self didChangeHeightTo:self.intrinsicContentSize.height];
+        }
+    }
 }
 
 

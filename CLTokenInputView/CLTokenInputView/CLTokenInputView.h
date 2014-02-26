@@ -24,6 +24,7 @@
  * or nil if the text shouldn't be accepted.
  */
 - (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text;
+- (void)tokenInputView:(CLTokenInputView *)view didChangeHeightTo:(CGFloat)height;
 
 @end
 
