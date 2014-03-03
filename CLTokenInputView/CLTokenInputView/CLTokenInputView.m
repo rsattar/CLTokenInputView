@@ -147,6 +147,22 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return [self.tokens copy];
 }
 
+- (CLToken *)tokenizeTextfieldText
+{
+    CLToken *token = nil;
+    NSString *text = self.textField.text;
+    if (text.length > 0 &&
+        [self.delegate respondsToSelector:@selector(tokenInputView:tokenForText:)]) {
+        token = [self.delegate tokenInputView:self tokenForText:text];
+        if (token != nil) {
+            [self addToken:token];
+            self.textField.text = @"";
+            [self onTextFieldDidChange:self.textField];
+        }
+    }
+    return token;
+}
+
 
 #pragma mark - Updating/Repositioning Views
 
@@ -278,16 +294,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    NSString *text = textField.text;
-    if (text.length > 0 &&
-        [self.delegate respondsToSelector:@selector(tokenInputView:tokenForText:)]) {
-        CLToken *token = [self.delegate tokenInputView:self tokenForText:text];
-        if (token != nil) {
-            [self addToken:token];
-            self.textField.text = @"";
-            [self onTextFieldDidChange:self.textField];
-        }
-    }
+    [self tokenizeTextfieldText];
     return NO;
 }
 

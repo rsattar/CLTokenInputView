@@ -49,6 +49,7 @@
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
+- (CLToken *)tokenizeTextfieldText;
 
 // Editing
 - (void)beginEditing;
