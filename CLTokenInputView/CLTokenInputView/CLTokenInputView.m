@@ -108,9 +108,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
     [self.tokenViews addObject:tokenView];
     [self addSubview:tokenView];
+    self.textField.text = @"";
     [self.delegate tokenInputView:self didAddToken:token];
 
-    self.textField.text = @"";
     // Clearing text programmatically doesn't call this automatically
     [self onTextFieldDidChange:self.textField];
 
@@ -341,6 +341,15 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 {
     // Essentially the textfield's y with PADDING_TOP
     return CGRectGetMinY(self.textField.frame) - PADDING_TOP;
+}
+
+
+#pragma mark - Textfield text
+
+
+- (NSString *)text
+{
+    return self.textField.text;
 }
 
 
