@@ -413,9 +413,12 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)endEditing
 {
-    if (self.textField.isFirstResponder) {
-        [self.textField resignFirstResponder];
-    }
+    // NOTE: We used to check if .isFirstResponder
+    // and then resign first responder, but sometimes
+    // we noticed that it would be the first responder,
+    // but still return isFirstResponder=NO. So always
+    // attempt to resign without checking.
+    [self.textField resignFirstResponder];
 }
 
 
