@@ -29,4 +29,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
+// For iOS 6 compatibility, provide the setter tintColor
+- (void)setTintColor:(UIColor *)tintColor;
+
 @end

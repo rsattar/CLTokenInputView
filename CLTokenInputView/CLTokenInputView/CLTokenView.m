@@ -13,6 +13,8 @@
 static CGFloat const PADDING_X = 4.0;
 static CGFloat const PADDING_Y = 2.0;
 
+static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
+
 
 @interface CLTokenView ()
 
@@ -21,6 +23,8 @@ static CGFloat const PADDING_Y = 2.0;
 
 @property (strong, nonatomic) UIView *selectedBackgroundView;
 @property (strong, nonatomic) UILabel *selectedLabel;
+
+@property (copy, nonatomic) NSString *displayText;
 
 @end
 
@@ -53,8 +57,10 @@ static CGFloat const PADDING_Y = 2.0;
         [self addSubview:self.selectedLabel];
         self.selectedLabel.hidden = YES;
 
+        self.displayText = token.displayText;
+
         // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
-        NSString *labelString = [NSString stringWithFormat:@"%@,", token.displayText];
+        NSString *labelString = [NSString stringWithFormat:UNSELECTED_LABEL_FORMAT, self.displayText];
         NSMutableAttributedString *attrString =
         [[NSMutableAttributedString alloc] initWithString:labelString
                                                attributes:@{NSFontAttributeName : self.label.font,
@@ -87,6 +93,30 @@ static CGFloat const PADDING_Y = 2.0;
     CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
     CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
     return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+}
+
+
+#pragma mark - Tinting
+
+
+- (void)setTintColor:(UIColor *)tintColor
+{
+    if ([UIView instancesRespondToSelector:@selector(setTintColor:)]) {
+        super.tintColor = tintColor;
+    }
+    self.label.textColor = tintColor;
+    self.selectedBackgroundView.backgroundColor = tintColor;
+    NSMutableAttributedString *attrString = [self.label.attributedText mutableCopy];
+    NSString *labelString = [NSString stringWithFormat:UNSELECTED_LABEL_FORMAT, self.displayText];
+    NSRange tintRange = [labelString rangeOfString:self.displayText];
+    // Make the overall text color gray
+    [attrString setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}
+                        range:NSMakeRange(0, attrString.length)];
+    // Make the name part the system tint color
+    [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
+                        range:tintRange];
+    self.label.attributedText = attrString;
+
 }
 
 
