@@ -103,7 +103,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
     [self.tokens addObject:token];
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token];
-    tokenView.tintColor = self.tintColor;
+    if ([self respondsToSelector:@selector(tintColor)]) {
+        tokenView.tintColor = self.tintColor;
+    }
     tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
