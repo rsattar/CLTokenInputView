@@ -47,9 +47,13 @@
         self.tokenInputTopSpace.constant = 0.0;
     }
     self.tokenInputView.fieldName = @"To:";
-    self.tokenInputView.fieldView = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    [infoButton addTarget:self action:@selector(onFieldInfoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.tokenInputView.fieldView = infoButton;
     self.tokenInputView.placeholderText = @"Enter a name";
-    self.tokenInputView.accessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    UIButton *contactAddButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [contactAddButton addTarget:self action:@selector(onAccessoryContactAddButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.tokenInputView.accessoryView = contactAddButton;
     self.tokenInputView.drawBottomBorder = YES;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
@@ -138,6 +142,31 @@
     NSString *name = self.filteredNames[indexPath.row];
     CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
     [self.tokenInputView addToken:token];
+}
+
+
+#pragma mark - Demo Button Actions
+
+
+- (void)onFieldInfoButtonTapped:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Field View Button"
+                                                        message:@"This view is optional and can be a UIButton, etc."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+
+- (void)onAccessoryContactAddButtonTapped:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Accessory View Button"
+                                                        message:@"This view is optional and can be a UIButton, etc."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end
