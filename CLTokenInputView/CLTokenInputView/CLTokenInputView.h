@@ -28,20 +28,19 @@
 
 @end
 
-
 @interface CLTokenInputView : UIView
 
 @property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
 /** An optional view that shows up presumably on the first line */
 @property (strong, nonatomic) UIView *fieldView;
 /** Option text which can be displayed before the first line (e.g. "To:") */
-@property (copy, nonatomic) NSString *fieldName;
-@property (copy, nonatomic) NSString *placeholderText;
+@property (copy, nonatomic) IBInspectable NSString *fieldName;
+@property (copy, nonatomic) IBInspectable NSString *placeholderText;
 @property (strong, nonatomic) UIView *accessoryView;
-@property (assign, nonatomic) UIKeyboardType keyboardType;
-@property (assign, nonatomic) UITextAutocapitalizationType autocapitalizationType;
-@property (assign, nonatomic) UITextAutocorrectionType autocorrectionType;
-@property (assign, nonatomic) BOOL drawBottomBorder;
+@property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
+@property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
+@property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
+@property (assign, nonatomic) IBInspectable BOOL drawBottomBorder;
 
 @property (readonly, nonatomic) NSArray *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
