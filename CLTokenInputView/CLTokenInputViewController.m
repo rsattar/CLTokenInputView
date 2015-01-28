@@ -28,7 +28,7 @@
         // Custom initialization
         self.navigationItem.title = @"Token Input Test";
         self.names = @[@"Brenden Mulligan",
-                       @"Brianna George",
+                       @"Cluster Labs, Inc.",
                        @"Pat Fives",
                        @"Rizwan Sattar",
                        @"Taylor Hughes"];
