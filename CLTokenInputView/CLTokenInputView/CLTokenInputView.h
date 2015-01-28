@@ -13,11 +13,10 @@
 @class CLTokenInputView;
 @protocol CLTokenInputViewDelegate <NSObject>
 
-@required
+@optional
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text;
 - (void)tokenInputView:(CLTokenInputView *)view didAddToken:(CLToken *)token;
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
-@optional
 /** 
  * Called when the user attempts to press the Return key with text partially typed.
  * @return A CLToken for a match (typically the first item in the matching results),
