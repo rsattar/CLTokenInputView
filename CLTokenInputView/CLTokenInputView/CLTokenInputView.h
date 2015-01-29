@@ -14,8 +14,17 @@
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
+/**
+ * Called when the text field text has changed. You should update your autocompleting UI based on the text supplied.
+ */
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text;
+/**
+ * Called when a token has been added. You should use this opportunity to update your local list of selected items.
+ */
 - (void)tokenInputView:(CLTokenInputView *)view didAddToken:(CLToken *)token;
+/**
+ * Called when a token has been removed. You should use this opportunity to update your local list of selected items.
+ */
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
 /** 
  * Called when the user attempts to press the Return key with text partially typed.
@@ -23,6 +32,11 @@
  * or nil if the text shouldn't be accepted.
  */
 - (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text;
+/**
+ * Called when the view has updated its own height. If you are
+ * not using Autolayout, you should use this method to update the
+ * frames to make sure the token view still fits.
+ */
 - (void)tokenInputView:(CLTokenInputView *)view didChangeHeightTo:(CGFloat)height;
 
 @end
