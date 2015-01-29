@@ -1,6 +1,6 @@
 # CLTokenInputView
 
-->[![Screencap GFY](http://zippy.gfycat.com/ImpressiveRapidGelding.gif)](http://gfycat.com/ImpressiveRapidGelding)<-
+[![Screencap GFY](http://zippy.gfycat.com/ImpressiveRapidGelding.gif)](http://gfycat.com/ImpressiveRapidGelding)
 
 ## About
 
