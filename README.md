@@ -19,7 +19,7 @@ To use this in your code, you should add an instance of `CLTokenInputView` to yo
 
 You should implement:
 
-```
+```objc
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text 
 {
 	// Update your autocompletion table results with the text
@@ -28,7 +28,7 @@ You should implement:
 
 When the user taps on one of your autocomplete items, you should call: `-addToken:` on token input view. Example:
 
-```
+```objc
 NSString *name = self.filteredNames[indexPath.row];
 CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
 [self.tokenInputView addToken:token];
@@ -36,7 +36,7 @@ CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
 
 Be sure to listen for:
 
-```
+```objc
 - (void)tokenInputView:(CLTokenInputView *)view didAddToken:(CLToken *)token;
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
 ```
@@ -44,7 +44,7 @@ Be sure to listen for:
 
 Lastly, you can implement:
 
-```
+```objc
 - (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text 
 {
 	// Return a CLToken instance that matches the text that has been entered.
