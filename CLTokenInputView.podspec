@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CLTokenInputView"
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "A replica of iOS's native contact bubbles UI."
 
   s.description  = <<-DESC
