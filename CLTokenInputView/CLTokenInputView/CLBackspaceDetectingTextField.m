@@ -10,6 +10,8 @@
 
 @implementation CLBackspaceDetectingTextField
 
+@dynamic delegate;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
