@@ -111,6 +111,16 @@
     return nil;
 }
 
+- (void)tokenInputViewDidEndEditing:(CLTokenInputView *)view
+{
+    NSLog(@"token input view did end editing: %@", view);
+}
+
+- (void)tokenInputViewDidBeginEditing:(CLTokenInputView *)view
+{
+    NSLog(@"token input view did begin editing: %@", view);
+}
+
 
 #pragma mark - UITableViewDataSource
 

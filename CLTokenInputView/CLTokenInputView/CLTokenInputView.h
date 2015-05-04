@@ -14,6 +14,17 @@
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
+
+/**
+ *  Called when the text field begins editing
+ */
+- (void)tokenInputViewDidEndEditing:(CLTokenInputView *)view;
+
+/**
+ *  Called when the text field ends editing
+ */
+- (void)tokenInputViewDidBeginEditing:(CLTokenInputView *)view;
+
 /**
  * Called when the text field text has changed. You should update your autocompleting UI based on the text supplied.
  */
