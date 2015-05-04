@@ -214,6 +214,16 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 }
 
 
+#pragma mark - UITextInputTraits protocol (inherited from UIKeyInput protocol)
+
+// Since a token isn't really meant to be "corrected" once created, disable autocorrect on it
+// See: https://github.com/clusterinc/CLTokenInputView/issues/2
+- (UITextAutocorrectionType)autocorrectionType
+{
+    return UITextAutocorrectionTypeNo;
+}
+
+
 #pragma mark - First Responder (needed to capture keyboard)
 
 -(BOOL)canBecomeFirstResponder
