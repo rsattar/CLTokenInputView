@@ -46,15 +46,17 @@
     if (![self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.tokenInputTopSpace.constant = 0.0;
     }
-    self.tokenInputView.fieldName = @"To:";
     UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
     [infoButton addTarget:self action:@selector(onFieldInfoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    self.tokenInputView.fieldName = @"To:";
     self.tokenInputView.fieldView = infoButton;
     self.tokenInputView.placeholderText = @"Enter a name";
-    UIButton *contactAddButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    [contactAddButton addTarget:self action:@selector(onAccessoryContactAddButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.tokenInputView.accessoryView = contactAddButton;
+    self.tokenInputView.accessoryView = [self contactAddButton];
     self.tokenInputView.drawBottomBorder = YES;
+    
+    self.secondTokenInputView.fieldName = NSLocalizedString(@"Cc:", nil);
+    self.secondTokenInputView.drawBottomBorder = YES;
+    self.secondTokenInputView.delegate = self;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
@@ -111,6 +113,23 @@
     return nil;
 }
 
+- (void)tokenInputViewDidEndEditing:(CLTokenInputView *)view
+{
+    NSLog(@"token input view did end editing: %@", view);
+    view.accessoryView = nil;
+}
+
+- (void)tokenInputViewDidBeginEditing:(CLTokenInputView *)view
+{
+    
+    NSLog(@"token input view did begin editing: %@", view);
+    view.accessoryView = [self contactAddButton];
+    [self.view removeConstraint:self.tableViewTopLayoutConstraint];
+    self.tableViewTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    [self.view addConstraint:self.tableViewTopLayoutConstraint];
+    [self.view layoutIfNeeded];
+}
+
 
 #pragma mark - UITableViewDataSource
 
@@ -141,7 +160,12 @@
 
     NSString *name = self.filteredNames[indexPath.row];
     CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
-    [self.tokenInputView addToken:token];
+    if (self.tokenInputView.isEditing) {
+        [self.tokenInputView addToken:token];
+    }
+    else if(self.secondTokenInputView.isEditing){
+        [self.secondTokenInputView addToken:token];
+    }
 }
 
 
@@ -167,6 +191,14 @@
                                               cancelButtonTitle:@"Okay"
                                               otherButtonTitles:nil];
     [alertView show];
+}
+
+#pragma mark - Demo Buttons
+- (UIButton *)contactAddButton
+{
+    UIButton *contactAddButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [contactAddButton addTarget:self action:@selector(onAccessoryContactAddButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    return contactAddButton;
 }
 
 @end

@@ -318,7 +318,18 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidBeginEditing:)]) {
+        [self.delegate tokenInputViewDidBeginEditing:self];
+    }
+    
     [self unselectAllTokenViewsAnimated:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]) {
+        [self.delegate tokenInputViewDidEndEditing:self];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
