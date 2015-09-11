@@ -58,9 +58,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.tokens = [NSMutableArray arrayWithCapacity:20];
     self.tokenViews = [NSMutableArray arrayWithCapacity:20];
 
+    self.fieldColor = [UIColor lightGrayColor]; 
+    
     self.fieldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     self.fieldLabel.font = self.textField.font;
-    self.fieldLabel.textColor = [UIColor lightGrayColor];
+    self.fieldLabel.textColor = self.fieldColor;
     [self addSubview:self.fieldLabel];
     self.fieldLabel.hidden = YES;
 
@@ -480,6 +482,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (oldFieldName == nil || ![oldFieldName isEqualToString:fieldName]) {
         [self repositionViews];
     }
+}
+
+- (void)setFieldColor:(UIColor *)fieldColor {
+    _fieldColor = fieldColor;
+    self.fieldLabel.textColor = _fieldColor;
 }
 
 - (void)setFieldView:(UIView *)fieldView

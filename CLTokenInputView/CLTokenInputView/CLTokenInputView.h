@@ -59,6 +59,8 @@
 @property (strong, nonatomic) UIView *fieldView;
 /** Option text which can be displayed before the first line (e.g. "To:") */
 @property (copy, nonatomic) IBInspectable NSString *fieldName;
+/** Color of optional */
+@property (strong, nonatomic) IBInspectable UIColor *fieldColor;
 @property (copy, nonatomic) IBInspectable NSString *placeholderText;
 @property (strong, nonatomic) UIView *accessoryView;
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
