@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class CLBackspaceDetectingTextField;
 @protocol CLBackspaceDetectingTextFieldDelegate <UITextFieldDelegate>
 
@@ -27,6 +29,8 @@
  */
 @interface CLBackspaceDetectingTextField : UITextField <UIKeyInput>
 
-@property (weak, nonatomic) NSObject <CLBackspaceDetectingTextFieldDelegate> *delegate;
+@property (weak, nonatomic, nullable) NSObject <CLBackspaceDetectingTextFieldDelegate> *delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,11 +10,13 @@
 
 #import "CLToken.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class CLTokenView;
 @protocol CLTokenViewDelegate <NSObject>
 
 @required
-- (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText;
+- (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(nullable NSString *)replacementText;
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView;
 
 @end
@@ -22,7 +24,7 @@
 
 @interface CLTokenView : UIView <UIKeyInput>
 
-@property (weak, nonatomic) NSObject <CLTokenViewDelegate> *delegate;
+@property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 @property (assign, nonatomic) BOOL selected;
 
 - (id)initWithToken:(CLToken *)token;
@@ -30,6 +32,8 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 // For iOS 6 compatibility, provide the setter tintColor
-- (void)setTintColor:(UIColor *)tintColor;
+- (void)setTintColor:(nullable UIColor *)tintColor;
 
 @end
+
+NS_ASSUME_NONNULL_END

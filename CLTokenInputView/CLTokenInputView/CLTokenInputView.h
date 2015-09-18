@@ -10,6 +10,8 @@
 
 #import "CLToken.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class CLTokenInputView;
 @protocol CLTokenInputViewDelegate <NSObject>
 
@@ -28,7 +30,7 @@
 /**
  * Called when the text field text has changed. You should update your autocompleting UI based on the text supplied.
  */
-- (void)tokenInputView:(CLTokenInputView *)view didChangeText:(NSString *)text;
+- (void)tokenInputView:(CLTokenInputView *)view didChangeText:(nullable NSString *)text;
 /**
  * Called when a token has been added. You should use this opportunity to update your local list of selected items.
  */
@@ -54,15 +56,15 @@
 
 @interface CLTokenInputView : UIView
 
-@property (weak, nonatomic) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
+@property (weak, nonatomic, nullable) IBOutlet NSObject <CLTokenInputViewDelegate> *delegate;
 /** An optional view that shows up presumably on the first line */
-@property (strong, nonatomic) UIView *fieldView;
+@property (strong, nonatomic, nullable) UIView *fieldView;
 /** Option text which can be displayed before the first line (e.g. "To:") */
-@property (copy, nonatomic) IBInspectable NSString *fieldName;
+@property (copy, nonatomic, nullable) IBInspectable NSString *fieldName;
 /** Color of optional */
-@property (strong, nonatomic) IBInspectable UIColor *fieldColor;
-@property (copy, nonatomic) IBInspectable NSString *placeholderText;
-@property (strong, nonatomic) UIView *accessoryView;
+@property (strong, nonatomic, nullable) IBInspectable UIColor *fieldColor;
+@property (copy, nonatomic, nullable) IBInspectable NSString *placeholderText;
+@property (strong, nonatomic, nullable) UIView *accessoryView;
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
@@ -71,14 +73,16 @@
 @property (readonly, nonatomic) NSArray *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
-@property (readonly, nonatomic) NSString *text;
+@property (readonly, nonatomic, nullable) NSString *text;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
-- (CLToken *)tokenizeTextfieldText;
+- (nullable CLToken *)tokenizeTextfieldText;
 
 // Editing
 - (void)beginEditing;
 - (void)endEditing;
 
 @end
+
+NS_ASSUME_NONNULL_END
