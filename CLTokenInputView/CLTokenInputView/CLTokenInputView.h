@@ -10,6 +10,14 @@
 
 #import "CLToken.h"
 
+#if __has_feature(objc_generics)
+#define CL_GENERIC_ARRAY(type) NSArray<type>
+#define CL_GENERIC_MUTABLE_ARRAY(type) NSMutableArray<type>
+#else
+#define CL_GENERIC_ARRAY(type) NSArray
+#define CL_GENERIC_MUTABLE_ARRAY(type) NSMutableArray
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class CLTokenInputView;
@@ -70,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
 @property (assign, nonatomic) IBInspectable BOOL drawBottomBorder;
 
-@property (readonly, nonatomic) NSArray<CLToken *> *allTokens;
+@property (readonly, nonatomic) CL_GENERIC_ARRAY(CLToken *) *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 @property (readonly, nonatomic, nullable) NSString *text;
