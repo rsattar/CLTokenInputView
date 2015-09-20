@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @return A CLToken for a match (typically the first item in the matching results),
  * or nil if the text shouldn't be accepted.
  */
-- (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text;
+- (nullable CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text;
 /**
  * Called when the view has updated its own height. If you are
  * not using Autolayout, you should use this method to update the
