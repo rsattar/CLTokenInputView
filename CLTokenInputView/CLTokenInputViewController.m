@@ -71,6 +71,7 @@
     if (!self.tokenInputView.editing) {
         [self.tokenInputView beginEditing];
     }
+    [super viewDidAppear:animated];
 }
 
 
