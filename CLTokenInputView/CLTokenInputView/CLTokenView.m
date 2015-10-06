@@ -39,7 +39,6 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
             tintColor = self.tintColor;
         }
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
-        self.label.font = [UIFont systemFontOfSize:17.0];
         self.label.textColor = tintColor;
         self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
