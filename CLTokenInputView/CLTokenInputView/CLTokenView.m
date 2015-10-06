@@ -30,7 +30,7 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 
 @implementation CLTokenView
 
-- (id)initWithToken:(CLToken *)token
+- (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -39,6 +39,9 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
             tintColor = self.tintColor;
         }
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
+        if (font) {
+            self.label.font = font;
+        }
         self.label.textColor = tintColor;
         self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
