@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65B16B7918BC16F6003AA819"
-               BuildableName = "CLTokenInputView.app"
+               BlueprintIdentifier = "87E3948C1BD8201400D41FD4"
+               BuildableName = "CLTokenInputView.framework"
                BlueprintName = "CLTokenInputView"
                ReferencedContainer = "container:CLTokenInputView.xcodeproj">
             </BuildableReference>
@@ -28,36 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65B16B9418BC16F7003AA819"
-               BuildableName = "CLTokenInputViewTests.xctest"
-               BlueprintName = "CLTokenInputViewTests"
-               ReferencedContainer = "container:CLTokenInputView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "87E394951BD8201500D41FD4"
-               BuildableName = "CLTokenInputTests.xctest"
-               BlueprintName = "CLTokenInputTests"
-               ReferencedContainer = "container:CLTokenInputView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65B16B7918BC16F6003AA819"
-            BuildableName = "CLTokenInputView.app"
-            BlueprintName = "CLTokenInputView"
-            ReferencedContainer = "container:CLTokenInputView.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -71,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65B16B7918BC16F6003AA819"
-            BuildableName = "CLTokenInputView.app"
+            BlueprintIdentifier = "87E3948C1BD8201400D41FD4"
+            BuildableName = "CLTokenInputView.framework"
             BlueprintName = "CLTokenInputView"
             ReferencedContainer = "container:CLTokenInputView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -90,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "65B16B7918BC16F6003AA819"
-            BuildableName = "CLTokenInputView.app"
+            BlueprintIdentifier = "87E3948C1BD8201400D41FD4"
+            BuildableName = "CLTokenInputView.framework"
             BlueprintName = "CLTokenInputView"
             ReferencedContainer = "container:CLTokenInputView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
