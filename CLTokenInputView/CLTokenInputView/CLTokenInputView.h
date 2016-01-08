@@ -80,6 +80,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
+/** 
+ * Optional additional characters to trigger the tokenization process (and call the delegate
+ * with `tokenInputView:tokenForText:`
+ * @discussion By default this array is empty, as only the Return key will trigger tokenization
+ * however, if you would like to trigger tokenization with additional characters (such as a comma,
+ * or as a space), you can supply the list here.
+ */
+@property (copy, nonatomic) CL_GENERIC_SET(NSString *) *tokenizationCharacters;
 @property (assign, nonatomic) IBInspectable BOOL drawBottomBorder;
 
 @property (readonly, nonatomic) CL_GENERIC_ARRAY(CLToken *) *allTokens;
