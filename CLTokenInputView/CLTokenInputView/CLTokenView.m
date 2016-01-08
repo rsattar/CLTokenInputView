@@ -14,6 +14,7 @@ static CGFloat const PADDING_X = 4.0;
 static CGFloat const PADDING_Y = 2.0;
 
 static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
+static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
 
 @interface CLTokenView ()
@@ -61,6 +62,8 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 
         self.displayText = token.displayText;
 
+        self.hideUnselectedComma = NO;
+
         [self updateLabelAttributedText];
         self.selectedLabel.text = token.displayText;
 
@@ -100,6 +103,19 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
     }
     self.label.textColor = tintColor;
     self.selectedBackgroundView.backgroundColor = tintColor;
+    [self updateLabelAttributedText];
+}
+
+
+#pragma mark - Hide Unselected Comma
+
+
+- (void)setHideUnselectedComma:(BOOL)hideUnselectedComma
+{
+    if (_hideUnselectedComma == hideUnselectedComma) {
+        return;
+    }
+    _hideUnselectedComma = hideUnselectedComma;
     [self updateLabelAttributedText];
 }
 
@@ -160,6 +176,9 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 {
     // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
     NSString *format = UNSELECTED_LABEL_FORMAT;
+    if (self.hideUnselectedComma) {
+        format = UNSELECTED_LABEL_NO_COMMA_FORMAT;
+    }
     NSString *labelString = [NSString stringWithFormat:format, self.displayText];
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString

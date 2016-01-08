@@ -323,7 +323,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if ([self.delegate respondsToSelector:@selector(tokenInputViewDidBeginEditing:)]) {
         [self.delegate tokenInputViewDidBeginEditing:self];
     }
-    
+    self.tokenViews.lastObject.hideUnselectedComma = NO;
     [self unselectAllTokenViewsAnimated:YES];
 }
 
@@ -332,6 +332,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]) {
         [self.delegate tokenInputViewDidEndEditing:self];
     }
+    self.tokenViews.lastObject.hideUnselectedComma = YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

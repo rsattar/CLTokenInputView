@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 @property (assign, nonatomic) BOOL selected;
+@property (assign, nonatomic) BOOL hideUnselectedComma;
 
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 
