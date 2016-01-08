@@ -13,9 +13,13 @@
 #if __has_feature(objc_generics)
 #define CL_GENERIC_ARRAY(type) NSArray<type>
 #define CL_GENERIC_MUTABLE_ARRAY(type) NSMutableArray<type>
+#define CL_GENERIC_SET(type) NSSet<type>
+#define CL_GENERIC_MUTABLE_SET(type) NSMutableSet<type>
 #else
 #define CL_GENERIC_ARRAY(type) NSArray
 #define CL_GENERIC_MUTABLE_ARRAY(type) NSMutableArray
+#define CL_GENERIC_SET(type) NSSet
+#define CL_GENERIC_MUTABLE_SET(type) NSMutableSet
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
