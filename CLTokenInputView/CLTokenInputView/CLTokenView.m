@@ -61,17 +61,7 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 
         self.displayText = token.displayText;
 
-        // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
-        NSString *labelString = [NSString stringWithFormat:UNSELECTED_LABEL_FORMAT, self.displayText];
-        NSMutableAttributedString *attrString =
-        [[NSMutableAttributedString alloc] initWithString:labelString
-                                               attributes:@{NSFontAttributeName : self.label.font,
-                                                            NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
-        NSRange tintRange = [labelString rangeOfString:token.displayText];
-        // Make the name part the system tint color
-        [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
-                            range:tintRange];
-        self.label.attributedText = attrString;
+        [self updateLabelAttributedText];
         self.selectedLabel.text = token.displayText;
 
         // Listen for taps
@@ -83,6 +73,8 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
     }
     return self;
 }
+
+#pragma mark - Size Measurements
 
 - (CGSize)intrinsicContentSize
 {
@@ -108,17 +100,7 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
     }
     self.label.textColor = tintColor;
     self.selectedBackgroundView.backgroundColor = tintColor;
-    NSMutableAttributedString *attrString = [self.label.attributedText mutableCopy];
-    NSString *labelString = [NSString stringWithFormat:UNSELECTED_LABEL_FORMAT, self.displayText];
-    NSRange tintRange = [labelString rangeOfString:self.displayText];
-    // Make the overall text color gray
-    [attrString setAttributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}
-                        range:NSMakeRange(0, attrString.length)];
-    // Make the name part the system tint color
-    [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
-                        range:tintRange];
-    self.label.attributedText = attrString;
-
+    [self updateLabelAttributedText];
 }
 
 
@@ -168,6 +150,30 @@ static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
         self.selectedBackgroundView.hidden = !_selected;
         self.selectedLabel.hidden = !_selected;
     }
+}
+
+
+#pragma mark - Attributed Text
+
+
+- (void)updateLabelAttributedText
+{
+    // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
+    NSString *format = UNSELECTED_LABEL_FORMAT;
+    NSString *labelString = [NSString stringWithFormat:format, self.displayText];
+    NSMutableAttributedString *attrString =
+    [[NSMutableAttributedString alloc] initWithString:labelString
+                                           attributes:@{NSFontAttributeName : self.label.font,
+                                                        NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+    NSRange tintRange = [labelString rangeOfString:self.displayText];
+    // Make the name part the system tint color
+    UIColor *tintColor = self.selectedBackgroundView.backgroundColor;
+    if ([UIView instancesRespondToSelector:@selector(tintColor)]) {
+        tintColor = self.tintColor;
+    }
+    [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
+                        range:tintRange];
+    self.label.attributedText = attrString;
 }
 
 
