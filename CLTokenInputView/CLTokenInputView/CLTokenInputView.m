@@ -200,7 +200,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (self.fieldView) {
         CGRect fieldViewRect = self.fieldView.frame;
         fieldViewRect.origin.x = curX + FIELD_MARGIN_X;
-        fieldViewRect.origin.y = curY + ((STANDARD_ROW_HEIGHT - CGRectGetHeight(fieldViewRect))/2.0);
+        fieldViewRect.origin.y = curY + ((STANDARD_ROW_HEIGHT - CGRectGetHeight(fieldViewRect))/(CGFloat)2);
         self.fieldView.frame = fieldViewRect;
 
         curX = CGRectGetMaxX(fieldViewRect) + FIELD_MARGIN_X;
@@ -210,7 +210,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (!self.fieldLabel.hidden) {
         CGRect fieldLabelRect = self.fieldLabel.frame;
         fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
-        fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
+        fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/(CGFloat)2);
         self.fieldLabel.frame = fieldLabelRect;
 
         curX = CGRectGetMaxX(fieldLabelRect) + FIELD_MARGIN_X;
@@ -242,7 +242,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
         tokenRect.origin.x = curX;
         // Center our tokenView vertially within STANDARD_ROW_HEIGHT
-        tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/2.0);
+        tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/(CGFloat)2);
         tokenView.frame = tokenRect;
 
         curX = CGRectGetMaxX(tokenRect) + HSPACE;

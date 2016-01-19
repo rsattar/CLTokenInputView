@@ -35,7 +35,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
+        UIColor *tintColor = [UIColor colorWithRed:0.0823f green:0.4941f blue:0.9843f alpha:1];
         if ([self respondsToSelector:@selector(tintColor)]) {
             tintColor = self.tintColor;
         }
@@ -82,14 +82,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (CGSize)intrinsicContentSize
 {
     CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
-    return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelIntrinsicSize.width + ((CGFloat)2 * PADDING_X), labelIntrinsicSize.height + ((CGFloat)2 * PADDING_Y));
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
+    CGSize fittingSize = CGSizeMake(size.width - ((CGFloat)2 * PADDING_X), size.height - ((CGFloat)2 * PADDING_Y));
     CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
-    return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelSize.width + ((CGFloat)2 * PADDING_X), labelSize.height + ((CGFloat)2 * PADDING_Y));
 }
 
 
