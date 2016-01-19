@@ -147,9 +147,9 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     } else if (!selected && self.isFirstResponder) {
         [self resignFirstResponder];
     }
-    CGFloat selectedAlpha = (_selected ? 1.0 : 0.0);
+    CGFloat selectedAlpha = (selected ? 1.0 : 0.0);
     if (animated) {
-        if (_selected) {
+        if (selected) {
             self.selectedBackgroundView.alpha = 0.0;
             self.selectedBackgroundView.hidden = NO;
             self.selectedLabel.alpha = 0.0;
@@ -159,14 +159,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
             self.selectedBackgroundView.alpha = selectedAlpha;
             self.selectedLabel.alpha = selectedAlpha;
         } completion:^(BOOL finished) {
-            if (!_selected) {
+            if (!selected) {
                 self.selectedBackgroundView.hidden = YES;
                 self.selectedLabel.hidden = YES;
             }
         }];
     } else {
-        self.selectedBackgroundView.hidden = !_selected;
-        self.selectedLabel.hidden = !_selected;
+        self.selectedBackgroundView.hidden = !selected;
+        self.selectedLabel.hidden = !selected;
     }
 }
 
