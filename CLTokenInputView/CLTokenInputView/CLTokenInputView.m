@@ -470,7 +470,7 @@ static void commonInit(CLTokenInputView *self)
 
 - (void)setFieldName:(NSString *)fieldName
 {
-    if (_fieldName == fieldName) {
+    if ([_fieldName isEqualToString:fieldName]) {
         return;
     }
     NSString *oldFieldName = _fieldName;
@@ -511,7 +511,7 @@ static void commonInit(CLTokenInputView *self)
 
 - (void)setPlaceholderText:(NSString *)placeholderText
 {
-    if (_placeholderText == placeholderText) {
+    if ([_placeholderText isEqualToString:placeholderText]) {
         return;
     }
     _placeholderText = placeholderText;
