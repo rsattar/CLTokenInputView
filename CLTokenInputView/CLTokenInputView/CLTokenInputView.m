@@ -38,7 +38,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 @implementation CLTokenInputView
 
-- (void)commonInit
+static void commonInit(CLTokenInputView *self)
 {
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
@@ -74,7 +74,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self commonInit];
+        commonInit(self);
     }
     return self;
 }
@@ -83,7 +83,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self commonInit];
+        commonInit(self);
     }
     return self;
 }
