@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.displayText = displayText;
+        self.displayText = [displayText copy];
         self.context = context;
     }
     return self;
