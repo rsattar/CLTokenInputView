@@ -177,11 +177,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (void)updateLabelAttributedText
 {
     // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
-    NSString *format = UNSELECTED_LABEL_FORMAT;
-    if (self.hideUnselectedComma) {
-        format = UNSELECTED_LABEL_NO_COMMA_FORMAT;
-    }
-    NSString *labelString = [NSString stringWithFormat:format, self.displayText];
+    NSString *labelString = [NSString stringWithFormat:self.hideUnselectedComma ? UNSELECTED_LABEL_NO_COMMA_FORMAT : UNSELECTED_LABEL_FORMAT, self.displayText];
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString
                                            attributes:@{NSFontAttributeName : self.label.font,
