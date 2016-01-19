@@ -67,7 +67,6 @@ static void commonInit(CLTokenInputView *self)
     self.fieldLabel.hidden = YES;
 
     self.intrinsicContentHeight = STANDARD_ROW_HEIGHT;
-    [self repositionViews];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -132,7 +131,7 @@ static void commonInit(CLTokenInputView *self)
     [self onTextFieldDidChange:self.textField];
 
     [self updatePlaceholderTextVisibility];
-    [self repositionViews];
+    [self setNeedsLayout];
 }
 
 - (void)removeToken:(CLToken *)token
@@ -158,7 +157,7 @@ static void commonInit(CLTokenInputView *self)
         [self.delegate tokenInputView:self didRemoveToken:removedToken];
     }
     [self updatePlaceholderTextVisibility];
-    [self repositionViews];
+    [self setNeedsLayout];
 }
 
 - (NSArray *)allTokens
@@ -185,8 +184,10 @@ static void commonInit(CLTokenInputView *self)
 
 #pragma mark - Updating/Repositioning Views
 
-- (void)repositionViews
+- (void)layoutSubviews
 {
+    [super layoutSubviews];
+
     CGRect bounds = self.bounds;
     CGFloat rightBoundary = CGRectGetWidth(bounds) - PADDING_RIGHT;
     CGFloat firstLineRightBoundary = rightBoundary;
@@ -287,13 +288,6 @@ static void commonInit(CLTokenInputView *self)
     } else {
         self.textField.placeholder = self.placeholderText;
     }
-}
-
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    [self repositionViews];
 }
 
 
@@ -493,7 +487,7 @@ static void commonInit(CLTokenInputView *self)
     }
 
     if (oldFieldName == nil || ![oldFieldName isEqualToString:fieldName]) {
-        [self repositionViews];
+        [self setNeedsLayout];
     }
 }
 
@@ -512,7 +506,7 @@ static void commonInit(CLTokenInputView *self)
     if (fieldView != nil) {
         [self addSubview:fieldView];
     }
-    [self repositionViews];
+    [self setNeedsLayout];
 }
 
 - (void)setPlaceholderText:(NSString *)placeholderText
@@ -535,7 +529,7 @@ static void commonInit(CLTokenInputView *self)
     if (accessoryView != nil) {
         [self addSubview:accessoryView];
     }
-    [self repositionViews];
+    [self setNeedsLayout];
 }
 
 
