@@ -10,6 +10,8 @@
 
 Check out the sample view controller which uses CLTokenInputView to see how to incorporate it into your UI. We use this in our apps at [Cluster Labs, Inc.](https://cluster.co).
 
+Check out [a Swift port of this library](https://github.com/rlaferla/CLTokenInputView-Swift) by [@rlaferla](https://github.com/rlaferla). 
+
 ### Note 
 It ***does not*** provide the autocomplete drop down and matching; you must provide that yourself, so that `CLTokenInputView` can remain very generic and flexible. You can copy what the sample app is doing to show an autocompleting table view and maintain a list of the selected "tokens".
 
