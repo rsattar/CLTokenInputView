@@ -254,6 +254,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     CGFloat availableWidthForTextField = textBoundary - curX;
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
         isOnFirstLine = NO;
+        // If in the future we add more UI elements below the tokens,
+        // isOnFirstLine will be useful, and this calculation is important.
+        // So leaving it set here, and marking the warning to ignore it
+#pragma unused(isOnFirstLine)
         curX = PADDING_LEFT + TEXT_FIELD_HSPACE;
         curY += STANDARD_ROW_HEIGHT+VSPACE;
         totalHeight += STANDARD_ROW_HEIGHT;
@@ -269,7 +273,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.textField.frame = textFieldRect;
 
     CGFloat oldContentHeight = self.intrinsicContentHeight;
-    self.intrinsicContentHeight = CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM;
+    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM);
     [self invalidateIntrinsicContentSize];
 
     if (oldContentHeight != self.intrinsicContentHeight) {
