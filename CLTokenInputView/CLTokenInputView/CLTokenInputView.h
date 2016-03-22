@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
+@property (assign, nonatomic) IBInspectable UIKeyboardAppearance keyboardAppearance;
 /** 
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`

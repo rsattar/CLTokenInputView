@@ -388,6 +388,12 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.textField.autocorrectionType = _autocorrectionType;
 }
 
+- (void)setKeyboardAppearance:(UIKeyboardAppearance)keyboardAppearance
+{
+    _keyboardAppearance = keyboardAppearance;
+    self.textField.keyboardAppearance = _keyboardAppearance;
+}
+
 
 #pragma mark - Measurements (text field offset, etc.)
 
