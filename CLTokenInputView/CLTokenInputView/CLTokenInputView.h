@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tokenInputViewDidBeginEditing:(CLTokenInputView *)view;
 
 /**
+ * Called when the text field should return
+ */
+- (BOOL)tokenInputViewShouldReturn:(CLTokenInputView *)view;
+
+/**
  * Called when the text field text has changed. You should update your autocompleting UI based on the text supplied.
  */
 - (void)tokenInputView:(CLTokenInputView *)view didChangeText:(nullable NSString *)text;
