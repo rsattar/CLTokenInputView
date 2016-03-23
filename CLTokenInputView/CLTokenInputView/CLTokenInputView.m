@@ -61,7 +61,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.fieldColor = [UIColor lightGrayColor]; 
     
     self.fieldLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    self.fieldLabel.font = self.textField.font;
+    // NOTE: Explicitly not setting a font for the field label
     self.fieldLabel.textColor = self.fieldColor;
     [self addSubview:self.fieldLabel];
     self.fieldLabel.hidden = YES;
@@ -208,7 +208,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
     // Position field label (if field name is set)
     if (!self.fieldLabel.hidden) {
-        CGRect fieldLabelRect = self.fieldLabel.frame;
+        CGSize labelSize = self.fieldLabel.intrinsicContentSize;
+        CGRect fieldLabelRect = CGRectZero;
+        fieldLabelRect.size = labelSize;
         fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
         fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
         self.fieldLabel.frame = fieldLabelRect;
@@ -493,7 +495,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     _fieldName = fieldName;
 
     self.fieldLabel.text = _fieldName;
-    [self.fieldLabel sizeToFit];
+    [self.fieldLabel invalidateIntrinsicContentSize];
     BOOL showField = (_fieldName.length > 0);
     self.fieldLabel.hidden = !showField;
     if (showField && !self.fieldLabel.superview) {
