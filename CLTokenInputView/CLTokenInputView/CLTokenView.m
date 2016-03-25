@@ -35,7 +35,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
+        UIColor *tintColor = [UIColor colorWithRed:0.0823f green:0.4941f blue:0.9843f alpha:1];
         if ([self respondsToSelector:@selector(tintColor)]) {
             tintColor = self.tintColor;
         }
@@ -82,14 +82,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (CGSize)intrinsicContentSize
 {
     CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
-    return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelIntrinsicSize.width + ((CGFloat)2 * PADDING_X), labelIntrinsicSize.height + ((CGFloat)2 * PADDING_Y));
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
+    CGSize fittingSize = CGSizeMake(size.width - ((CGFloat)2 * PADDING_X), size.height - ((CGFloat)2 * PADDING_Y));
     CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
-    return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelSize.width + ((CGFloat)2 * PADDING_X), labelSize.height + ((CGFloat)2 * PADDING_Y));
 }
 
 
@@ -147,9 +147,9 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     } else if (!selected && self.isFirstResponder) {
         [self resignFirstResponder];
     }
-    CGFloat selectedAlpha = (_selected ? 1.0 : 0.0);
+    CGFloat selectedAlpha = (selected ? 1.0 : 0.0);
     if (animated) {
-        if (_selected) {
+        if (selected) {
             self.selectedBackgroundView.alpha = 0.0;
             self.selectedBackgroundView.hidden = NO;
             self.selectedLabel.alpha = 0.0;
@@ -159,14 +159,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
             self.selectedBackgroundView.alpha = selectedAlpha;
             self.selectedLabel.alpha = selectedAlpha;
         } completion:^(BOOL finished) {
-            if (!_selected) {
+            if (!selected) {
                 self.selectedBackgroundView.hidden = YES;
                 self.selectedLabel.hidden = YES;
             }
         }];
     } else {
-        self.selectedBackgroundView.hidden = !_selected;
-        self.selectedLabel.hidden = !_selected;
+        self.selectedBackgroundView.hidden = !selected;
+        self.selectedLabel.hidden = !selected;
     }
 }
 
@@ -177,11 +177,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (void)updateLabelAttributedText
 {
     // Configure for the token, unselected shows "[displayText]," and selected is "[displayText]"
-    NSString *format = UNSELECTED_LABEL_FORMAT;
-    if (self.hideUnselectedComma) {
-        format = UNSELECTED_LABEL_NO_COMMA_FORMAT;
-    }
-    NSString *labelString = [NSString stringWithFormat:format, self.displayText];
+    NSString *labelString = [NSString stringWithFormat:self.hideUnselectedComma ? UNSELECTED_LABEL_NO_COMMA_FORMAT : UNSELECTED_LABEL_FORMAT, self.displayText];
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString
                                            attributes:@{NSFontAttributeName : self.label.font,
