@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class CLTokenInputView;
+@class CLTokenInputView, CLBackspaceDetectingTextField;
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
@@ -100,6 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 @property (readonly, nonatomic, nullable) NSString *text;
+@property (readonly, nonatomic) CLBackspaceDetectingTextField *textField;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token animated:(BOOL)animated;
