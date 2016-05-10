@@ -35,6 +35,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)commonInit
 {
+    self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
     
