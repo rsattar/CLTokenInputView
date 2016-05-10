@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                    CLTokenInputView is an almost pixel-perfect replica of iOS's contact bubbles
                    input UI (seen in Mail.app and Messages.app). It *does not* implement any
-                   autocomplete UI, just the UI where you can enter text into a text field and 
-                   bubbles which are deletable using the backspace key. 
+                   autocomplete UI, just the UI where you can enter text into a text field and
+                   bubbles which are deletable using the backspace key.
 
                    Check out the sample view controller which uses CLTokenInputView to see how to
                    incorporate it into your UI. We use this in our apps at [Cluster Labs, Inc.](https://cluster.co).
@@ -111,6 +111,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
+  s.resource_bundle = { 'CLTokenInputView' => ['CLTokenInputView/CLTokenInputView.bundle/*.png'] }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 

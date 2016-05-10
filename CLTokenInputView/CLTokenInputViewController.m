@@ -46,17 +46,12 @@
     if (![self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.tokenInputTopSpace.constant = 0.0;
     }
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    [infoButton addTarget:self action:@selector(onFieldInfoButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    self.tokenInputView.fieldName = @"To:";
-    self.tokenInputView.fieldView = infoButton;
     self.tokenInputView.placeholderText = @"Enter a name";
-    self.tokenInputView.accessoryView = [self contactAddButton];
-    self.tokenInputView.drawBottomBorder = YES;
     
     self.secondTokenInputView.fieldName = NSLocalizedString(@"Cc:", nil);
     self.secondTokenInputView.drawBottomBorder = YES;
     self.secondTokenInputView.delegate = self;
+    [self.secondTokenInputView removeFromSuperview];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
@@ -117,14 +112,12 @@
 - (void)tokenInputViewDidEndEditing:(CLTokenInputView *)view
 {
     NSLog(@"token input view did end editing: %@", view);
-    view.accessoryView = nil;
 }
 
 - (void)tokenInputViewDidBeginEditing:(CLTokenInputView *)view
 {
     
     NSLog(@"token input view did begin editing: %@", view);
-    view.accessoryView = [self contactAddButton];
     [self.view removeConstraint:self.tableViewTopLayoutConstraint];
     self.tableViewTopLayoutConstraint = [NSLayoutConstraint constraintWithItem:self.tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
     [self.view addConstraint:self.tableViewTopLayoutConstraint];
@@ -161,6 +154,10 @@
 
     NSString *name = self.filteredNames[indexPath.row];
     CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
+    token.backgroundColor = [UIColor colorWithRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
+    token.font = [UIFont systemFontOfSize:12.0f];
+    token.image = [UIImage imageNamed:@"Combined Shape"];
+    
     if (self.tokenInputView.isEditing) {
         [self.tokenInputView addToken:token];
     }

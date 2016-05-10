@@ -18,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The text to display in the token view */
 @property (copy, nonatomic) NSString *displayText;
+/** Background color of the token view */
+@property (nonatomic, nullable) UIColor *backgroundColor;
+/** Font of the text to be displayed in the token view */
+@property (nonatomic, nullable) UIFont *font;
+/** Image to display in the token view */
+@property (nonatomic, nullable) UIImage *image;
 /** Used for storing anything that would be useful later on */
 @property (strong, nonatomic, nullable) NSObject *context;
 

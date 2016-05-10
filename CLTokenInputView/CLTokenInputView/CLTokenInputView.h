@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, nullable) NSString *text;
 
 - (void)addToken:(CLToken *)token;
-- (void)removeToken:(CLToken *)token;
+- (void)removeToken:(CLToken *)token animated:(BOOL)animated;
 - (nullable CLToken *)tokenizeTextfieldText;
 
 // Editing

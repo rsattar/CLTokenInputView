@@ -10,20 +10,25 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const PADDING_X = 4.0;
+static CGFloat const PADDING_IMAGE_LEFT = 7.0;
+static CGFloat const PADDING_IMAGE_RIGHT = 6.0;
+
+static CGFloat const PADDING_X = 5.0;
 static CGFloat const PADDING_Y = 2.0;
 
 static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
+CGFloat const CLTokenViewEditAnimationDuration = 0.3;
 
 @interface CLTokenView ()
 
-@property (strong, nonatomic) UIView *backgroundView;
-@property (strong, nonatomic) UILabel *label;
+@property (nonatomic) CLToken *token;
 
-@property (strong, nonatomic) UIView *selectedBackgroundView;
-@property (strong, nonatomic) UILabel *selectedLabel;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic) UIView *backgroundView;
+@property (strong, nonatomic) UIButton *deleteButton;
 
 @property (copy, nonatomic) NSString *displayText;
 
@@ -35,37 +40,36 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
-        if ([self respondsToSelector:@selector(tintColor)]) {
-            tintColor = self.tintColor;
-        }
+        self.token = token;
+                
+        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.backgroundView.backgroundColor = token.backgroundColor ?: [UIColor clearColor];
+        self.backgroundView.layer.cornerRadius = 3.0;
+        [self addSubview:self.backgroundView];
+        
+        self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.deleteButton.alpha = 0.0f;
+        [self.deleteButton setImage:[UIImage imageNamed:@"CLTokenInputView.bundle/delete-token.png"] forState:UIControlStateNormal];
+        [self.deleteButton addTarget:self action:@selector(deleteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [self.deleteButton sizeToFit];
+        [self.backgroundView addSubview:self.deleteButton];
+        
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
-        if (font) {
-            self.label.font = font;
-        }
-        self.label.textColor = tintColor;
+        self.label.font = token.font ?: font ?: [UIFont systemFontOfSize:12.0f];
+        self.label.textColor = [UIColor whiteColor];
         self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
-
-        self.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.selectedBackgroundView.backgroundColor = tintColor;
-        self.selectedBackgroundView.layer.cornerRadius = 3.0;
-        [self addSubview:self.selectedBackgroundView];
-        self.selectedBackgroundView.hidden = YES;
-
-        self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
-        self.selectedLabel.font = self.label.font;
-        self.selectedLabel.textColor = [UIColor whiteColor];
-        self.selectedLabel.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.selectedLabel];
-        self.selectedLabel.hidden = YES;
+        
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.imageView.image = token.image;
+        self.imageView.contentMode = UIViewContentModeCenter;
+        [self addSubview:self.imageView];
 
         self.displayText = token.displayText;
-
-        self.hideUnselectedComma = NO;
+        self.hideUnselectedComma = YES;
 
         [self updateLabelAttributedText];
-        self.selectedLabel.text = token.displayText;
 
         // Listen for taps
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
@@ -77,35 +81,40 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     return self;
 }
 
+- (void)deleteButtonTapped {
+    [self.delegate tokenViewDidRequestDelete:self replaceWithText:nil];
+}
+
 #pragma mark - Size Measurements
 
 - (CGSize)intrinsicContentSize
 {
-    CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
-    return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
+    CGSize labelIntrinsicSize = self.label.intrinsicContentSize;
+    CGFloat width = labelIntrinsicSize.width+(2.0*PADDING_X);
+    if (self.imageView.image) {
+        width += self.imageView.image.size.width + PADDING_IMAGE_RIGHT;
+    }
+    if (self.selected) {
+        width += self.deleteButton.frame.size.width + PADDING_X;
+    }
+    
+    return CGSizeMake(width, labelIntrinsicSize.height+(2.0*PADDING_Y));
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
-    CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
-    return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
-}
-
-
-#pragma mark - Tinting
-
-
-- (void)setTintColor:(UIColor *)tintColor
-{
-    if ([UIView instancesRespondToSelector:@selector(setTintColor:)]) {
-        super.tintColor = tintColor;
+    CGSize labelSize = [self.label sizeThatFits:fittingSize];
+    CGFloat width = labelSize.width+(2.0*PADDING_X);
+    if (self.imageView.image) {
+        width += self.imageView.image.size.width + PADDING_IMAGE_RIGHT;
     }
-    self.label.textColor = tintColor;
-    self.selectedBackgroundView.backgroundColor = tintColor;
-    [self updateLabelAttributedText];
+    if (self.selected) {
+        width += self.deleteButton.frame.size.width + PADDING_X;
+    }
+    
+    return CGSizeMake(width, labelSize.height+(2.0*PADDING_Y));
 }
-
 
 #pragma mark - Hide Unselected Comma
 
@@ -130,6 +139,17 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
 #pragma mark - Selection
 
+- (UIColor *)darkerColorForColor:(UIColor *)c
+{
+    CGFloat r, g, b, a;
+    if ([c getRed:&r green:&g blue:&b alpha:&a])
+        return [UIColor colorWithRed:MAX(r - 0.2, 0.0)
+                               green:MAX(g - 0.2, 0.0)
+                                blue:MAX(b - 0.2, 0.0)
+                               alpha:a];
+    return nil;
+}
+
 - (void)setSelected:(BOOL)selected
 {
     [self setSelected:selected animated:NO];
@@ -147,27 +167,27 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     } else if (!selected && self.isFirstResponder) {
         [self resignFirstResponder];
     }
-    CGFloat selectedAlpha = (_selected ? 1.0 : 0.0);
-    if (animated) {
-        if (_selected) {
-            self.selectedBackgroundView.alpha = 0.0;
-            self.selectedBackgroundView.hidden = NO;
-            self.selectedLabel.alpha = 0.0;
-            self.selectedLabel.hidden = NO;
-        }
-        [UIView animateWithDuration:0.25 animations:^{
-            self.selectedBackgroundView.alpha = selectedAlpha;
-            self.selectedLabel.alpha = selectedAlpha;
-        } completion:^(BOOL finished) {
-            if (!_selected) {
-                self.selectedBackgroundView.hidden = YES;
-                self.selectedLabel.hidden = YES;
-            }
-        }];
-    } else {
-        self.selectedBackgroundView.hidden = !_selected;
-        self.selectedLabel.hidden = !_selected;
+    
+    self.backgroundView.backgroundColor = selected ? [self darkerColorForColor:self.token.backgroundColor] : self.token.backgroundColor;
+
+    // Animate in/out delete button
+    if (selected) {
+        CGRect deleteButtonFrame = self.deleteButton.frame;
+        deleteButtonFrame.origin.x = CGRectGetWidth(self.backgroundView.frame);
+        deleteButtonFrame.size.width = deleteButtonFrame.size.height = 14.0f;
+        deleteButtonFrame.origin.y = CGRectGetHeight(self.backgroundView.frame) / 2 - CGRectGetHeight(deleteButtonFrame) / 2;
+        self.deleteButton.frame = deleteButtonFrame;
     }
+    
+    CGSize intrinsicSize = [self intrinsicContentSize];
+    [UIView animateWithDuration:animated ? CLTokenViewEditAnimationDuration : 0 animations:^{
+        self.frame = ({
+            CGRect frame = self.frame;
+            frame.size.width = intrinsicSize.width;
+            frame;
+        });
+        self.deleteButton.alpha = selected ? 1.0f : 0.0f;
+    }];
 }
 
 
@@ -187,12 +207,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
                                            attributes:@{NSFontAttributeName : self.label.font,
                                                         NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
     NSRange tintRange = [labelString rangeOfString:self.displayText];
-    // Make the name part the system tint color
-    UIColor *tintColor = self.selectedBackgroundView.backgroundColor;
-    if ([UIView instancesRespondToSelector:@selector(tintColor)]) {
-        tintColor = self.tintColor;
-    }
-    [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
+    [attrString setAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}
                         range:tintRange];
     self.label.attributedText = attrString;
 }
@@ -206,12 +221,16 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
     CGRect bounds = self.bounds;
 
-    self.backgroundView.frame = bounds;
-    self.selectedBackgroundView.frame = bounds;
-
+    CGRect imageViewFrame = CGRectInset(bounds, PADDING_IMAGE_LEFT, PADDING_Y);
+    imageViewFrame.size.width = self.imageView.image.size.width;
+    self.imageView.frame = imageViewFrame;
+    
     CGRect labelFrame = CGRectInset(bounds, PADDING_X, PADDING_Y);
-    self.selectedLabel.frame = labelFrame;
     labelFrame.size.width += PADDING_X*2.0;
+    if (self.imageView.image) {
+        labelFrame.origin.x += imageViewFrame.size.width + PADDING_IMAGE_RIGHT;
+    }
+    
     self.label.frame = labelFrame;
 }
 
@@ -264,14 +283,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 -(BOOL)resignFirstResponder
 {
     BOOL didResignFirstResponder = [super resignFirstResponder];
-    [self setSelected:NO animated:NO];
+    [self setSelected:NO animated:YES];
     return didResignFirstResponder;
 }
 
 -(BOOL)becomeFirstResponder
 {
     BOOL didBecomeFirstResponder = [super becomeFirstResponder];
-    [self setSelected:YES animated:NO];
+    [self setSelected:YES animated:YES];
     return didBecomeFirstResponder;
 }
 
