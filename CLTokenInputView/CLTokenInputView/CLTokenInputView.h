@@ -105,6 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token animated:(BOOL)animated;
 - (nullable CLToken *)tokenizeTextfieldText;
+- (void)clearContents;
 
 // Editing
 - (void)beginEditing;
