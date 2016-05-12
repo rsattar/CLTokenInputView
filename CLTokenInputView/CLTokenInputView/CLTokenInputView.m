@@ -231,19 +231,25 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 - (void)replaceToken:(CLToken *)token withToken:(CLToken *)newToken {
-    [self.tokens replaceObjectAtIndex:[self.tokens indexOfObjectIdenticalTo:token] withObject:newToken];
+    NSInteger index = [self.tokens indexOfObjectIdenticalTo:token];
     
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:newToken font:self.textField.font];
     tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
-    [self.tokenViews addObject:tokenView];
     [self.scrollView addSubview:tokenView];
     
-    [self removeToken:token animated:NO];
+    CLTokenView *existingTokenView = self.tokenViews[index];
+    [existingTokenView removeFromSuperview];
+    
+    [self.tokens replaceObjectAtIndex:index withObject:newToken];
+    [self.tokenViews replaceObjectAtIndex:index withObject:tokenView];
+
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
         [self.delegate tokenInputView:self didAddToken:token];
     }
+    
+    [self repositionViews];
 }
 
 - (NSArray *)allTokens
