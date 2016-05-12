@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL selected;
 @property (assign, nonatomic) BOOL hideUnselectedComma;
 
+// Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
+// set while first responder, will not take effect until reloadInputViews is called.
+@property (nullable, readwrite, strong) UIView *inputView;
+@property (nullable, readwrite, strong) UIView *inputAccessoryView;
+
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
