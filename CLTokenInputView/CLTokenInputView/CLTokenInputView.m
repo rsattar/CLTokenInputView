@@ -146,14 +146,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
     [self.tokenViews addObject:tokenView];
     [self.scrollView addSubview:tokenView];
-    self.textField.text = @"";
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
         [self.delegate tokenInputView:self didAddToken:token];
     }
-
-    // Clearing text programmatically doesn't call this automatically
-    [self onTextFieldDidChange:self.textField];
-
+    
     [self updatePlaceholderTextVisibility];
     [self updateClearButtonVisbility];
     [self repositionViews];
@@ -231,6 +227,22 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         }];
     } else {
         [self repositionViews];
+    }
+}
+
+- (void)replaceToken:(CLToken *)token withToken:(CLToken *)newToken {
+    [self.tokens replaceObjectAtIndex:[self.tokens indexOfObjectIdenticalTo:token] withObject:newToken];
+    
+    CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:newToken font:self.textField.font];
+    tokenView.delegate = self;
+    CGSize intrinsicSize = tokenView.intrinsicContentSize;
+    tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
+    [self.tokenViews addObject:tokenView];
+    [self.scrollView addSubview:tokenView];
+    
+    [self removeToken:token animated:NO];
+    if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
+        [self.delegate tokenInputView:self didAddToken:token];
     }
 }
 
