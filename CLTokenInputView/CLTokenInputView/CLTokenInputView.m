@@ -246,7 +246,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     [self.tokenViews replaceObjectAtIndex:index withObject:tokenView];
 
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
-        [self.delegate tokenInputView:self didAddToken:token];
+        [self.delegate tokenInputView:self didAddToken:newToken];
     }
     
     [self repositionViews];
@@ -608,8 +608,8 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 {
     [self.textField becomeFirstResponder];
     [self unselectAllTokenViewsAnimated:YES];
+    [self makeTextFieldVisible];
 }
-
 
 - (void)endEditing
 {
