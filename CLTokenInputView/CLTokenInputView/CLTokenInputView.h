@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class CLTokenInputView, CLBackspaceDetectingTextField;
+@class CLTokenInputView, CLBackspaceDetectingTextField, CLTokenView;
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
@@ -56,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
  * Called when a token has been removed. You should use this opportunity to update your local list of selected items.
  */
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
+/**
+ * Called when a token is selected.
+ */
+- (void)tokenInputView:(CLTokenInputView *)view didSelectToken:(CLToken *)token;
 /** 
  * Called when the user attempts to press the Return key with text partially typed.
  * @return A CLToken for a match (typically the first item in the matching results),
@@ -106,6 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeToken:(CLToken *)token animated:(BOOL)animated;
 - (nullable CLToken *)tokenizeTextfieldText;
 - (void)clearContents;
+- (CLTokenView *)tokenViewForToken:(CLToken *)token;
 
 // Editing
 - (void)beginEditing;

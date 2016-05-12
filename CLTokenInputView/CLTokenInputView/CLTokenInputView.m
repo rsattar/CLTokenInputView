@@ -255,6 +255,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return token;
 }
 
+- (CLTokenView *)tokenViewForToken:(CLToken *)token {
+    return self.tokenViews[[self.tokens indexOfObjectIdenticalTo:token]];
+}
 
 #pragma mark - Updating/Repositioning Views
 
@@ -521,8 +524,12 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView
 {
     [self selectTokenView:tokenView animated:YES];
+    
+    CLToken *token = self.tokens[[self.tokenViews indexOfObjectIdenticalTo:tokenView]];
+    if ([self.delegate respondsToSelector:@selector(tokenInputView:didSelectToken:)]) {
+        [self.delegate tokenInputView:self didSelectToken:token];
+    }
 }
-
 
 #pragma mark - Token selection
 
