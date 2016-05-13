@@ -236,9 +236,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     CLTokenView *tokenView = nil;
     if ([self.delegate respondsToSelector:@selector(tokenInputView:tokenViewForToken:)]) {
-        tokenView = [self.delegate tokenInputView:self tokenViewForToken:token];
+        tokenView = [self.delegate tokenInputView:self tokenViewForToken:newToken];
     }
-    tokenView = tokenView ?: [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+    tokenView = tokenView ?: [[CLTokenView alloc] initWithToken:newToken font:self.textField.font];
     tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
