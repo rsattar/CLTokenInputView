@@ -25,7 +25,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
 
 @property (nonatomic) CLToken *token;
 
-@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic, readwrite) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *label;
 @property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UIButton *deleteButton;

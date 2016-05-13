@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 @property (assign, nonatomic) BOOL selected;
 @property (assign, nonatomic) BOOL hideUnselectedComma;
+@property (strong, nonatomic, readonly) UIImageView *imageView;
 
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
