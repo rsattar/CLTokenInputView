@@ -26,9 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLTokenView : UIView <UIKeyInput>
 
-@property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 @property (assign, nonatomic) BOOL selected;
 @property (assign, nonatomic) BOOL hideUnselectedComma;
+
+@property (strong, nonatomic, readonly) UILabel *label;
 @property (strong, nonatomic, readonly) UIImageView *imageView;
 
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
@@ -36,8 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, readwrite, strong) UIView *inputView;
 @property (nullable, readwrite, strong) UIView *inputAccessoryView;
 
-- (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
+@property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 
+- (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 @end

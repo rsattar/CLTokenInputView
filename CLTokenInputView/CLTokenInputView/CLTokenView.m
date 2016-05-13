@@ -26,7 +26,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
 @property (nonatomic) CLToken *token;
 
 @property (strong, nonatomic, readwrite) UIImageView *imageView;
-@property (strong, nonatomic) UILabel *label;
+@property (strong, nonatomic, readwrite) UILabel *label;
 @property (strong, nonatomic) UIView *backgroundView;
 @property (strong, nonatomic) UIButton *deleteButton;
 
@@ -230,7 +230,6 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
     if (self.imageView.image) {
         labelFrame.origin.x += imageViewFrame.size.width + PADDING_IMAGE_RIGHT;
     }
-    
     self.label.frame = labelFrame;
 }
 
