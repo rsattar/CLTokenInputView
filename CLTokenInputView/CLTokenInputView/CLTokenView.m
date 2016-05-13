@@ -83,7 +83,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
 
 
 - (UIImage *)deleteButtonImage {
-    NSURL *bundleURL = [[NSBundle bundleForClass:self.class] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
+    NSURL *bundleURL = [[NSBundle bundleForClass:[CLTokenView class]] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
     NSString *imagePath = [bundle pathForResource:@"delete-token" ofType:@"png"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];

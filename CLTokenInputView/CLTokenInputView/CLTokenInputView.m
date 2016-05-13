@@ -86,7 +86,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 - (UIImage *)clearButtonImage {
-    NSURL *bundleURL = [[NSBundle bundleForClass:self.class] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
+    NSURL *bundleURL = [[NSBundle bundleForClass:[CLTokenInputView class]] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
     NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
     NSString *imagePath = [bundle pathForResource:@"clear-icon" ofType:@"png"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
