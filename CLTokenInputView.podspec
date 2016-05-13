@@ -111,7 +111,7 @@ Pod::Spec.new do |s|
 
   # s.resource  = "icon.png"
   # s.resources = "Resources/*.png"
-  s.resource_bundle = { 'CLTokenInputView' => ['CLTokenInputView/CLTokenInputView.bundle'] }
+  s.resource_bundles = { 'CLTokenInputView' => ['CLTokenInputView/CLTokenInputView.bundle'] }
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
