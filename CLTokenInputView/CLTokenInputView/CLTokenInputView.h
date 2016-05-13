@@ -67,6 +67,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text;
 /**
+ * Used this method to provide a custom token view for a token. Return nil to use the default token view.
+ */
+- (nullable CLTokenView *)tokenInputView:(CLTokenInputView *)view tokenViewForToken:(CLToken *)token;
+/**
  * Called when the view has updated its own height. If you are
  * not using Autolayout, you should use this method to update the
  * frames to make sure the token view still fits.
