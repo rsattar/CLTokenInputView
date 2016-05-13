@@ -75,7 +75,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     clearButton.hidden = YES;
-    [clearButton setImage:[UIImage imageNamed:@"CLTokenInputView.bundle/clear-icon"] forState:UIControlStateNormal];
+    [clearButton setImage:[self clearButtonImage] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearContents) forControlEvents:UIControlEventTouchUpInside];
     clearButton.frame = CGRectMake(0, 0, 14, 14);
     [self.scrollView addSubview:clearButton];
@@ -83,6 +83,14 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.accessoryView = self.clearButton;
 
     [self repositionViews];
+}
+
+- (UIImage *)clearButtonImage {
+    NSURL *bundleURL = [[NSBundle bundleForClass:self.class] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+    NSString *imagePath = [bundle pathForResource:@"clear-icon" ofType:@"png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    return image;
 }
 
 - (void)clearContents {

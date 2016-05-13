@@ -41,7 +41,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.token = token;
-                
+        
         self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
         self.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.backgroundView.backgroundColor = token.backgroundColor ?: [UIColor clearColor];
@@ -50,7 +50,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
         
         self.deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.deleteButton.alpha = 0.0f;
-        [self.deleteButton setImage:[UIImage imageNamed:@"CLTokenInputView.bundle/delete-token.png"] forState:UIControlStateNormal];
+        [self.deleteButton setImage:[self deleteButtonImage] forState:UIControlStateNormal];
         [self.deleteButton addTarget:self action:@selector(deleteButtonTapped) forControlEvents:UIControlEventTouchUpInside];
         [self.deleteButton sizeToFit];
         [self.backgroundView addSubview:self.deleteButton];
@@ -65,20 +65,29 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
         self.imageView.image = token.image;
         self.imageView.contentMode = UIViewContentModeCenter;
         [self addSubview:self.imageView];
-
+        
         self.displayText = token.displayText;
         self.hideUnselectedComma = YES;
-
+        
         [self updateLabelAttributedText];
-
+        
         // Listen for taps
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
         [self addGestureRecognizer:tapRecognizer];
-
+        
         [self setNeedsLayout];
-
+        
     }
     return self;
+}
+
+
+- (UIImage *)deleteButtonImage {
+    NSURL *bundleURL = [[NSBundle bundleForClass:self.class] URLForResource:@"CLTokenInputView" withExtension:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
+    NSString *imagePath = [bundle pathForResource:@"delete-token" ofType:@"png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    return image;
 }
 
 - (void)deleteButtonTapped {
