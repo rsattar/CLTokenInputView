@@ -137,10 +137,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
 
     [self.tokens addObject:token];
-    CLTokenView *tokenView;
+    CLTokenView *tokenView = nil;
     if ([self.delegate respondsToSelector:@selector(tokenInputView:tokenViewForToken:)]) {
-        tokenView = [self.delegate tokenInputView:self tokenViewForToken:token] ?: [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+        tokenView = [self.delegate tokenInputView:self tokenViewForToken:token];
     }
+    tokenView = tokenView ?: [[CLTokenView alloc] initWithToken:token font:self.textField.font];
     tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
@@ -233,10 +234,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)replaceToken:(CLToken *)token withToken:(CLToken *)newToken {
     NSInteger index = [self.tokens indexOfObjectIdenticalTo:token];
     
-    CLTokenView *tokenView;
+    CLTokenView *tokenView = nil;
     if ([self.delegate respondsToSelector:@selector(tokenInputView:tokenViewForToken:)]) {
-        tokenView = [self.delegate tokenInputView:self tokenViewForToken:token] ?: [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+        tokenView = [self.delegate tokenInputView:self tokenViewForToken:token];
     }
+    tokenView = tokenView ?: [[CLTokenView alloc] initWithToken:token font:self.textField.font];
     tokenView.delegate = self;
     CGSize intrinsicSize = tokenView.intrinsicContentSize;
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
