@@ -270,10 +270,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return [self.tokens copy];
 }
 
-- (CLToken *)tokenizeTextfieldText
+- (CLToken *)tokenizeText:(NSString *)text
 {
     CLToken *token = nil;
-    NSString *text = self.textField.text;
     if (text.length > 0 &&
         [self.delegate respondsToSelector:@selector(tokenInputView:tokenForText:)]) {
         token = [self.delegate tokenInputView:self tokenForText:text];
@@ -284,6 +283,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         }
     }
     return token;
+}
+
+- (CLToken *)tokenizeTextfieldText
+{
+    return [self tokenizeText:self.textField.text];
 }
 
 - (CLTokenView *)tokenViewForToken:(CLToken *)token {
@@ -468,7 +472,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         shouldChangeCharactersInRange:(NSRange)range
                     replacementString:(NSString *)string
 {
-    if (string.length > 0 && [self.tokenizationCharacters member:string] && [self tokenizeTextfieldText]) {
+    if (string.length > 0 && [self.tokenizationCharacters member:string] && [self tokenizeText:[textField.text stringByReplacingCharactersInRange:range withString:string]]) {
         // Never allow the change if it matches at token
         return NO;
     }
