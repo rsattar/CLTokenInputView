@@ -99,6 +99,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     [self updatePlaceholderTextVisibility];
     [self updateClearButtonVisbility];
+    
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidClear:)]) {
+        [self.delegate tokenInputViewDidClear:self];
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame

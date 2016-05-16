@@ -57,6 +57,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)tokenInputView:(CLTokenInputView *)view didRemoveToken:(CLToken *)token;
 /**
+ * Called when the input view has been cleared (by tapping the cross)
+ */
+- (void)tokenInputViewDidClear:(CLTokenInputView *)view;
+/**
  * Called when a token is selected.
  */
 - (void)tokenInputView:(CLTokenInputView *)view didSelectToken:(CLToken *)token;
