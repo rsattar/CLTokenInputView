@@ -104,7 +104,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
         width += self.imageView.image.size.width + PADDING_IMAGE_RIGHT;
     }
     if (self.selected) {
-        width += self.deleteButton.frame.size.width + PADDING_X;
+        width += self.deleteButton.frame.size.width + (PADDING_X / 2);
     }
     
     return CGSizeMake(width, labelIntrinsicSize.height+(2.0*PADDING_Y));
@@ -119,7 +119,7 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
         width += self.imageView.image.size.width + PADDING_IMAGE_RIGHT;
     }
     if (self.selected) {
-        width += self.deleteButton.frame.size.width + PADDING_X;
+        width += self.deleteButton.frame.size.width + (PADDING_X / 2);
     }
     
     return CGSizeMake(width, labelSize.height+(2.0*PADDING_Y));
