@@ -164,16 +164,20 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
     [self setSelected:selected animated:NO];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [self setSelected:selected animated:animated updateFirstResponder:YES];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated updateFirstResponder:(BOOL)updateFirstResponder
 {
     if (_selected == selected) {
         return;
     }
     _selected = selected;
 
-    if (selected && !self.isFirstResponder) {
+    if (selected && !self.isFirstResponder && updateFirstResponder) {
         [self becomeFirstResponder];
-    } else if (!selected && self.isFirstResponder) {
+    } else if (!selected && self.isFirstResponder && updateFirstResponder) {
         [self resignFirstResponder];
     }
     
@@ -286,21 +290,5 @@ CGFloat const CLTokenViewEditAnimationDuration = 0.3;
 {
     return YES;
 }
-
-
--(BOOL)resignFirstResponder
-{
-    BOOL didResignFirstResponder = [super resignFirstResponder];
-    [self setSelected:NO animated:YES];
-    return didResignFirstResponder;
-}
-
--(BOOL)becomeFirstResponder
-{
-    BOOL didBecomeFirstResponder = [super becomeFirstResponder];
-    [self setSelected:YES animated:YES];
-    return didBecomeFirstResponder;
-}
-
 
 @end

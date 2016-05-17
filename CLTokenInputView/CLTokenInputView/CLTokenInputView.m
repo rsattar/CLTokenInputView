@@ -610,7 +610,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     for (CLToken *token in tokens) {
         CLTokenView *view = [self tokenViewForToken:token];
-        [view setSelected:YES animated:YES];
+        [view setSelected:YES animated:YES updateFirstResponder:NO];
     }
     
     if (tokens.count) {

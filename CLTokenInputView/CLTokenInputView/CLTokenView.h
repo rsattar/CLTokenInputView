@@ -40,7 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic, nullable) NSObject <CLTokenViewDelegate> *delegate;
 
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated updateFirstResponder:(BOOL)updateFirstResponder;
 
 @end
 
