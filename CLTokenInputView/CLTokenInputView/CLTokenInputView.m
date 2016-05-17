@@ -603,6 +603,25 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
 }
 
+- (void)selectTokens:(NSArray<CLToken *> *)tokens animated:(BOOL)animated {
+    for (CLTokenView *otherTokenView in self.tokenViews) {
+        [otherTokenView setSelected:NO animated:animated];
+    }
+    
+    for (CLToken *token in tokens) {
+        CLTokenView *view = [self tokenViewForToken:token];
+        [view setSelected:YES animated:YES];
+    }
+    
+    if (tokens.count) {
+        [self scrollTokenViewToVisible:[self tokenViewForToken:tokens.firstObject] animated:YES];
+    }
+    
+    [UIView animateWithDuration:animated ? CLTokenViewEditAnimationDuration : 0 animations:^{
+        [self repositionViews];
+    }];
+}
+
 - (void)unselectAllTokenViewsAnimated:(BOOL)animated
 {
     for (CLTokenView *tokenView in self.tokenViews) {

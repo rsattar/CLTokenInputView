@@ -121,6 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CLTokenView *)tokenViewForToken:(CLToken *)token;
 - (void)selectToken:(CLToken *)token animated:(BOOL)animated;
+- (void)selectTokens:(NSArray<CLToken *> *)tokens animated:(BOOL)animated;
 
 - (nullable CLToken *)tokenizeTextfieldText;
 
