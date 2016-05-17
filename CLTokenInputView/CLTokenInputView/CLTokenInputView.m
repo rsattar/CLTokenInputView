@@ -185,11 +185,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
     CLTokenView *tokenView = self.tokenViews[index];
     [self.tokenViews removeObjectAtIndex:index];
-    CLToken *removedToken = self.tokens[index];
     [self.tokens removeObjectAtIndex:index];
-    if ([self.delegate respondsToSelector:@selector(tokenInputView:didRemoveToken:)]) {
-        [self.delegate tokenInputView:self didRemoveToken:removedToken];
-    }
     [self updatePlaceholderTextVisibility];
     [self updateClearButtonVisbility];
     
@@ -556,7 +552,12 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (index == NSNotFound) {
         return;
     }
+    CLToken *removedToken = self.tokens[index];
     [self removeTokenAtIndex:index animated:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(tokenInputView:didRemoveToken:)]) {
+        [self.delegate tokenInputView:self didRemoveToken:removedToken];
+    }
 }
 
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView
