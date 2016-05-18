@@ -76,7 +76,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeCustom];
     clearButton.hidden = YES;
     [clearButton setImage:[self clearButtonImage] forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(clearContents) forControlEvents:UIControlEventTouchUpInside];
+    [clearButton addTarget:self action:@selector(clearButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     clearButton.frame = CGRectMake(0, 0, 14, 14);
     [self.scrollView addSubview:clearButton];
     self.clearButton = clearButton;
@@ -93,6 +93,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return image;
 }
 
+- (void)clearButtonTapped {
+    [self clearContents];
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidClear:)]) {
+        [self.delegate tokenInputViewDidClear:self];
+    }
+}
+
 - (void)clearContents {
     [self removeAllTokens:NO];
     self.textField.text = @"";
@@ -100,10 +107,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     [self updatePlaceholderTextVisibility];
     [self updateClearButtonVisbility];
     [self makeTextFieldVisible];
-    
-    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidClear:)]) {
-        [self.delegate tokenInputViewDidClear:self];
-    }
 }
 
 - (id)initWithFrame:(CGRect)frame
