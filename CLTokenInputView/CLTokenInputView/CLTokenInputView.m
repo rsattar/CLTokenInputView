@@ -99,6 +99,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     [self updatePlaceholderTextVisibility];
     [self updateClearButtonVisbility];
+    [self makeTextFieldVisible];
     
     if ([self.delegate respondsToSelector:@selector(tokenInputViewDidClear:)]) {
         [self.delegate tokenInputViewDidClear:self];
@@ -278,8 +279,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         token = [self.delegate tokenInputView:self tokenForText:text];
         if (token != nil) {
             [self addToken:token];
-            self.textField.text = @"";
-            [self onTextFieldDidChange:self.textField];
+            [self scrollTokenViewToVisible:[self tokenViewForToken:token] animated:YES];
         }
     }
     return token;
