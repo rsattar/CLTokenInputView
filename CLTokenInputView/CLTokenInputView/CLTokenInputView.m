@@ -41,9 +41,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
-    self.textField.keyboardType = UIKeyboardTypeEmailAddress;
     self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.textField.returnKeyType = UIReturnKeySearch
     self.textField.font = [UIFont systemFontOfSize:15.0f];
     self.textField.textColor = [UIColor colorWithRed:0.5569 green:0.5569 blue:0.5765 alpha:1.0];
     self.textField.delegate = self;
@@ -212,7 +212,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)removeAllTokens:(BOOL)animated {
     [self.tokenViews enumerateObjectsUsingBlock:^(CLTokenView * _Nonnull tokenView, NSUInteger idx, BOOL * _Nonnull stop) {
-        CLToken *removedToken = self.tokens[idx];
         if (animated) {
             [UIView animateWithDuration:CLTokenViewEditAnimationDuration animations:^{
                 tokenView.frame = ({
