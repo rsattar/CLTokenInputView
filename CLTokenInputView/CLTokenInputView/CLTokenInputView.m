@@ -213,9 +213,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)removeAllTokens:(BOOL)animated {
     [self.tokenViews enumerateObjectsUsingBlock:^(CLTokenView * _Nonnull tokenView, NSUInteger idx, BOOL * _Nonnull stop) {
         CLToken *removedToken = self.tokens[idx];
-        if ([self.delegate respondsToSelector:@selector(tokenInputView:didRemoveToken:)]) {
-            [self.delegate tokenInputView:self didRemoveToken:removedToken];
-        }
         if (animated) {
             [UIView animateWithDuration:CLTokenViewEditAnimationDuration animations:^{
                 tokenView.frame = ({
