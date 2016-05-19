@@ -24,33 +24,13 @@
 // Listen for the deleteBackward method from UIKeyInput protocol
 - (void)deleteBackward
 {
+    NSLog(@"Delete backward");
     if ([self.delegate respondsToSelector:@selector(textFieldDidDeleteBackwards:)]) {
         [self.delegate textFieldDidDeleteBackwards:self];
     }
     // Call super afterwards, so the -text property will return text
     // prior to the delete
     [super deleteBackward];
-}
-
-// On iOS 8.0, deleteBackward is not called anymore, so according to:
-// http://stackoverflow.com/a/25862878/9849
-// This method override should work
-- (BOOL)keyboardInputShouldDelete:(UITextField *)textField {
-    BOOL shouldDelete = YES;
-
-    if ([UITextField instancesRespondToSelector:_cmd]) {
-        BOOL (*keyboardInputShouldDelete)(id, SEL, UITextField *) = (BOOL (*)(id, SEL, UITextField *))[UITextField instanceMethodForSelector:_cmd];
-
-        if (keyboardInputShouldDelete) {
-            shouldDelete = keyboardInputShouldDelete(self, _cmd, textField);
-        }
-    }
-
-    if (![textField.text length] && [[[UIDevice currentDevice] systemVersion] intValue] >= 8) {
-        [self deleteBackward];
-    }
-
-    return shouldDelete;
 }
 
 // Override the delegate to ensure our own delegate subclass gets set
