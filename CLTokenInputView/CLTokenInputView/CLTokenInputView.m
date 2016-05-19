@@ -290,7 +290,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 - (CLTokenView *)tokenViewForToken:(CLToken *)token {
-    return self.tokenViews[[self.tokens indexOfObjectIdenticalTo:token]];
+    return self.tokenViews[[self.tokens indexOfObject:token]];
 }
 
 #pragma mark - Updating/Repositioning Views
