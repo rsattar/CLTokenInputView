@@ -433,7 +433,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         if (text.length == 0) {
             CLTokenView *tokenView = self.tokenViews.lastObject;
             if (tokenView) {
+                CLToken *removedToken = self.tokens.lastObject;
                 [self removeTokenAtIndex:self.tokenViews.count - 1 animated:YES];
+                if ([self.delegate respondsToSelector:@selector(tokenInputView:didRemoveToken:)]) {
+                    [self.delegate tokenInputView:self didRemoveToken:removedToken];
+                }
             }
         }
     });
