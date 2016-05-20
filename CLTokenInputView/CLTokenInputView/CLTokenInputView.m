@@ -728,6 +728,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
     if (_accessoryView != nil) {
         [self.scrollView addSubview:_accessoryView];
+    } else {
+        // Reset to clear button
+        self.accessoryView = self.clearButton;
+        return;
     }
     [self repositionViews];
 }
