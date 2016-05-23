@@ -12,7 +12,7 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 4.0;
-static CGFloat const TEXT_FIELD_WIDTH_PADDING = 25.0;
+static CGFloat const TEXT_FIELD_WIDTH_PADDING = 50.0;
 static CGFloat const PADDING_LEFT = 5.0;
 static CGFloat const PADDING_RIGHT = 8.0;
 static CGFloat const STANDARD_HEIGHT = 30.0;
