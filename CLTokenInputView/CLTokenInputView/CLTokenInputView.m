@@ -629,8 +629,16 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)unselectAllTokenViewsAnimated:(BOOL)animated
 {
+    BOOL tokenWasFirstResponder = NO;
     for (CLTokenView *tokenView in self.tokenViews) {
+        tokenWasFirstResponder |= tokenView.isFirstResponder;
         [tokenView setSelected:NO animated:animated];
+    }
+    
+    if (tokenWasFirstResponder) {
+        if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]) {
+            [self.delegate tokenInputViewDidEndEditing:self];
+        }
     }
     
     [UIView animateWithDuration:animated ? CLTokenViewEditAnimationDuration : 0 animations:^{
@@ -664,7 +672,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     [self.textField resignFirstResponder];
     [self unselectAllTokenViewsAnimated:YES];
 }
-
 
 #pragma mark - (Optional Views)
 
