@@ -452,6 +452,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         [self.delegate tokenInputViewDidBeginEditing:self];
     }
     [self unselectAllTokenViewsAnimated:YES];
+    [self makeTextFieldVisible];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -634,7 +635,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     
     [UIView animateWithDuration:animated ? CLTokenViewEditAnimationDuration : 0 animations:^{
         [self repositionViews];
-        [self makeTextFieldVisible];
     }];
 }
 
