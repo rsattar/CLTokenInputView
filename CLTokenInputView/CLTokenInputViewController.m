@@ -47,7 +47,7 @@
         self.tokenInputTopSpace.constant = 0.0;
     }
     self.tokenInputView.placeholderText = @"Enter a name";
-    
+    self.tokenInputView.accessoryView = [self contactAddButton];
     self.secondTokenInputView.fieldName = NSLocalizedString(@"Cc:", nil);
     self.secondTokenInputView.drawBottomBorder = YES;
     self.secondTokenInputView.delegate = self;

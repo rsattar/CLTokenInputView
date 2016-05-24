@@ -421,7 +421,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    //[self repositionViews];
+    
+    if (!self.scrollView.dragging && !self.scrollView.decelerating) {
+        [self repositionViews];
+    }
 }
 
 #pragma mark - Scroll view delegate
