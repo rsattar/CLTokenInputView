@@ -18,7 +18,10 @@ static CGFloat const PADDING_RIGHT = 8.0;
 static CGFloat const STANDARD_HEIGHT = 30.0;
 static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
 
-@interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
+@interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate, UIScrollViewDelegate>
+{
+    BOOL _didDeleteText;
+}
 
 @property (strong, nonatomic) CL_GENERIC_MUTABLE_ARRAY(CLToken *) *tokens;
 @property (strong, nonatomic) CL_GENERIC_MUTABLE_ARRAY(CLTokenView *) *tokenViews;
@@ -70,6 +73,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.clipsToBounds = NO;
+    self.scrollView.delegate = self;
     [self addSubview:self.scrollView];
     [self.scrollView addSubview:self.textField];
     
@@ -417,9 +421,33 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self repositionViews];
+    //[self repositionViews];
 }
 
+#pragma mark - Scroll view delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!self.accessoryView) {
+        return;
+    }
+    
+    if (scrollView.contentOffset.x > ceilf(scrollView.contentSize.width) - scrollView.frame.size.width) {
+        if (self.accessoryView.superview != self) {
+            CGRect frame = self.accessoryView.frame;
+            frame.origin.x = CGRectGetWidth(self.bounds) - PADDING_RIGHT - CGRectGetWidth(frame);
+            self.accessoryView.frame = frame;
+            [self.accessoryView removeFromSuperview];
+            [self addSubview:self.accessoryView];
+        }
+    } else {
+        if (self.accessoryView.superview != self.scrollView) {
+            CGRect frame = [self.accessoryView.superview convertRect:self.accessoryView.frame toView:self.scrollView];
+            self.accessoryView.frame = frame;
+            [self.accessoryView removeFromSuperview];
+            [self.scrollView addSubview:self.accessoryView];
+        }
+    }
+}
 
 #pragma mark - CLBackspaceDetectingTextFieldDelegate
 
@@ -428,18 +456,19 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Delay deleting the next token slightly, so that on iOS 8
     // the deleteBackward on CLTokenView is not called immediately,
     // causing a double-delete
-    NSString *text = textField.text;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (text.length == 0) {
+        // Delete right-most token if at the start of the text field and we haven't just removed the first char
+        if ([textField offsetFromPosition:textField.beginningOfDocument toPosition:textField.selectedTextRange.start] == 0 && !_didDeleteText) {
             CLTokenView *tokenView = self.tokenViews.lastObject;
             if (tokenView) {
                 CLToken *removedToken = self.tokens.lastObject;
-                [self removeTokenAtIndex:self.tokenViews.count - 1 animated:YES];
+                [self removeTokenAtIndex:self.tokenViews.count - 1 animated:NO];
                 if ([self.delegate respondsToSelector:@selector(tokenInputView:didRemoveToken:)]) {
                     [self.delegate tokenInputView:self didRemoveToken:removedToken];
                 }
             }
         }
+        _didDeleteText = NO;
     });
 }
 
@@ -484,6 +513,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (string.length > 0 && [self.tokenizationCharacters member:string] && [self tokenizeText:[textField.text stringByReplacingCharactersInRange:range withString:string]]) {
         // Never allow the change if it matches at token
         return NO;
+    }
+    if (range.length && !string.length) {
+        _didDeleteText = YES;
     }
     return YES;
 }
