@@ -81,7 +81,8 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     clearButton.hidden = YES;
     [clearButton setImage:[self clearButtonImage] forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    clearButton.frame = CGRectMake(0, 0, 14, 14);
+    clearButton.frame = CGRectMake(0, 0, 26, STANDARD_HEIGHT);
+    [clearButton setImageEdgeInsets:UIEdgeInsetsMake(8, 12, 8, 0)];
     [self.scrollView addSubview:clearButton];
     self.clearButton = clearButton;
     self.accessoryView = self.clearButton;
