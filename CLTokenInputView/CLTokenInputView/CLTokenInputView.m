@@ -243,7 +243,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         }
 
         tokenRect.origin.x = curX;
-        // Center our tokenView vertially within STANDARD_ROW_HEIGHT
+        // Center our tokenView vertically within STANDARD_ROW_HEIGHT
         tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/2.0);
         tokenView.frame = tokenRect;
 
