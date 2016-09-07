@@ -98,8 +98,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, nonatomic) CL_GENERIC_ARRAY(CLToken *) *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
-@property (copy, nonatomic) CGFloat textFieldDisplayOffset;
-@property (readonly, nonatomic, nullable) NSString *text;
+@property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
+@property (copy, nonatomic, nullable) NSString *text;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
