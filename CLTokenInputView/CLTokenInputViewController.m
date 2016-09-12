@@ -10,6 +10,31 @@
 
 #import "CLToken.h"
 
+UIColor *randomColor() {
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+}
+
+@interface CLTokenData : NSObject
+
+@property (nonatomic, nonnull) NSString *name;
+@property (nonatomic, nullable) UIColor *color;
+
+@end
+
+@implementation CLTokenData
+
++ (instancetype)tokenWithName:(NSString *)name color:(UIColor *)color {
+    CLTokenData *token = [self new];
+    token.name = name;
+    token.color = color;
+    return token;
+}
+
+@end
+
 @interface CLTokenInputViewController ()
 
 @property (strong, nonatomic) NSArray *names;
@@ -27,11 +52,13 @@
     if (self) {
         // Custom initialization
         self.navigationItem.title = @"Token Input Test";
-        self.names = @[@"Brenden Mulligan",
-                       @"Cluster Labs, Inc.",
-                       @"Pat Fives",
-                       @"Rizwan Sattar",
-                       @"Taylor Hughes"];
+        self.names = @[
+					   [CLTokenData tokenWithName:@"Brenden Mulligan" color:randomColor()],
+					   [CLTokenData tokenWithName:@"Cluster Labs, Inc." color:randomColor()],
+					   [CLTokenData tokenWithName:@"Pat Fives" color:randomColor()],
+					   [CLTokenData tokenWithName:@"Rizwan Sattar" color:randomColor()],
+					   [CLTokenData tokenWithName:@"Taylor Hughes" color:randomColor()],
+					   ];
         self.filteredNames = nil;
         self.selectedNames = [NSMutableArray arrayWithCapacity:self.names.count];
 
@@ -83,8 +110,9 @@
         self.filteredNames = nil;
         self.tableView.hidden = YES;
     } else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[cd] %@", text];
-        self.filteredNames = [self.names filteredArrayUsingPredicate:predicate];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.name contains[cd] %@", text];
+		NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+        self.filteredNames = [[self.names filteredArrayUsingPredicate:predicate] sortedArrayUsingDescriptors:@[sortDescriptor]];
         self.tableView.hidden = NO;
     }
     [self.tableView reloadData];
@@ -105,8 +133,11 @@
 - (CLToken *)tokenInputView:(CLTokenInputView *)view tokenForText:(NSString *)text
 {
     if (self.filteredNames.count > 0) {
-        NSString *matchingName = self.filteredNames[0];
-        CLToken *match = [[CLToken alloc] initWithDisplayText:matchingName context:nil];
+        CLTokenData *matchingData = self.filteredNames[0];
+        CLToken *match = [[CLToken alloc] initWithDisplayText:matchingData.name context:matchingData];
+        if (matchingData.color) {
+            match.color = matchingData.color;
+        }
         return match;
     }
     // TODO: Perhaps if the text is a valid phone number, or email address, create a token
@@ -142,9 +173,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    NSString *name = self.filteredNames[indexPath.row];
-    cell.textLabel.text = name;
-    if ([self.selectedNames containsObject:name]) {
+    CLTokenData *nameData = self.filteredNames[indexPath.row];
+    cell.textLabel.text = nameData.name;
+	cell.textLabel.textColor = nameData.color ?: [UIColor blackColor];
+    if ([self.selectedNames containsObject:nameData.name]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -159,8 +191,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-    NSString *name = self.filteredNames[indexPath.row];
-    CLToken *token = [[CLToken alloc] initWithDisplayText:name context:nil];
+    CLTokenData *nameData = self.filteredNames[indexPath.row];
+    CLToken *token = [[CLToken alloc] initWithDisplayText:nameData.name	context:nameData];
+	if (nameData.color) {
+		token.color = nameData.color;
+	}
     if (self.tokenInputView.isEditing) {
         [self.tokenInputView addToken:token];
     }

@@ -18,6 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** The text to display in the token view */
 @property (copy, nonatomic) NSString *displayText;
+
+/** The custom tint color for this token */
+@property (nonatomic, nullable) UIColor *color;
+
 /** Used for storing anything that would be useful later on */
 @property (strong, nonatomic, nullable) NSObject *context;
 
