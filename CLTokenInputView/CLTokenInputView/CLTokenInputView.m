@@ -93,6 +93,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return CGSizeMake(UIViewNoIntrinsicMetric, MAX(45, self.intrinsicContentHeight));
 }
 
+#pragma mark - Allow becoming first responder
+
+- (BOOL)becomeFirstResponder {
+	return [self.textField becomeFirstResponder];
+}
 
 #pragma mark - Tint color
 
