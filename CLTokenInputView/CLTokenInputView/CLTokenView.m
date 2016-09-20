@@ -35,7 +35,8 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
+		self.overridesTintColor = (token.color != nil);
+		UIColor *tintColor = token.color ?: [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
         if ([self respondsToSelector:@selector(tintColor)]) {
             tintColor = self.tintColor;
         }
