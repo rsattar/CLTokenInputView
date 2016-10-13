@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		498307481CDAA5E1007A0877 /* CLTokenInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 498307471CDAA5E1007A0877 /* CLTokenInput.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4983074F1CDAA5E2007A0877 /* CLTokenInput.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 498307451CDAA5E1007A0877 /* CLTokenInput.framework */; };
+		498307541CDAA5E2007A0877 /* CLTokenInputTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 498307531CDAA5E2007A0877 /* CLTokenInputTests.m */; };
+		4983075C1CDAA605007A0877 /* CLTokenInputView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B16BAD18BC17D2003AA819 /* CLTokenInputView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4983075D1CDAA605007A0877 /* CLTokenView.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B16BB118BC17EC003AA819 /* CLTokenView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4983075E1CDAA605007A0877 /* CLBackspaceDetectingTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */; };
+		4983075F1CDAA605007A0877 /* CLToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 65B16BC018BC26C9003AA819 /* CLToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		498307601CDAA6DF007A0877 /* CLTokenInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */; };
+		498307611CDAA6DF007A0877 /* CLTokenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BB218BC17EC003AA819 /* CLTokenView.m */; };
+		498307621CDAA6DF007A0877 /* CLBackspaceDetectingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */; };
+		498307631CDAA6DF007A0877 /* CLToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B16BC118BC26C9003AA819 /* CLToken.m */; };
 		65B16B7E18BC16F6003AA819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B7D18BC16F6003AA819 /* Foundation.framework */; };
 		65B16B8018BC16F6003AA819 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B7F18BC16F6003AA819 /* CoreGraphics.framework */; };
 		65B16B8218BC16F6003AA819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B8118BC16F6003AA819 /* UIKit.framework */; };
@@ -35,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		498307501CDAA5E2007A0877 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65B16B7218BC16F6003AA819 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 498307441CDAA5E1007A0877;
+			remoteInfo = CLTokenInput;
+		};
 		65B16B9A18BC16F7003AA819 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 65B16B7218BC16F6003AA819 /* Project object */;
@@ -45,6 +63,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		498307451CDAA5E1007A0877 /* CLTokenInput.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CLTokenInput.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		498307471CDAA5E1007A0877 /* CLTokenInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLTokenInput.h; sourceTree = "<group>"; };
+		498307491CDAA5E1007A0877 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4983074E1CDAA5E2007A0877 /* CLTokenInputTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CLTokenInputTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		498307531CDAA5E2007A0877 /* CLTokenInputTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLTokenInputTests.m; sourceTree = "<group>"; };
+		498307551CDAA5E2007A0877 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65B16B7A18BC16F6003AA819 /* CLTokenInputView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CLTokenInputView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B16B7D18BC16F6003AA819 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B16B7F18BC16F6003AA819 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -76,6 +100,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		498307411CDAA5E1007A0877 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4983074B1CDAA5E2007A0877 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4983074F1CDAA5E2007A0877 /* CLTokenInput.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B16B7718BC16F6003AA819 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,11 +138,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		498307461CDAA5E1007A0877 /* CLTokenInput */ = {
+			isa = PBXGroup;
+			children = (
+				498307471CDAA5E1007A0877 /* CLTokenInput.h */,
+				498307491CDAA5E1007A0877 /* Info.plist */,
+			);
+			path = CLTokenInput;
+			sourceTree = "<group>";
+		};
+		498307521CDAA5E2007A0877 /* CLTokenInputTests */ = {
+			isa = PBXGroup;
+			children = (
+				498307531CDAA5E2007A0877 /* CLTokenInputTests.m */,
+				498307551CDAA5E2007A0877 /* Info.plist */,
+			);
+			path = CLTokenInputTests;
+			sourceTree = "<group>";
+		};
 		65B16B7118BC16F6003AA819 = {
 			isa = PBXGroup;
 			children = (
 				65B16B8318BC16F6003AA819 /* CLTokenInputView */,
 				65B16B9C18BC16F7003AA819 /* CLTokenInputViewTests */,
+				498307461CDAA5E1007A0877 /* CLTokenInput */,
+				498307521CDAA5E2007A0877 /* CLTokenInputTests */,
 				65B16B7C18BC16F6003AA819 /* Frameworks */,
 				65B16B7B18BC16F6003AA819 /* Products */,
 			);
@@ -114,6 +173,8 @@
 			children = (
 				65B16B7A18BC16F6003AA819 /* CLTokenInputView.app */,
 				65B16B9518BC16F7003AA819 /* CLTokenInputViewTests.xctest */,
+				498307451CDAA5E1007A0877 /* CLTokenInput.framework */,
+				4983074E1CDAA5E2007A0877 /* CLTokenInputTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,7 +252,58 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		498307421CDAA5E1007A0877 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				498307481CDAA5E1007A0877 /* CLTokenInput.h in Headers */,
+				4983075C1CDAA605007A0877 /* CLTokenInputView.h in Headers */,
+				4983075D1CDAA605007A0877 /* CLTokenView.h in Headers */,
+				4983075F1CDAA605007A0877 /* CLToken.h in Headers */,
+				4983075E1CDAA605007A0877 /* CLBackspaceDetectingTextField.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		498307441CDAA5E1007A0877 /* CLTokenInput */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4983075A1CDAA5E2007A0877 /* Build configuration list for PBXNativeTarget "CLTokenInput" */;
+			buildPhases = (
+				498307401CDAA5E1007A0877 /* Sources */,
+				498307411CDAA5E1007A0877 /* Frameworks */,
+				498307421CDAA5E1007A0877 /* Headers */,
+				498307431CDAA5E1007A0877 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CLTokenInput;
+			productName = CLTokenInput;
+			productReference = 498307451CDAA5E1007A0877 /* CLTokenInput.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4983074D1CDAA5E2007A0877 /* CLTokenInputTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4983075B1CDAA5E2007A0877 /* Build configuration list for PBXNativeTarget "CLTokenInputTests" */;
+			buildPhases = (
+				4983074A1CDAA5E2007A0877 /* Sources */,
+				4983074B1CDAA5E2007A0877 /* Frameworks */,
+				4983074C1CDAA5E2007A0877 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				498307511CDAA5E2007A0877 /* PBXTargetDependency */,
+			);
+			name = CLTokenInputTests;
+			productName = CLTokenInputTests;
+			productReference = 4983074E1CDAA5E2007A0877 /* CLTokenInputTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		65B16B7918BC16F6003AA819 /* CLTokenInputView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65B16BA618BC16F7003AA819 /* Build configuration list for PBXNativeTarget "CLTokenInputView" */;
@@ -237,6 +349,12 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Cluster Labs, Inc.";
 				TargetAttributes = {
+					498307441CDAA5E1007A0877 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					4983074D1CDAA5E2007A0877 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					65B16B9418BC16F7003AA819 = {
 						TestTargetID = 65B16B7918BC16F6003AA819;
 					};
@@ -256,11 +374,27 @@
 			targets = (
 				65B16B7918BC16F6003AA819 /* CLTokenInputView */,
 				65B16B9418BC16F7003AA819 /* CLTokenInputViewTests */,
+				498307441CDAA5E1007A0877 /* CLTokenInput */,
+				4983074D1CDAA5E2007A0877 /* CLTokenInputTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		498307431CDAA5E1007A0877 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4983074C1CDAA5E2007A0877 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B16B7818BC16F6003AA819 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +418,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		498307401CDAA5E1007A0877 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				498307601CDAA6DF007A0877 /* CLTokenInputView.m in Sources */,
+				498307611CDAA6DF007A0877 /* CLTokenView.m in Sources */,
+				498307621CDAA6DF007A0877 /* CLBackspaceDetectingTextField.m in Sources */,
+				498307631CDAA6DF007A0877 /* CLToken.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4983074A1CDAA5E2007A0877 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				498307541CDAA5E2007A0877 /* CLTokenInputTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65B16B7618BC16F6003AA819 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -314,6 +467,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		498307511CDAA5E2007A0877 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 498307441CDAA5E1007A0877 /* CLTokenInput */;
+			targetProxy = 498307501CDAA5E2007A0877 /* PBXContainerItemProxy */;
+		};
 		65B16B9B18BC16F7003AA819 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 65B16B7918BC16F6003AA819 /* CLTokenInputView */;
@@ -341,6 +499,116 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		498307561CDAA5E2007A0877 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = CLTokenInput/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getcluster.CLTokenInput;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		498307571CDAA5E2007A0877 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = CLTokenInput/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getcluster.CLTokenInput;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		498307581CDAA5E2007A0877 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = CLTokenInputTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getcluster.CLTokenInputTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		498307591CDAA5E2007A0877 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = CLTokenInputTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.getcluster.CLTokenInputTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		65B16BA418BC16F7003AA819 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -487,6 +755,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4983075A1CDAA5E2007A0877 /* Build configuration list for PBXNativeTarget "CLTokenInput" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498307561CDAA5E2007A0877 /* Debug */,
+				498307571CDAA5E2007A0877 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4983075B1CDAA5E2007A0877 /* Build configuration list for PBXNativeTarget "CLTokenInputTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				498307581CDAA5E2007A0877 /* Debug */,
+				498307591CDAA5E2007A0877 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		65B16B7518BC16F6003AA819 /* Build configuration list for PBXProject "CLTokenInputView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

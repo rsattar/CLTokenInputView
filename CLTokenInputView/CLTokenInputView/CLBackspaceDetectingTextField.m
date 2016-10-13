@@ -24,8 +24,9 @@
 // Listen for the deleteBackward method from UIKeyInput protocol
 - (void)deleteBackward
 {
-    if ([self.delegate respondsToSelector:@selector(textFieldDidDeleteBackwards:)]) {
-        [self.delegate textFieldDidDeleteBackwards:self];
+    NSObject <CLBackspaceDetectingTextFieldDelegate> *strongDelegate = self.delegate;
+    if ([strongDelegate respondsToSelector:@selector(textFieldDidDeleteBackwards:)]) {
+        [strongDelegate textFieldDidDeleteBackwards:self];
     }
     // Call super afterwards, so the -text property will return text
     // prior to the delete
