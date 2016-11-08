@@ -46,10 +46,6 @@
         }
     }
 
-    if (![textField.text length] && [[[UIDevice currentDevice] systemVersion] intValue] >= 8) {
-        [self deleteBackward];
-    }
-
     return shouldDelete;
 }
 
