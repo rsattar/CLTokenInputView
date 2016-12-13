@@ -35,7 +35,8 @@ static CGFloat const HSPACE = 0.0;
     _standardRowHeight = 25.0;
     _textFieldHSpace = 4.0;
     _linePadding = 4.0;
-    _minimumTextFieldWidth = 56.0
+    _minimumTextFieldWidth = 56.0;
+    _tokenPadding = UIEdgeInsetsMake(2.0, 4.0, 2.0, 4.0);
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -110,6 +111,7 @@ static CGFloat const HSPACE = 0.0;
 
     [self.tokens addObject:token];
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+    tokenView.padding = _tokenPadding;
     if ([self respondsToSelector:@selector(tintColor)]) {
         tokenView.tintColor = self.tintColor;
     }

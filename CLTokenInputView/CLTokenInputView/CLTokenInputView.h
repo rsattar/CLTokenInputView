@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UIKeyboardAppearance keyboardAppearance;
 @property (assign, nonatomic) IBInspectable UIEdgeInsets padding;
 @property (assign, nonatomic) IBInspectable UIEdgeInsets fieldPadding;
+@property (assign, nonatomic) IBInspectable UIEdgeInsets tokenPadding;
 @property (assign, nonatomic) IBInspectable CGFloat standardRowHeight;
 @property (assign, nonatomic) IBInspectable CGFloat textFieldHSpace;
 @property (assign, nonatomic) IBInspectable CGFloat linePadding;
