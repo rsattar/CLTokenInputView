@@ -17,8 +17,6 @@ static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
-static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
-
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
 @property (strong, nonatomic) CL_GENERIC_MUTABLE_ARRAY(CLToken *) *tokens;
@@ -37,6 +35,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)commonInit
 {
     self.padding = UIEdgeInsetsMake(10.0, 8.0, 10.0, 16.0);
+    self.fieldPadding = UIEdgeInsetsMake(0.0, 4.0, 0.0, 4.0);
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -196,11 +195,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Position field view (if set)
     if (self.fieldView) {
         CGRect fieldViewRect = self.fieldView.frame;
-        fieldViewRect.origin.x = curX + FIELD_MARGIN_X;
+        fieldViewRect.origin.x = curX + self.fieldPadding.left;
         fieldViewRect.origin.y = curY + ((STANDARD_ROW_HEIGHT - CGRectGetHeight(fieldViewRect))/2.0);
         self.fieldView.frame = fieldViewRect;
 
-        curX = CGRectGetMaxX(fieldViewRect) + FIELD_MARGIN_X;
+        curX = CGRectGetMaxX(fieldViewRect) + self.fieldPadding.right;
     }
 
     // Position field label (if field name is set)
@@ -208,11 +207,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         CGSize labelSize = self.fieldLabel.intrinsicContentSize;
         CGRect fieldLabelRect = CGRectZero;
         fieldLabelRect.size = labelSize;
-        fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
+        fieldLabelRect.origin.x = curX + self.fieldPadding.left;
         fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
         self.fieldLabel.frame = fieldLabelRect;
 
-        curX = CGRectGetMaxX(fieldLabelRect) + FIELD_MARGIN_X;
+        curX = CGRectGetMaxX(fieldLabelRect) + self.fieldPadding.right;
     }
 
     // Position accessory view (if set)
