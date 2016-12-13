@@ -12,7 +12,6 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
-static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
 
@@ -36,6 +35,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     _standardRowHeight = 25.0;
     _textFieldHSpace = 4.0;
     _linePadding = 4.0;
+    _minimumTextFieldWidth = 56.0
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -250,7 +250,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     curX += self.textFieldHSpace;
     CGFloat textBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
     CGFloat availableWidthForTextField = textBoundary - curX;
-    if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
+    if (availableWidthForTextField < self.minimumTextFieldWidth) {
         isOnFirstLine = NO;
         // If in the future we add more UI elements below the tokens,
         // isOnFirstLine will be useful, and this calculation is important.
@@ -532,6 +532,15 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         return;
     }
     _linePadding = linePadding;
+    [self repositionViews];
+}
+
+- (void) setMinimumTextFieldWidth:(CGFloat)minimumTextFieldWidth
+{
+    if (_minimumTextFieldWidth == minimumTextFieldWidth) {
+        return;
+    }
+    _minimumTextFieldWidth = minimumTextFieldWidth;
     [self repositionViews];
 }
 
