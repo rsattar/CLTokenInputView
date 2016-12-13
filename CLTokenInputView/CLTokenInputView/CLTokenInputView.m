@@ -86,7 +86,7 @@ static CGFloat const HSPACE = 0.0;
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(45, self.intrinsicContentHeight));
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.intrinsicContentHeight);
 }
 
 
