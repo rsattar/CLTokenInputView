@@ -15,10 +15,6 @@ static CGFloat const HSPACE = 0.0;
 static CGFloat const TEXT_FIELD_HSPACE = 4.0; // Note: Same as CLTokenView.PADDING_X
 static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
-static CGFloat const PADDING_TOP = 10.0;
-static CGFloat const PADDING_BOTTOM = 10.0;
-static CGFloat const PADDING_LEFT = 8.0;
-static CGFloat const PADDING_RIGHT = 16.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
 static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
@@ -40,6 +36,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)commonInit
 {
+    self.padding = UIEdgeInsetsMake(10.0, 8.0, 10.0, 16.0);
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -188,11 +185,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)repositionViews
 {
     CGRect bounds = self.bounds;
-    CGFloat rightBoundary = CGRectGetWidth(bounds) - PADDING_RIGHT;
+    CGFloat rightBoundary = CGRectGetWidth(bounds) - self.padding.right;
     CGFloat firstLineRightBoundary = rightBoundary;
 
-    CGFloat curX = PADDING_LEFT;
-    CGFloat curY = PADDING_TOP;
+    CGFloat curX = self.padding.left;
+    CGFloat curY = self.padding.top;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
     BOOL isOnFirstLine = YES;
 
@@ -221,7 +218,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Position accessory view (if set)
     if (self.accessoryView) {
         CGRect accessoryRect = self.accessoryView.frame;
-        accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
+        accessoryRect.origin.x = CGRectGetWidth(bounds) - self.padding.right - CGRectGetWidth(accessoryRect);
         accessoryRect.origin.y = curY;
         self.accessoryView.frame = accessoryRect;
 
@@ -236,7 +233,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         CGFloat tokenBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
         if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
             // Need a new line
-            curX = PADDING_LEFT;
+            curX = self.padding.left;
             curY += STANDARD_ROW_HEIGHT+VSPACE;
             totalHeight += STANDARD_ROW_HEIGHT;
             isOnFirstLine = NO;
@@ -260,7 +257,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         // isOnFirstLine will be useful, and this calculation is important.
         // So leaving it set here, and marking the warning to ignore it
 #pragma unused(isOnFirstLine)
-        curX = PADDING_LEFT + TEXT_FIELD_HSPACE;
+        curX = self.padding.left + TEXT_FIELD_HSPACE;
         curY += STANDARD_ROW_HEIGHT+VSPACE;
         totalHeight += STANDARD_ROW_HEIGHT;
         // Adjust the width
@@ -275,7 +272,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.textField.frame = textFieldRect;
 
     CGFloat oldContentHeight = self.intrinsicContentHeight;
-    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM);
+    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+self.padding.bottom);
     [self invalidateIntrinsicContentSize];
 
     if (oldContentHeight != self.intrinsicContentHeight) {
@@ -405,8 +402,8 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (CGFloat)textFieldDisplayOffset
 {
-    // Essentially the textfield's y with PADDING_TOP
-    return CGRectGetMinY(self.textField.frame) - PADDING_TOP;
+    // Essentially the textfield's y with self.padding.top
+    return CGRectGetMinY(self.textField.frame) - self.padding.top;
 }
 
 
@@ -493,6 +490,15 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 
 #pragma mark - (Optional Views)
+
+- (void)setPadding:(UIEdgeInsets)padding
+{
+    if (UIEdgeInsetsEqualToEdgeInsets(_padding, padding)) {
+        return;
+    }
+    _padding = padding;
+    [self repositionViews];
+}
 
 - (void)setFieldName:(NSString *)fieldName
 {
