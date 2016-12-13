@@ -599,9 +599,9 @@ static CGFloat const HSPACE = 0.0;
     self.textField.defaultTextAttributes = defaultTextAttributes;
 }
 
-- (void)setAttributedPlaceholderText:(NSAttributedString *)attributedPlaceholderText
+- (void)setAttributedPlaceholder:(NSAttributedString *)attributedPlaceholder
 {
-    self.textField.attributedPlaceholder = attributedPlaceholderText;
+    self.textField.attributedPlaceholder = attributedPlaceholder;
 }
 
 - (void)setFieldColor:(UIColor *)fieldColor {
