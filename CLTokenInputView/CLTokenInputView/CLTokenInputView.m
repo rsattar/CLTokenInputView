@@ -12,7 +12,6 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
-static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
 @interface CLTokenInputView () <CLBackspaceDetectingTextFieldDelegate, CLTokenViewDelegate>
@@ -36,6 +35,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     _fieldPadding = UIEdgeInsetsMake(0.0, 4.0, 0.0, 4.0);
     _standardRowHeight = 25.0;
     _textFieldHSpace = 4.0;
+    _linePadding = 4.0;
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -233,7 +233,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
             // Need a new line
             curX = self.padding.left;
-            curY += self.standardRowHeight+VSPACE;
+            curY += self.standardRowHeight+self.linePadding;
             totalHeight += self.standardRowHeight;
             isOnFirstLine = NO;
         }
@@ -257,7 +257,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         // So leaving it set here, and marking the warning to ignore it
 #pragma unused(isOnFirstLine)
         curX = self.padding.left + self.textFieldHSpace;
-        curY += self.standardRowHeight+VSPACE;
+        curY += self.standardRowHeight+self.linePadding;
         totalHeight += self.standardRowHeight;
         // Adjust the width
         availableWidthForTextField = rightBoundary - curX;
@@ -523,6 +523,15 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         return;
     }
     _textFieldHSpace = textFieldHSpace;
+    [self repositionViews];
+}
+
+- (void)setLinePadding:(CGFloat)linePadding
+{
+    if (_linePadding == linePadding) {
+        return;
+    }
+    _linePadding = linePadding;
     [self repositionViews];
 }
 

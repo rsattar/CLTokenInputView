@@ -90,6 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UIEdgeInsets fieldPadding;
 @property (assign, nonatomic) IBInspectable CGFloat standardRowHeight;
 @property (assign, nonatomic) IBInspectable CGFloat textFieldHSpace;
+@property (assign, nonatomic) IBInspectable CGFloat linePadding;
 /** 
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`
