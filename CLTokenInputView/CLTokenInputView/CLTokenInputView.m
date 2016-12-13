@@ -499,7 +499,7 @@ static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
     [self repositionViews];
 }
 
-- (void)fieldPadding:(UIEdgeInsets)fieldPadding
+- (void)setFieldPadding:(UIEdgeInsets)fieldPadding
 {
     if (UIEdgeInsetsEqualToEdgeInsets(_fieldPadding, fieldPadding)) {
         return;
