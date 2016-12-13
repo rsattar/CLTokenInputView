@@ -12,7 +12,6 @@
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
-static CGFloat const TEXT_FIELD_HSPACE = 4.0; // Note: Same as CLTokenView.PADDING_X
 static CGFloat const VSPACE = 4.0;
 static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
@@ -33,9 +32,10 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 
 - (void)commonInit
 {
-    self.padding = UIEdgeInsetsMake(10.0, 8.0, 10.0, 16.0);
-    self.fieldPadding = UIEdgeInsetsMake(0.0, 4.0, 0.0, 4.0);
-    self.standardRowHeight = 25.0;
+    _padding = UIEdgeInsetsMake(10.0, 8.0, 10.0, 16.0);
+    _fieldPadding = UIEdgeInsetsMake(0.0, 4.0, 0.0, 4.0);
+    _standardRowHeight = 25.0;
+    _textFieldHSpace = 4.0;
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -247,7 +247,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
     }
 
     // Always indent textfield by a little bit
-    curX += TEXT_FIELD_HSPACE;
+    curX += self.textFieldHSpace;
     CGFloat textBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
     CGFloat availableWidthForTextField = textBoundary - curX;
     if (availableWidthForTextField < MINIMUM_TEXTFIELD_WIDTH) {
@@ -256,7 +256,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         // isOnFirstLine will be useful, and this calculation is important.
         // So leaving it set here, and marking the warning to ignore it
 #pragma unused(isOnFirstLine)
-        curX = self.padding.left + TEXT_FIELD_HSPACE;
+        curX = self.padding.left + self.textFieldHSpace;
         curY += self.standardRowHeight+VSPACE;
         totalHeight += self.standardRowHeight;
         // Adjust the width
@@ -514,6 +514,15 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
         return;
     }
     _standardRowHeight = standardRowHeight;
+    [self repositionViews];
+}
+
+- (void)setTextFieldHSpace:(CGFloat)textFieldHSpace
+{
+    if (_textFieldHSpace == textFieldHSpace) {
+        return;
+    }
+    _textFieldHSpace = textFieldHSpace;
     [self repositionViews];
 }
 
