@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL selected;
 @property (assign, nonatomic) BOOL hideUnselectedComma;
 @property (assign, nonatomic) UIEdgeInsets padding;
+@property (copy, nonatomic) NSDictionary<NSString *,id> *defaultTextAttributes;
+@property (copy, nonatomic) NSDictionary<NSString *,id> *selectedTextAttributes;
 
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 

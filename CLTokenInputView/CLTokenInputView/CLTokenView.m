@@ -169,7 +169,23 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
 
 #pragma mark - Attributed Text
+- (void)setDefaultTextAttributes:(NSDictionary<NSString *,id> *)defaultTextAttributes
+{
+    if (![_defaultTextAttributes isEqualToDictionary:defaultTextAttributes]) {
+        _defaultTextAttributes = defaultTextAttributes;
+        [self updateLabelAttributedText];
+        [self setNeedsLayout];
+    }
+}
 
+- (void)setSelectedTextAttributes:(NSDictionary<NSString *,id> *)selectedTextAttributes
+{
+    if (![_selectedTextAttributes isEqualToDictionary:selectedTextAttributes]) {
+        _selectedTextAttributes = selectedTextAttributes;
+        [self updateLabelAttributedText];
+        [self setNeedsLayout];
+    }
+}
 
 - (void)updateLabelAttributedText
 {
@@ -179,10 +195,11 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
         format = UNSELECTED_LABEL_NO_COMMA_FORMAT;
     }
     NSString *labelString = [NSString stringWithFormat:format, self.displayText];
+    NSDictionary<NSString *, id>* attributes = self.defaultTextAttributes ?: @{NSFontAttributeName : self.label.font,
+                                                                           NSForegroundColorAttributeName : [UIColor lightGrayColor]};
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString
-                                           attributes:@{NSFontAttributeName : self.label.font,
-                                                        NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+                                           attributes:attributes];
     NSRange tintRange = [labelString rangeOfString:self.displayText];
     // Make the name part the system tint color
     UIColor *tintColor = self.selectedBackgroundView.backgroundColor;
@@ -192,6 +209,16 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
                         range:tintRange];
     self.label.attributedText = attrString;
+    
+    NSMutableDictionary<NSString *, id>* selectedAttribtes;
+    if (self.selectedTextAttributes) {
+        selectedAttribtes = self.selectedTextAttributes;
+    } else {
+        selectedAttribtes = attributes;
+        selectedAttribtes[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    }
+    self.selectedLabel.attributedText = [[NSAttributedString alloc] initWithString:self.displayText attributes:selectedAttribtes];
+    
 }
 
 

@@ -78,9 +78,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, nullable) UIView *fieldView;
 /** Option text which can be displayed before the first line (e.g. "To:") */
 @property (copy, nonatomic, nullable) IBInspectable NSString *fieldName;
+@property (copy, nonatomic, nullable) IBInspectable NSAttributedString *attributedFieldName;
 /** Color of optional */
 @property (strong, nonatomic, nullable) IBInspectable UIColor *fieldColor;
 @property (copy, nonatomic, nullable) IBInspectable NSString *placeholderText;
+@property (copy, nonatomic, nullable) IBInspectable NSAttributedString *attributedPlaceholderText;
 @property (strong, nonatomic, nullable) UIView *accessoryView;
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
@@ -93,6 +95,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable CGFloat textFieldHSpace;
 @property (assign, nonatomic) IBInspectable CGFloat linePadding;
 @property (assign, nonatomic) IBInspectable CGFloat minimumTextFieldWidth;
+
+@property (copy, nonatomic) IBInspectable NSDictionary<NSString *,id> *defaultTextAttributes;
+@property (copy, nonatomic) IBInspectable NSDictionary<NSString *,id> *selectedTextAttributes;
+@property (copy, nonatomic) IBInspectable NSDictionary<NSString *,id> *placeholderTextAttributes;
 /** 
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`

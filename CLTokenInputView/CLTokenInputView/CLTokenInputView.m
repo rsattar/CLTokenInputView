@@ -112,6 +112,8 @@ static CGFloat const HSPACE = 0.0;
     [self.tokens addObject:token];
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token font:self.textField.font];
     tokenView.padding = _tokenPadding;
+    tokenView.defaultTextAttributes = self.defaultTextAttributes;
+    tokenView.selectedTextAttributes = self.selectedTextAttributes;
     if ([self respondsToSelector:@selector(tintColor)]) {
         tokenView.tintColor = self.tintColor;
     }
@@ -567,6 +569,39 @@ static CGFloat const HSPACE = 0.0;
     if (oldFieldName == nil || ![oldFieldName isEqualToString:fieldName]) {
         [self repositionViews];
     }
+}
+
+- (void)setAttributedFieldName:(NSAttributedString *)attributedFieldName
+{
+    if (_attributedFieldName == attributedFieldName) {
+        return;
+    }
+    NSAttributedString *oldAttributedFieldName = _attributedFieldName;
+    _attributedFieldName = attributedFieldName;
+    
+    self.fieldLabel.attributedText = _attributedFieldName;
+    [self.fieldLabel invalidateIntrinsicContentSize];
+    BOOL showField = (_attributedFieldName.string.length > 0);
+    self.fieldLabel.hidden = !showField;
+    if (showField && !self.fieldLabel.superview) {
+        [self addSubview:self.fieldLabel];
+    } else if (!showField && self.fieldLabel.superview) {
+        [self.fieldLabel removeFromSuperview];
+    }
+    
+    if (oldAttributedFieldName == nil || ![oldAttributedFieldName isEqualToAttributedString:attributedFieldName]) {
+        [self repositionViews];
+    }
+}
+
+- (void)setDefaultTextAttributes:(NSDictionary<NSString *,id> *)defaultTextAttributes
+{
+    self.textField.defaultTextAttributes = defaultTextAttributes;
+}
+
+- (void)setAttributedPlaceholderText:(NSAttributedString *)attributedPlaceholderText
+{
+    self.textField.attributedPlaceholder = attributedPlaceholderText;
 }
 
 - (void)setFieldColor:(UIColor *)fieldColor {
