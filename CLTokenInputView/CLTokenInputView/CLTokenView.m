@@ -210,14 +210,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
                         range:tintRange];
     self.label.attributedText = attrString;
     
-    NSMutableDictionary<NSString *, id>* selectedAttribtes;
+    NSMutableDictionary<NSString *, id>* selectedAttributes;
     if (self.selectedTextAttributes) {
-        selectedAttribtes = self.selectedTextAttributes;
+        selectedAttributes = self.selectedTextAttributes;
     } else {
-        selectedAttribtes = attributes;
-        selectedAttribtes[NSForegroundColorAttributeName] = [UIColor whiteColor];
+        selectedAttributes = [[NSMutableDictionary alloc] initWithDictionary: attributes];
+        [selectedAttributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     }
-    self.selectedLabel.attributedText = [[NSAttributedString alloc] initWithString:self.displayText attributes:selectedAttribtes];
+    self.selectedLabel.attributedText = [[NSAttributedString alloc] initWithString:self.displayText attributes:selectedAttributes];
     
 }
 
