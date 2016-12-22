@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) UIEdgeInsets padding;
 @property (copy, nonatomic) NSDictionary<NSString *,id> *defaultTextAttributes;
 @property (copy, nonatomic) NSDictionary<NSString *,id> *selectedTextAttributes;
+@property (assign, nonatomic) UIKeyboardAppearance inputKeyboardAppearance;
+@property (assign, nonatomic) UIKeyboardType inputKeyboardType;
 
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 

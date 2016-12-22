@@ -114,6 +114,8 @@ static CGFloat const HSPACE = 0.0;
     tokenView.padding = _tokenPadding;
     tokenView.defaultTextAttributes = self.defaultTextAttributes;
     tokenView.selectedTextAttributes = self.selectedTextAttributes;
+    tokenView.inputKeyboardAppearance = self.keyboardAppearance;
+    tokenView.inputKeyboardType = self.keyboardType;
     if ([self respondsToSelector:@selector(tintColor)]) {
         tokenView.tintColor = self.tintColor;
     }
