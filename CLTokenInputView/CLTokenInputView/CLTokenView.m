@@ -10,9 +10,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static CGFloat const PADDING_X = 4.0;
-static CGFloat const PADDING_Y = 2.0;
-
 static NSString *const UNSELECTED_LABEL_FORMAT = @"%@,";
 static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
@@ -39,7 +36,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
         if ([self respondsToSelector:@selector(tintColor)]) {
             tintColor = self.tintColor;
         }
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
+        self.label = [[UILabel alloc] initWithFrame:CGRectZero];
         if (font) {
             self.label.font = font;
         }
@@ -53,7 +50,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
         [self addSubview:self.selectedBackgroundView];
         self.selectedBackgroundView.hidden = YES;
 
-        self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectMake(PADDING_X, PADDING_Y, 0, 0)];
+        self.selectedLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.selectedLabel.font = self.label.font;
         self.selectedLabel.textColor = [UIColor whiteColor];
         self.selectedLabel.backgroundColor = [UIColor clearColor];
@@ -82,14 +79,14 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (CGSize)intrinsicContentSize
 {
     CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
-    return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelIntrinsicSize.width+self.padding.left+self.padding.right, labelIntrinsicSize.height+self.padding.top+self.padding.bottom);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
-    CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
+    CGSize fittingSize = CGSizeMake(size.width-(self.padding.left+self.padding.right), size.height-(self.padding.top+self.padding.bottom));
     CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
-    return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+    return CGSizeMake(labelSize.width+(self.padding.left+self.padding.right), labelSize.height+(self.padding.top+self.padding.bottom));
 }
 
 
@@ -172,7 +169,23 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 
 
 #pragma mark - Attributed Text
+- (void)setDefaultTextAttributes:(NSDictionary<NSString *,id> *)defaultTextAttributes
+{
+    if (![_defaultTextAttributes isEqualToDictionary:defaultTextAttributes]) {
+        _defaultTextAttributes = defaultTextAttributes;
+        [self updateLabelAttributedText];
+        [self setNeedsLayout];
+    }
+}
 
+- (void)setSelectedTextAttributes:(NSDictionary<NSString *,id> *)selectedTextAttributes
+{
+    if (![_selectedTextAttributes isEqualToDictionary:selectedTextAttributes]) {
+        _selectedTextAttributes = selectedTextAttributes;
+        [self updateLabelAttributedText];
+        [self setNeedsLayout];
+    }
+}
 
 - (void)updateLabelAttributedText
 {
@@ -182,10 +195,11 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
         format = UNSELECTED_LABEL_NO_COMMA_FORMAT;
     }
     NSString *labelString = [NSString stringWithFormat:format, self.displayText];
+    NSDictionary<NSString *, id>* attributes = self.defaultTextAttributes ?: @{NSFontAttributeName : self.label.font,
+                                                                           NSForegroundColorAttributeName : [UIColor lightGrayColor]};
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString
-                                           attributes:@{NSFontAttributeName : self.label.font,
-                                                        NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+                                           attributes:attributes];
     NSRange tintRange = [labelString rangeOfString:self.displayText];
     // Make the name part the system tint color
     UIColor *tintColor = self.selectedBackgroundView.backgroundColor;
@@ -195,6 +209,16 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     [attrString setAttributes:@{NSForegroundColorAttributeName : tintColor}
                         range:tintRange];
     self.label.attributedText = attrString;
+    
+    NSMutableDictionary<NSString *, id>* selectedAttributes;
+    if (self.selectedTextAttributes) {
+        selectedAttributes = self.selectedTextAttributes;
+    } else {
+        selectedAttributes = [[NSMutableDictionary alloc] initWithDictionary: attributes];
+        [selectedAttributes setObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    }
+    self.selectedLabel.attributedText = [[NSAttributedString alloc] initWithString:self.displayText attributes:selectedAttributes];
+    
 }
 
 
@@ -209,9 +233,9 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     self.backgroundView.frame = bounds;
     self.selectedBackgroundView.frame = bounds;
 
-    CGRect labelFrame = CGRectInset(bounds, PADDING_X, PADDING_Y);
+    CGRect labelFrame = UIEdgeInsetsInsetRect(bounds, self.padding);
     self.selectedLabel.frame = labelFrame;
-    labelFrame.size.width += PADDING_X*2.0;
+    labelFrame.size.width += self.padding.left + self.padding.right;
     self.label.frame = labelFrame;
 }
 
@@ -250,6 +274,16 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (UITextAutocorrectionType)autocorrectionType
 {
     return UITextAutocorrectionTypeNo;
+}
+
+- (UIKeyboardAppearance)keyboardAppearance
+{
+    return self.inputKeyboardAppearance;
+}
+
+- (UIKeyboardType)keyboardType
+{
+    return self.inputKeyboardType;
 }
 
 
