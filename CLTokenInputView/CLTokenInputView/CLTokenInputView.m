@@ -41,6 +41,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.backgroundColor = [UIColor whiteColor];
     self.layer.cornerRadius = 5.0f;
     self.clipsToBounds = YES;
+    self.isAccessibilityElement = YES;
     
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
@@ -137,6 +138,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return CGSizeMake(UIViewNoIntrinsicMetric, STANDARD_HEIGHT);
 }
 
+- (NSString *)accessibilityValue {
+    NSMutableString *value = [[[self.tokens valueForKey:@"displayText"] componentsJoinedByString:@", "] mutableCopy];
+    if (self.textField.text.length) {
+        [value appendFormat:@", %@", self.textField.text];
+    }
+    return value;
+}
 
 #pragma mark - Tint color
 
