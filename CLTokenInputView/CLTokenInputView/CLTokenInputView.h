@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class CLTokenInputView;
+@class CLTokenInputView, CLBackspaceDetectingTextField;
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
@@ -86,7 +86,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
 @property (assign, nonatomic) IBInspectable UIKeyboardAppearance keyboardAppearance;
-/** 
+/** Optional custom padding insets */
+@property (assign, nonatomic) UIEdgeInsets paddingInsets;
+@property (strong, nonatomic) CLBackspaceDetectingTextField *textField;
+/**
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`
  * @discussion By default this array is empty, as only the Return key will trigger tokenization

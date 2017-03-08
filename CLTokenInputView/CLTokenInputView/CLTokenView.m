@@ -159,7 +159,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
             self.selectedBackgroundView.alpha = selectedAlpha;
             self.selectedLabel.alpha = selectedAlpha;
         } completion:^(BOOL finished) {
-            if (!_selected) {
+            if (!self->_selected) {
                 self.selectedBackgroundView.hidden = YES;
                 self.selectedLabel.hidden = YES;
             }

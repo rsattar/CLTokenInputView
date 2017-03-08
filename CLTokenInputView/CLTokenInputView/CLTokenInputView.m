@@ -27,7 +27,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 @property (strong, nonatomic) CL_GENERIC_MUTABLE_ARRAY(CLToken *) *tokens;
 @property (strong, nonatomic) CL_GENERIC_MUTABLE_ARRAY(CLTokenView *) *tokenViews;
-@property (strong, nonatomic) CLBackspaceDetectingTextField *textField;
 @property (strong, nonatomic) UILabel *fieldLabel;
 
 
@@ -40,6 +39,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)commonInit
 {
+    self.paddingInsets = UIEdgeInsetsMake(PADDING_TOP, PADDING_LEFT, PADDING_BOTTOM, PADDING_RIGHT);
     self.textField = [[CLBackspaceDetectingTextField alloc] initWithFrame:self.bounds];
     self.textField.backgroundColor = [UIColor clearColor];
     self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -90,7 +90,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(45, self.intrinsicContentHeight));
+    return CGSizeMake(UIViewNoIntrinsicMetric, self.intrinsicContentHeight);
 }
 
 
@@ -188,11 +188,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (void)repositionViews
 {
     CGRect bounds = self.bounds;
-    CGFloat rightBoundary = CGRectGetWidth(bounds) - PADDING_RIGHT;
+    CGFloat rightBoundary = CGRectGetWidth(bounds) - self.paddingInsets.right;
     CGFloat firstLineRightBoundary = rightBoundary;
 
-    CGFloat curX = PADDING_LEFT;
-    CGFloat curY = PADDING_TOP;
+    CGFloat curX = self.paddingInsets.left;
+    CGFloat curY = self.paddingInsets.top;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
     BOOL isOnFirstLine = YES;
 
@@ -221,7 +221,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Position accessory view (if set)
     if (self.accessoryView) {
         CGRect accessoryRect = self.accessoryView.frame;
-        accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
+        accessoryRect.origin.x = CGRectGetWidth(bounds) - self.paddingInsets.right - CGRectGetWidth(accessoryRect);
         accessoryRect.origin.y = curY;
         self.accessoryView.frame = accessoryRect;
 
@@ -236,7 +236,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         CGFloat tokenBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
         if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
             // Need a new line
-            curX = PADDING_LEFT;
+            curX = self.paddingInsets.left;
             curY += STANDARD_ROW_HEIGHT+VSPACE;
             totalHeight += STANDARD_ROW_HEIGHT;
             isOnFirstLine = NO;
@@ -260,7 +260,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         // isOnFirstLine will be useful, and this calculation is important.
         // So leaving it set here, and marking the warning to ignore it
 #pragma unused(isOnFirstLine)
-        curX = PADDING_LEFT + TEXT_FIELD_HSPACE;
+        curX = self.paddingInsets.left + TEXT_FIELD_HSPACE;
         curY += STANDARD_ROW_HEIGHT+VSPACE;
         totalHeight += STANDARD_ROW_HEIGHT;
         // Adjust the width
@@ -275,7 +275,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.textField.frame = textFieldRect;
 
     CGFloat oldContentHeight = self.intrinsicContentHeight;
-    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM);
+    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+self.paddingInsets.bottom);
     [self invalidateIntrinsicContentSize];
 
     if (oldContentHeight != self.intrinsicContentHeight) {
@@ -406,7 +406,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 - (CGFloat)textFieldDisplayOffset
 {
     // Essentially the textfield's y with PADDING_TOP
-    return CGRectGetMinY(self.textField.frame) - PADDING_TOP;
+    return CGRectGetMinY(self.textField.frame) - self.paddingInsets.top;
 }
 
 
