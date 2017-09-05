@@ -39,7 +39,7 @@
 
 - (NSUInteger)hash
 {
-    return self.displayText.hash + self.context.hash;
+    return self.displayText.hash + ((NSObject *)self.context).hash;
 }
 
 @end

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 - (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(nullable NSString *)replacementText;
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView;
+- (void)tokenViewReleaseFocus:(CLTokenView *)tokenView;
 
 @end
 

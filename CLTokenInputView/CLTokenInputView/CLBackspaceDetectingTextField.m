@@ -45,11 +45,11 @@
             shouldDelete = keyboardInputShouldDelete(self, _cmd, textField);
         }
     }
-
+#if 0
     if (![textField.text length] && [[[UIDevice currentDevice] systemVersion] intValue] >= 8) {
         [self deleteBackward];
     }
-
+#endif
     return shouldDelete;
 }
 

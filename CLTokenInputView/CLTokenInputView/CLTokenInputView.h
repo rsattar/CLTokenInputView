@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol CLTokenInputViewDelegate <NSObject>
 
 @optional
+/**
+ *  Called when the text field should begins editing
+ */
+- (BOOL)tokenInputVieShouldBeginEditing:(CLTokenInputView *)view;
 
 /**
  *  Called when the text field begins editing
@@ -69,6 +73,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)tokenInputView:(CLTokenInputView *)view didChangeHeightTo:(CGFloat)height;
 
+- (void)tokenInputView:(CLTokenInputView *)view didSelectToken:(CLToken *)token;
+
+- (void)tokenInputViewWillStartInputText:(CLTokenInputView *)view;
+- (void)tokenInputViewDidEndInputText:(CLTokenInputView *)view;
+
 @end
 
 @interface CLTokenInputView : UIView
@@ -86,6 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
 @property (assign, nonatomic) IBInspectable UIKeyboardAppearance keyboardAppearance;
+
+@property (nonatomic, getter=isSelected) BOOL selected;
 /** 
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`
@@ -99,10 +110,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic) CL_GENERIC_ARRAY(CLToken *) *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
-@property (copy, nonatomic, nullable) NSString *text;
+@property (readonly, nonatomic, nullable) NSString *text;
 
+- (void)addToken:(CLToken *)token clearText:(BOOL)removeText;
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
+- (void)overwriteTokens:(NSArray<CLToken *> *)tokens;
 - (nullable CLToken *)tokenizeTextfieldText;
 
 // Editing
