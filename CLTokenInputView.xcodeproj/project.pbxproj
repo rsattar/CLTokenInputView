@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B5DF19B1F5EA31300DAEEEF /* CLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5DF19A1F5EA31300DAEEEF /* CLConstants.m */; };
+		272E0A5C78F073979EBC84B6 /* libPods-CLTokenInputView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D9AE872E10FE79CD5C98FE8 /* libPods-CLTokenInputView.a */; };
 		65B16B7E18BC16F6003AA819 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B7D18BC16F6003AA819 /* Foundation.framework */; };
 		65B16B8018BC16F6003AA819 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B7F18BC16F6003AA819 /* CoreGraphics.framework */; };
 		65B16B8218BC16F6003AA819 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B16B8118BC16F6003AA819 /* UIKit.framework */; };
@@ -45,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B5DF1991F5EA31300DAEEEF /* CLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLConstants.h; path = CLTokenInputView/CLConstants.h; sourceTree = "<group>"; };
+		1B5DF19A1F5EA31300DAEEEF /* CLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLConstants.m; path = CLTokenInputView/CLConstants.m; sourceTree = "<group>"; };
+		1DA3605F87CBD89B07C8E235 /* Pods-CLTokenInputView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CLTokenInputView.release.xcconfig"; path = "Pods/Target Support Files/Pods-CLTokenInputView/Pods-CLTokenInputView.release.xcconfig"; sourceTree = "<group>"; };
 		65B16B7A18BC16F6003AA819 /* CLTokenInputView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CLTokenInputView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B16B7D18BC16F6003AA819 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		65B16B7F18BC16F6003AA819 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -73,6 +78,8 @@
 		65B16BC018BC26C9003AA819 /* CLToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLToken.h; path = CLTokenInputView/CLToken.h; sourceTree = "<group>"; };
 		65B16BC118BC26C9003AA819 /* CLToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLToken.m; path = CLTokenInputView/CLToken.m; sourceTree = "<group>"; };
 		65E86F811C407E3A0029E724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		71EB1573F13AC98D1DAECE6C /* Pods-CLTokenInputView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CLTokenInputView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CLTokenInputView/Pods-CLTokenInputView.debug.xcconfig"; sourceTree = "<group>"; };
+		9D9AE872E10FE79CD5C98FE8 /* libPods-CLTokenInputView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CLTokenInputView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +90,7 @@
 				65B16B8018BC16F6003AA819 /* CoreGraphics.framework in Frameworks */,
 				65B16B8218BC16F6003AA819 /* UIKit.framework in Frameworks */,
 				65B16B7E18BC16F6003AA819 /* Foundation.framework in Frameworks */,
+				272E0A5C78F073979EBC84B6 /* libPods-CLTokenInputView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +114,7 @@
 				65B16B9C18BC16F7003AA819 /* CLTokenInputViewTests */,
 				65B16B7C18BC16F6003AA819 /* Frameworks */,
 				65B16B7B18BC16F6003AA819 /* Products */,
+				6BF276E744AB2F71DCCF02C8 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +134,7 @@
 				65B16B7F18BC16F6003AA819 /* CoreGraphics.framework */,
 				65B16B8118BC16F6003AA819 /* UIKit.framework */,
 				65B16B9618BC16F7003AA819 /* XCTest.framework */,
+				9D9AE872E10FE79CD5C98FE8 /* libPods-CLTokenInputView.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -185,8 +195,19 @@
 				65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */,
 				65B16BC018BC26C9003AA819 /* CLToken.h */,
 				65B16BC118BC26C9003AA819 /* CLToken.m */,
+				1B5DF1991F5EA31300DAEEEF /* CLConstants.h */,
+				1B5DF19A1F5EA31300DAEEEF /* CLConstants.m */,
 			);
 			name = CLTokenInputView;
+			sourceTree = "<group>";
+		};
+		6BF276E744AB2F71DCCF02C8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71EB1573F13AC98D1DAECE6C /* Pods-CLTokenInputView.debug.xcconfig */,
+				1DA3605F87CBD89B07C8E235 /* Pods-CLTokenInputView.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,9 +217,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65B16BA618BC16F7003AA819 /* Build configuration list for PBXNativeTarget "CLTokenInputView" */;
 			buildPhases = (
+				1A605BBFFED9E16DAC61E870 /* [CP] Check Pods Manifest.lock */,
 				65B16B7618BC16F6003AA819 /* Sources */,
 				65B16B7718BC16F6003AA819 /* Frameworks */,
 				65B16B7818BC16F6003AA819 /* Resources */,
+				0D52003537494E99DB12B355 /* [CP] Embed Pods Frameworks */,
+				74636D095A170CABFDF32EB2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -283,6 +307,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0D52003537494E99DB12B355 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CLTokenInputView/Pods-CLTokenInputView-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CLTokenInputView/Pods-CLTokenInputView-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1A605BBFFED9E16DAC61E870 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CLTokenInputView-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		74636D095A170CABFDF32EB2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CLTokenInputView/Pods-CLTokenInputView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		65B16B7618BC16F6003AA819 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -292,6 +370,7 @@
 				65B16BAF18BC17D2003AA819 /* CLTokenInputView.m in Sources */,
 				65B16BB818BC1826003AA819 /* CLTokenInputViewController.m in Sources */,
 				65B16B8A18BC16F6003AA819 /* main.m in Sources */,
+				1B5DF19B1F5EA31300DAEEEF /* CLConstants.m in Sources */,
 				65B16B8E18BC16F6003AA819 /* CLAppDelegate.m in Sources */,
 				65B16BB318BC17EC003AA819 /* CLTokenView.m in Sources */,
 				65B16BC218BC26C9003AA819 /* CLToken.m in Sources */,
@@ -414,6 +493,7 @@
 		};
 		65B16BA718BC16F7003AA819 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71EB1573F13AC98D1DAECE6C /* Pods-CLTokenInputView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -429,6 +509,7 @@
 		};
 		65B16BA818BC16F7003AA819 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DA3605F87CBD89B07C8E235 /* Pods-CLTokenInputView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** The text to display in the token view */
 @property (copy, nonatomic) NSString *displayText;
 /** Used for storing anything that would be useful later on */
-@property (strong, nonatomic, nullable) NSObject *context;
+@property (strong, nonatomic, nullable) id context;
 
 
 - (id)initWithDisplayText:(NSString *)displayText context:(nullable NSObject *)context;

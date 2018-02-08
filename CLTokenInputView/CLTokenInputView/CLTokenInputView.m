@@ -11,6 +11,9 @@
 #import "CLBackspaceDetectingTextField.h"
 #import "CLTokenView.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "CLConstants.h"
+
 static CGFloat const HSPACE = 0.0;
 static CGFloat const TEXT_FIELD_HSPACE = 4.0; // Note: Same as CLTokenView.PADDING_X
 static CGFloat const VSPACE = 4.0;
@@ -18,7 +21,7 @@ static CGFloat const MINIMUM_TEXTFIELD_WIDTH = 56.0;
 static CGFloat const PADDING_TOP = 10.0;
 static CGFloat const PADDING_BOTTOM = 10.0;
 static CGFloat const PADDING_LEFT = 8.0;
-static CGFloat const PADDING_RIGHT = 16.0;
+static CGFloat const PADDING_RIGHT = 8.0;
 static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
 
 static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
@@ -33,6 +36,8 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 @property (assign, nonatomic) CGFloat intrinsicContentHeight;
 @property (assign, nonatomic) CGFloat additionalTextFieldYOffset;
+
+@property (nonatomic) BOOL hasFocus;
 
 @end
 
@@ -90,12 +95,10 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(45, self.intrinsicContentHeight));
+    return CGSizeMake(UIViewNoIntrinsicMetric, MAX(44, self.intrinsicContentHeight));
 }
 
-
 #pragma mark - Tint color
-
 
 - (void)tintColorDidChange
 {
@@ -104,15 +107,14 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
 }
 
-
 #pragma mark - Adding / Removing Tokens
 
-- (void)addToken:(CLToken *)token
+- (void)addToken:(CLToken *)token clearText:(BOOL)removeText
 {
     if ([self.tokens containsObject:token]) {
         return;
     }
-
+    
     [self.tokens addObject:token];
     CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token font:self.textField.font];
     if ([self respondsToSelector:@selector(tintColor)]) {
@@ -123,16 +125,24 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
     [self.tokenViews addObject:tokenView];
     [self addSubview:tokenView];
-    self.textField.text = @"";
+    
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
         [self.delegate tokenInputView:self didAddToken:token];
     }
-
-    // Clearing text programmatically doesn't call this automatically
-    [self onTextFieldDidChange:self.textField];
-
+    
+    if (removeText) {
+        self.textField.text = @"";
+        // Clearing text programmatically doesn't call this automatically
+        [self onTextFieldDidChange:self.textField];
+    }
+    
     [self updatePlaceholderTextVisibility];
     [self repositionViews];
+}
+
+- (void)addToken:(CLToken *)token
+{
+    [self addToken:token clearText:YES];
 }
 
 - (void)removeToken:(CLToken *)token
@@ -142,6 +152,31 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         return;
     }
     [self removeTokenAtIndex:index];
+}
+
+- (void)overwriteTokens:(NSArray<CLToken *> *)tokens
+{
+    [self.tokens removeAllObjects];
+    [self.tokenViews enumerateObjectsUsingBlock:^(CLTokenView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [self.tokenViews removeAllObjects];
+    
+    [tokens enumerateObjectsUsingBlock:^(CLToken * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.tokens addObject:obj];
+        CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:obj font:self.textField.font];
+        if ([self respondsToSelector:@selector(tintColor)]) {
+            tokenView.tintColor = self.tintColor;
+        }
+        tokenView.delegate = self;
+        CGSize intrinsicSize = tokenView.intrinsicContentSize;
+        tokenView.frame = CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height);
+        [self.tokenViews addObject:tokenView];
+        [self addSubview:tokenView];
+    }];
+
+    [self updatePlaceholderTextVisibility];
+    [self repositionViews];
 }
 
 - (void)removeTokenAtIndex:(NSInteger)index
@@ -182,6 +217,15 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return token;
 }
 
+- (BOOL)isSelected
+{
+    for (CLTokenView *v in self.tokenViews) {
+        if (v.selected) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 #pragma mark - Updating/Repositioning Views
 
@@ -222,7 +266,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if (self.accessoryView) {
         CGRect accessoryRect = self.accessoryView.frame;
         accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
-        accessoryRect.origin.y = curY;
+//        accessoryRect.origin.y = curY;
         self.accessoryView.frame = accessoryRect;
 
         firstLineRightBoundary = CGRectGetMinX(accessoryRect) - HSPACE;
@@ -243,7 +287,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         }
 
         tokenRect.origin.x = curX;
-        // Center our tokenView vertically within STANDARD_ROW_HEIGHT
+        // Center our tokenView vertially within STANDARD_ROW_HEIGHT
         tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/2.0);
         tokenView.frame = tokenRect;
 
@@ -310,35 +354,46 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Delay selecting the next token slightly, so that on iOS 8
     // the deleteBackward on CLTokenView is not called immediately,
     // causing a double-delete
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (textField.text.length == 0) {
-            CLTokenView *tokenView = self.tokenViews.lastObject;
-            if (tokenView) {
-                [self selectTokenView:tokenView animated:YES];
-                [self.textField resignFirstResponder];
-            }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+    DDLogVerbose(@"%s", __PRETTY_FUNCTION__);
+    if (textField.text.length == 0) {
+        CLTokenView *tokenView = self.tokenViews.lastObject;
+        if (tokenView != nil && tokenView.selected == NO) {
+            [self selectTokenView:tokenView animated:YES];
+            [self.textField resignFirstResponder];
         }
-    });
+    }
+//    });
 }
 
-
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    self.hasFocus = YES;
+    if ([self.delegate respondsToSelector:@selector(tokenInputVieShouldBeginEditing:)]) {
+        return [self.delegate tokenInputVieShouldBeginEditing:self];
+    }
+    return YES;
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if ([self.delegate respondsToSelector:@selector(tokenInputViewDidBeginEditing:)]) {
         [self.delegate tokenInputViewDidBeginEditing:self];
     }
-    self.tokenViews.lastObject.hideUnselectedComma = NO;
+    ((CLTokenView *)self.tokenViews.lastObject).hideUnselectedComma = NO;
     [self unselectAllTokenViewsAnimated:YES];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]) {
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]
+        && self.isSelected == NO) {
         [self.delegate tokenInputViewDidEndEditing:self];
     }
-    self.tokenViews.lastObject.hideUnselectedComma = YES;
+    ((CLTokenView *)self.tokenViews.lastObject).hideUnselectedComma = YES;
+    self.hasFocus = NO;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -360,6 +415,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         // Never allow the change if it matches at token
         return NO;
     }
+    if (textField.text.length == 0 && string.length > 0) {
+        if ([self.delegate respondsToSelector:@selector(tokenInputViewWillStartInputText:)]) {
+            [self.delegate tokenInputViewWillStartInputText:self];
+        }
+    }
     return YES;
 }
 
@@ -368,11 +428,15 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)onTextFieldDidChange:(id)sender
 {
+    if (self.textField.text.length == 0) {
+        if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndInputText:)]) {
+            [self.delegate tokenInputViewDidEndInputText:self];
+        }
+    }
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didChangeText:)]) {
         [self.delegate tokenInputView:self didChangeText:self.textField.text];
     }
 }
-
 
 #pragma mark - Text Field Customization
 
@@ -419,10 +483,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 
--(void) setText:(NSString*)text {
-    self.textField.text = text;
-}
-
 #pragma mark - CLTokenViewDelegate
 
 - (void)tokenViewDidRequestDelete:(CLTokenView *)tokenView replaceWithText:(NSString *)replacementText
@@ -442,9 +502,29 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)tokenViewDidRequestSelection:(CLTokenView *)tokenView
 {
+    if (self.textField.text.length > 0) {
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(tokenInputVieShouldBeginEditing:)]
+        && self.hasFocus == NO && self.isSelected == NO) {
+        [self.delegate tokenInputVieShouldBeginEditing:self];
+    }
     [self selectTokenView:tokenView animated:YES];
+    if ([self.delegate respondsToSelector:@selector(tokenInputView:didSelectToken:)]) {
+        NSInteger index = [self.tokenViews indexOfObject:tokenView];
+        if (index != NSNotFound) {
+            [self.delegate tokenInputView:self didSelectToken:self.tokens[index]];
+        }
+    }
 }
 
+- (void)tokenViewReleaseFocus:(CLTokenView *)tokenView
+{
+    if ([self.delegate respondsToSelector:@selector(tokenInputViewDidEndEditing:)]
+        && self.hasFocus == NO) {
+        [self.delegate tokenInputViewDidEndEditing:self];
+    }
+}
 
 #pragma mark - Token selection
 
@@ -489,6 +569,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // but still return isFirstResponder=NO. So always
     // attempt to resign without checking.
     [self.textField resignFirstResponder];
+}
+
+- (BOOL)becomeFirstResponder
+{
+    return [self.textField becomeFirstResponder];
 }
 
 
