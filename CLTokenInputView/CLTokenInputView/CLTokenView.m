@@ -35,6 +35,8 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 {
     self = [super initWithFrame:CGRectZero];
     if (self) {
+        self.commaColor = [UIColor lightGrayColor];
+        
         UIColor *tintColor = [UIColor colorWithRed:0.0823 green:0.4941 blue:0.9843 alpha:1.0];
         if ([self respondsToSelector:@selector(tintColor)]) {
             tintColor = self.tintColor;
@@ -185,7 +187,7 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     NSMutableAttributedString *attrString =
     [[NSMutableAttributedString alloc] initWithString:labelString
                                            attributes:@{NSFontAttributeName : self.label.font,
-                                                        NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+                                                        NSForegroundColorAttributeName : self.commaColor}];
     NSRange tintRange = [labelString rangeOfString:self.displayText];
     // Make the name part the system tint color
     UIColor *tintColor = self.selectedBackgroundView.backgroundColor;
