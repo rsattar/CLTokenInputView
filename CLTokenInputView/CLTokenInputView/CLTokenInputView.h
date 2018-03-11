@@ -80,12 +80,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nonatomic, nullable) IBInspectable NSString *fieldName;
 /** Color of optional */
 @property (strong, nonatomic, nullable) IBInspectable UIColor *fieldColor;
+@property (strong, nonatomic, nullable) UIFont *font;
+@property (strong, nonatomic, nullable) IBInspectable UIColor *commaColor;
 @property (copy, nonatomic, nullable) IBInspectable NSString *placeholderText;
 @property (strong, nonatomic, nullable) UIView *accessoryView;
 @property (assign, nonatomic) IBInspectable UIKeyboardType keyboardType;
 @property (assign, nonatomic) IBInspectable UITextAutocapitalizationType autocapitalizationType;
 @property (assign, nonatomic) IBInspectable UITextAutocorrectionType autocorrectionType;
 @property (assign, nonatomic) IBInspectable UIKeyboardAppearance keyboardAppearance;
+@property (strong, nonatomic, nullable) UIView *inputAccessoryView;
 /** 
  * Optional additional characters to trigger the tokenization process (and call the delegate
  * with `tokenInputView:tokenForText:`
@@ -95,11 +98,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (copy, nonatomic) CL_GENERIC_SET(NSString *) *tokenizationCharacters;
 @property (assign, nonatomic) IBInspectable BOOL drawBottomBorder;
+@property (assign, nonatomic) IBInspectable CGFloat verticalSpace;
+@property (assign, nonatomic) IBInspectable CGFloat standartRowHeight;
+@property (assign, nonatomic) IBInspectable CGFloat minimumHeight;
+@property (assign, nonatomic) UIEdgeInsets padding;
 
 @property (readonly, nonatomic) CL_GENERIC_ARRAY(CLToken *) *allTokens;
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
-@property (copy, nonatomic, nullable) NSString *text;
+@property (nonatomic, nullable) NSString *text;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;
