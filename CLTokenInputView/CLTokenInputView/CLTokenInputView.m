@@ -307,6 +307,16 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return [self.textField isFirstResponder];
 }
 
+- (BOOL)tokenViewTextFieldCanBecomeFirstResponder
+{
+    return [self.textField canBecomeFirstResponder];
+}
+
+- (BOOL)tokenViewTextFieldBecomeFirstResponder
+{
+    return [self.textField becomeFirstResponder];
+}
+
 #pragma mark - CLBackspaceDetectingTextFieldDelegate
 
 - (void)textFieldDidDeleteBackwards:(UITextField *)textField
