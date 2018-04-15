@@ -127,10 +127,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didAddToken:)]) {
         [self.delegate tokenInputView:self didAddToken:token];
     }
-
-    // Clearing text programmatically doesn't call this automatically
-    [self onTextFieldDidChange:self.textField];
-
+    
     [self updatePlaceholderTextVisibility];
     [self repositionViews];
 }
