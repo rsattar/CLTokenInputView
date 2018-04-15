@@ -300,6 +300,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 }
 
 
+#pragma mark - Text Field Access
+
+- (BOOL)isTokenViewTextFieldFirstResponder
+{
+    return [self.textField isFirstResponder];
+}
+
 #pragma mark - CLBackspaceDetectingTextFieldDelegate
 
 - (void)textFieldDidDeleteBackwards:(UITextField *)textField
@@ -317,7 +324,6 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         }
     });
 }
-
 
 #pragma mark - UITextFieldDelegate
 
