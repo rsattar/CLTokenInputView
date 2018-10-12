@@ -18,4 +18,5 @@ FOUNDATION_EXPORT const unsigned char CLTokenInputVersionString[];
 
 #import <CLTokenInput/CLTokenInputView.h>
 #import <CLTokenInput/CLTokenView.h>
+#import <CLTokenInput/CLTokenPillView.h>
 #import <CLTokenInput/CLToken.h>

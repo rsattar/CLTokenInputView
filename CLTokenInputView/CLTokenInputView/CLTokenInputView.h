@@ -22,6 +22,11 @@
 #define CL_GENERIC_MUTABLE_SET(type) NSMutableSet
 #endif
 
+typedef NS_ENUM(NSInteger, CLTokenStyle) {
+    CLTokenStyleText,
+    CLTokenStylePill
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class CLTokenInputView, CLBackspaceDetectingTextField;
@@ -103,6 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nonatomic, getter = isEditing) BOOL editing;
 @property (readonly, nonatomic) CGFloat textFieldDisplayOffset;
 @property (copy, nonatomic, nullable) NSString *text;
+
+@property (assign, nonatomic) IBInspectable CLTokenStyle tokenStyle;
 
 - (void)addToken:(CLToken *)token;
 - (void)removeToken:(CLToken *)token;

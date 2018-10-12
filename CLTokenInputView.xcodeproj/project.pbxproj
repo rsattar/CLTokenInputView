@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43758B22216D26E3000F3786 /* CLTokenPillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43758B1F216D26E2000F3786 /* CLTokenPillView.m */; };
+		43758B23216D26E3000F3786 /* CLTokenPillView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43758B1F216D26E2000F3786 /* CLTokenPillView.m */; };
+		43758B26216D26E3000F3786 /* CLTokenPillView.h in Headers */ = {isa = PBXBuildFile; fileRef = 43758B21216D26E3000F3786 /* CLTokenPillView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43758B2E216E2539000F3786 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43758B2D216E2539000F3786 /* Media.xcassets */; };
+		43758B2F216E2539000F3786 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43758B2D216E2539000F3786 /* Media.xcassets */; };
 		498307481CDAA5E1007A0877 /* CLTokenInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 498307471CDAA5E1007A0877 /* CLTokenInput.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4983074F1CDAA5E2007A0877 /* CLTokenInput.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 498307451CDAA5E1007A0877 /* CLTokenInput.framework */; };
 		498307541CDAA5E2007A0877 /* CLTokenInputTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 498307531CDAA5E2007A0877 /* CLTokenInputTests.m */; };
@@ -63,6 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		43758B1F216D26E2000F3786 /* CLTokenPillView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLTokenPillView.m; path = CLTokenInputView/CLTokenPillView.m; sourceTree = "<group>"; };
+		43758B21216D26E3000F3786 /* CLTokenPillView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLTokenPillView.h; path = CLTokenInputView/CLTokenPillView.h; sourceTree = "<group>"; };
+		43758B2D216E2539000F3786 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = CLTokenInputView/CLTokenInputView/Media.xcassets; sourceTree = "<group>"; };
 		498307451CDAA5E1007A0877 /* CLTokenInput.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CLTokenInput.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		498307471CDAA5E1007A0877 /* CLTokenInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CLTokenInput.h; sourceTree = "<group>"; };
 		498307491CDAA5E1007A0877 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -159,6 +167,7 @@
 		65B16B7118BC16F6003AA819 = {
 			isa = PBXGroup;
 			children = (
+				43758B2D216E2539000F3786 /* Media.xcassets */,
 				65B16B8318BC16F6003AA819 /* CLTokenInputView */,
 				65B16B9C18BC16F7003AA819 /* CLTokenInputViewTests */,
 				498307461CDAA5E1007A0877 /* CLTokenInput */,
@@ -242,6 +251,8 @@
 				65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */,
 				65B16BB118BC17EC003AA819 /* CLTokenView.h */,
 				65B16BB218BC17EC003AA819 /* CLTokenView.m */,
+				43758B21216D26E3000F3786 /* CLTokenPillView.h */,
+				43758B1F216D26E2000F3786 /* CLTokenPillView.m */,
 				65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */,
 				65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */,
 				65B16BC018BC26C9003AA819 /* CLToken.h */,
@@ -260,6 +271,7 @@
 				498307481CDAA5E1007A0877 /* CLTokenInput.h in Headers */,
 				4983075C1CDAA605007A0877 /* CLTokenInputView.h in Headers */,
 				4983075D1CDAA605007A0877 /* CLTokenView.h in Headers */,
+				43758B26216D26E3000F3786 /* CLTokenPillView.h in Headers */,
 				4983075F1CDAA605007A0877 /* CLToken.h in Headers */,
 				4983075E1CDAA605007A0877 /* CLBackspaceDetectingTextField.h in Headers */,
 			);
@@ -385,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43758B2F216E2539000F3786 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +415,7 @@
 				65B16B8818BC16F6003AA819 /* InfoPlist.strings in Resources */,
 				65E86F821C407E3A0029E724 /* LaunchScreen.storyboard in Resources */,
 				65B16B9018BC16F6003AA819 /* Images.xcassets in Resources */,
+				43758B2E216E2539000F3786 /* Media.xcassets in Resources */,
 				65B16BBA18BC1826003AA819 /* CLTokenInputViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43758B23216D26E3000F3786 /* CLTokenPillView.m in Sources */,
 				498307601CDAA6DF007A0877 /* CLTokenInputView.m in Sources */,
 				498307611CDAA6DF007A0877 /* CLTokenView.m in Sources */,
 				498307621CDAA6DF007A0877 /* CLBackspaceDetectingTextField.m in Sources */,
@@ -441,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43758B22216D26E3000F3786 /* CLTokenPillView.m in Sources */,
 				65B16BBE18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m in Sources */,
 				65B16BAF18BC17D2003AA819 /* CLTokenInputView.m in Sources */,
 				65B16BB818BC1826003AA819 /* CLTokenInputViewController.m in Sources */,
