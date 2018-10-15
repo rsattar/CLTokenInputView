@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithToken:(CLToken *)token font:(nullable UIFont *)font;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+- (void)setSelectedIVar:(BOOL)selected;
 
 // For iOS 6 compatibility, provide the setter tintColor
 - (void)setTintColor:(nullable UIColor *)tintColor;

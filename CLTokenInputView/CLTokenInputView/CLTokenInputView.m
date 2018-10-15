@@ -9,6 +9,7 @@
 #import "CLTokenInputView.h"
 
 #import "CLBackspaceDetectingTextField.h"
+#import "CLTokenPillView.h"
 #import "CLTokenView.h"
 
 static CGFloat const HSPACE = 0.0;
@@ -19,7 +20,7 @@ static CGFloat const PADDING_TOP = 10.0;
 static CGFloat const PADDING_BOTTOM = 10.0;
 static CGFloat const PADDING_LEFT = 8.0;
 static CGFloat const PADDING_RIGHT = 16.0;
-static CGFloat const STANDARD_ROW_HEIGHT = 25.0;
+static CGFloat STANDARD_ROW_HEIGHT = 25.0;
 
 static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_X
 
@@ -65,7 +66,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     self.fieldLabel.textColor = self.fieldColor;
     [self addSubview:self.fieldLabel];
     self.fieldLabel.hidden = YES;
-
+    
     self.intrinsicContentHeight = STANDARD_ROW_HEIGHT;
     [self repositionViews];
 }
@@ -93,6 +94,20 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     return CGSizeMake(UIViewNoIntrinsicMetric, self.intrinsicContentHeight);
 }
 
+- (void)setTokenStyle:(CLTokenStyle)tokenStyle {
+    if (self.tokenStyle == tokenStyle) {
+        return;
+    }
+    _tokenStyle = tokenStyle;
+    if (tokenStyle == CLTokenStyleText) {
+        STANDARD_ROW_HEIGHT = 25.0f;
+    } else {
+        CLTokenPillView *sizingCell = [[CLTokenPillView alloc] initWithToken:[[CLToken alloc] initWithDisplayText:@"test" context:nil] font:self.textField.font];
+        STANDARD_ROW_HEIGHT = sizingCell.intrinsicContentSize.height;
+    }
+    [self repositionViews];
+}
+
 
 #pragma mark - Tint color
 
@@ -114,7 +129,12 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
 
     [self.tokens addObject:token];
-    CLTokenView *tokenView = [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+    CLTokenView *tokenView;
+    if (self.tokenStyle == CLTokenStyleText) {
+        tokenView = [[CLTokenView alloc] initWithToken:token font:self.textField.font];
+    } else {
+        tokenView = [[CLTokenPillView alloc] initWithToken:token font:self.textField.font];
+    }
     if ([self respondsToSelector:@selector(tintColor)]) {
         tokenView.tintColor = self.tintColor;
     }
@@ -310,8 +330,9 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     // Delay selecting the next token slightly, so that on iOS 8
     // the deleteBackward on CLTokenView is not called immediately,
     // causing a double-delete
+    __block NSUInteger textLength = textField.text.length;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (textField.text.length == 0) {
+        if (textLength == 0) {
             CLTokenView *tokenView = self.tokenViews.lastObject;
             if (tokenView) {
                 [self selectTokenView:tokenView animated:YES];

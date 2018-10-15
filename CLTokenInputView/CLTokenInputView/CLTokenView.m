@@ -135,6 +135,10 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
     [self setSelected:selected animated:NO];
 }
 
+- (void)setSelectedIVar:(BOOL)selected {
+    _selected = selected;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     if (_selected == selected) {
