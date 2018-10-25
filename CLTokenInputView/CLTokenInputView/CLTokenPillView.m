@@ -58,6 +58,8 @@ static const CGFloat kImageHeight = 10.0f;
         
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tokenTapped:)];
         [self addGestureRecognizer:tapRecognizer];
+        
+        self.maxWidth = CGFLOAT_MAX;
     }
     return self;
 }
@@ -65,11 +67,11 @@ static const CGFloat kImageHeight = 10.0f;
 #pragma mark - Layout Related
 
 - (CGSize)intrinsicContentSize {
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
     CGSize titleIntrinsicSize = self.title.intrinsicContentSize;
     
-    return CGSizeMake(titleIntrinsicSize.width + kTitleHSpacing*2.0f + kImageWidth + kImageSpacing + kPillSpacing, titleIntrinsicSize.height + kTitleVSpacing*2.0);
+    CGFloat width = titleIntrinsicSize.width + kTitleHSpacing*2.0f + kImageWidth + kImageSpacing + kPillSpacing;
+    
+    return CGSizeMake(MIN(width, self.maxWidth), titleIntrinsicSize.height + kTitleVSpacing*2.0);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
@@ -91,6 +93,19 @@ static const CGFloat kImageHeight = 10.0f;
     CGFloat dismissImageX = titleFrame.origin.x + titleFrame.size.width + kTitleHSpacing;
     CGFloat dismissImageY = pillViewFrame.size.height/2.0f - 4.0f;
     self.dismissImage.frame = CGRectMake(dismissImageX, dismissImageY, dismissImageFrame.size.width, dismissImageFrame.size.height);
+    
+    // if we are too wide, then we need to compress by taking width away from the title and
+    // shifting the dismissImage left by that amount.  Should only happen if maxWidth has been
+    // set.
+    CGFloat layoutWidth = CGRectGetMaxX(self.dismissImage.frame) + kImageSpacing + kPillSpacing;
+    if (layoutWidth > CGRectGetMaxX(self.bounds)) {
+        CGFloat amountToAdjust = layoutWidth - CGRectGetMaxX(self.bounds);
+        titleFrame = UIEdgeInsetsInsetRect(self.title.frame,
+                                                 UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, amountToAdjust));
+        self.title.frame = titleFrame;
+        self.dismissImage.frame = UIEdgeInsetsInsetRect(self.dismissImage.frame,
+                                                        UIEdgeInsetsMake(0.0f, -amountToAdjust, 0.0f, amountToAdjust));
+    }
     
     CGFloat dismissTapZoneX = titleFrame.origin.x + titleFrame.size.width + kTitleHSpacing/2.0f;
     CGFloat dismissTapZoneWidth = pillViewFrame.size.width - titleFrame.size.width - kTitleHSpacing - kTitleHSpacing/2.0;

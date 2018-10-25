@@ -20,3 +20,4 @@ FOUNDATION_EXPORT const unsigned char CLTokenInputVersionString[];
 #import <CLTokenInput/CLTokenView.h>
 #import <CLTokenInput/CLTokenPillView.h>
 #import <CLTokenInput/CLToken.h>
+#import <CLTokenInput/CLBackspaceDetectingTextField.h>

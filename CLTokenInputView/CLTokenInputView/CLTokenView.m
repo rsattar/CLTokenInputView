@@ -70,6 +70,8 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
         // Listen for taps
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGestureRecognizer:)];
         [self addGestureRecognizer:tapRecognizer];
+        
+        self.maxWidth = CGFLOAT_MAX;
 
         [self setNeedsLayout];
 
@@ -82,14 +84,16 @@ static NSString *const UNSELECTED_LABEL_NO_COMMA_FORMAT = @"%@";
 - (CGSize)intrinsicContentSize
 {
     CGSize labelIntrinsicSize = self.selectedLabel.intrinsicContentSize;
-    return CGSizeMake(labelIntrinsicSize.width+(2.0*PADDING_X), labelIntrinsicSize.height+(2.0*PADDING_Y));
+    CGFloat width = labelIntrinsicSize.width+(2.0*PADDING_X);
+    return CGSizeMake(MIN(width, self.maxWidth), labelIntrinsicSize.height+(2.0*PADDING_Y));
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
 {
     CGSize fittingSize = CGSizeMake(size.width-(2.0*PADDING_X), size.height-(2.0*PADDING_Y));
     CGSize labelSize = [self.selectedLabel sizeThatFits:fittingSize];
-    return CGSizeMake(labelSize.width+(2.0*PADDING_X), labelSize.height+(2.0*PADDING_Y));
+    CGFloat width = labelSize.width+(2.0*PADDING_X);
+    return CGSizeMake(MIN(width, self.maxWidth), labelSize.height+(2.0*PADDING_Y));
 }
 
 

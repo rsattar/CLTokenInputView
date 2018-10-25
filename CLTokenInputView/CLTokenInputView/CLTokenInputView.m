@@ -250,10 +250,11 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
     // Position token views
     CGRect tokenRect = CGRectNull;
-    for (UIView *tokenView in self.tokenViews) {
+    for (CLTokenView *tokenView in self.tokenViews) {
         tokenRect = tokenView.frame;
 
         CGFloat tokenBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary;
+        // if token is too wide for the current line, move to the next line
         if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
             // Need a new line
             curX = self.paddingInsets.left;
@@ -261,7 +262,16 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
             totalHeight += STANDARD_ROW_HEIGHT;
             isOnFirstLine = NO;
         }
-
+        // if token is still to wide for the current line, resize the width of the token so it fits
+        if (curX + CGRectGetWidth(tokenRect) > tokenBoundary) {
+            tokenView.maxWidth = tokenBoundary - curX;
+            CGSize tokenViewIntrinsicSize = tokenView.intrinsicContentSize;
+            tokenView.frame = CGRectMake(tokenView.frame.origin.x, tokenView.frame.origin.y, tokenViewIntrinsicSize.width, tokenViewIntrinsicSize.height);
+            [tokenView setNeedsLayout];
+            [tokenView layoutIfNeeded];
+            tokenRect = tokenView.frame;
+        }
+        
         tokenRect.origin.x = curX;
         // Center our tokenView vertically within STANDARD_ROW_HEIGHT
         tokenRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(tokenRect))/2.0);
