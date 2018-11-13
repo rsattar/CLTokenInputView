@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CLTokenInputView"
-  s.version      = "2.4.0"
+  s.version      = "2.4.1"
   s.summary      = "A replica of iOS's native contact bubbles UI."
 
   s.description  = <<-DESC
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "9.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
