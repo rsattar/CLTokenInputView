@@ -195,7 +195,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     CGFloat curY = PADDING_TOP;
     CGFloat totalHeight = STANDARD_ROW_HEIGHT;
     BOOL isOnFirstLine = YES;
-
+    
+    BOOL isRTLLanguage = NO;
+    NSString *languageCode = [[NSLocale preferredLanguages] firstObject];
+    if ([languageCode hasPrefix:@"ar"] || [languageCode hasPrefix:@"he"]) {
+        isRTLLanguage = YES;
+    }
+    
     // Position field view (if set)
     if (self.fieldView) {
         CGRect fieldViewRect = self.fieldView.frame;
@@ -211,21 +217,42 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         CGSize labelSize = self.fieldLabel.intrinsicContentSize;
         CGRect fieldLabelRect = CGRectZero;
         fieldLabelRect.size = labelSize;
-        fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
+        if (isRTLLanguage) {
+            fieldLabelRect.origin.x = CGRectGetWidth(bounds) - CGRectGetWidth(fieldLabelRect) - PADDING_RIGHT;
+        }
+        else {
+            fieldLabelRect.origin.x = curX + FIELD_MARGIN_X;
+        }
         fieldLabelRect.origin.y = curY + ((STANDARD_ROW_HEIGHT-CGRectGetHeight(fieldLabelRect))/2.0);
         self.fieldLabel.frame = fieldLabelRect;
 
-        curX = CGRectGetMaxX(fieldLabelRect) + FIELD_MARGIN_X;
+        if (isRTLLanguage) {
+            curX = PADDING_LEFT;
+            firstLineRightBoundary = CGRectGetMinX(fieldLabelRect) - FIELD_MARGIN_X;
+        }
+        else {
+            curX = CGRectGetMaxX(fieldLabelRect) + FIELD_MARGIN_X;
+        }
     }
 
     // Position accessory view (if set)
     if (self.accessoryView) {
         CGRect accessoryRect = self.accessoryView.frame;
-        accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
+        if (isRTLLanguage) {
+            accessoryRect.origin.x = PADDING_LEFT;
+        }
+        else {
+            accessoryRect.origin.x = CGRectGetWidth(bounds) - PADDING_RIGHT - CGRectGetWidth(accessoryRect);
+        }
         accessoryRect.origin.y = curY;
         self.accessoryView.frame = accessoryRect;
 
-        firstLineRightBoundary = CGRectGetMinX(accessoryRect) - HSPACE;
+        if (isRTLLanguage) {
+            curX = PADDING_LEFT + CGRectGetWidth(accessoryRect);
+        }
+        else {
+            firstLineRightBoundary = CGRectGetMinX(accessoryRect) - HSPACE;
+        }
     }
 
     // Position token views
