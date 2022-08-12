@@ -274,8 +274,18 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     textFieldRect.size.height = STANDARD_ROW_HEIGHT;
     self.textField.frame = textFieldRect;
 
+    // Don't include text field in height calculation to prevent extra space from showing at the bottom
+    // But if we start typing in the text field then it should be included
     CGFloat oldContentHeight = self.intrinsicContentHeight;
-    self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM);
+    BOOL notFullWidth = availableWidthForTextField < bounds.size.width - PADDING_LEFT - PADDING_RIGHT - 50;
+    BOOL includeTextFieldHeight = notFullWidth || self.textField.text.length > 0 || self.textField.isFirstResponder;
+    
+    if (includeTextFieldHeight) {
+        self.intrinsicContentHeight = MAX(totalHeight, CGRectGetMaxY(textFieldRect)+PADDING_BOTTOM);
+    } else {
+        self.intrinsicContentHeight = totalHeight;
+    }
+    
     [self invalidateIntrinsicContentSize];
 
     if (oldContentHeight != self.intrinsicContentHeight) {
@@ -307,18 +317,13 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)textFieldDidDeleteBackwards:(UITextField *)textField
 {
-    // Delay selecting the next token slightly, so that on iOS 8
-    // the deleteBackward on CLTokenView is not called immediately,
-    // causing a double-delete
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (textField.text.length == 0) {
-            CLTokenView *tokenView = self.tokenViews.lastObject;
-            if (tokenView) {
-                [self selectTokenView:tokenView animated:YES];
-                [self.textField resignFirstResponder];
-            }
+    if (textField.text.length == 0) {
+        CLTokenView *tokenView = self.tokenViews.lastObject;
+        if (tokenView) {
+            [self selectTokenView:tokenView animated:YES];
+            [self.textField resignFirstResponder];
         }
-    });
+    }
 }
 
 
@@ -331,6 +336,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
     }
     self.tokenViews.lastObject.hideUnselectedComma = NO;
     [self unselectAllTokenViewsAnimated:YES];
+    [self repositionViews];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -339,6 +345,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
         [self.delegate tokenInputViewDidEndEditing:self];
     }
     self.tokenViews.lastObject.hideUnselectedComma = YES;
+    [self repositionViews];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -368,6 +375,7 @@ static CGFloat const FIELD_MARGIN_X = 4.0; // Note: Same as CLTokenView.PADDING_
 
 - (void)onTextFieldDidChange:(id)sender
 {
+    [self repositionViews];
     if ([self.delegate respondsToSelector:@selector(tokenInputView:didChangeText:)]) {
         [self.delegate tokenInputView:self didChangeText:self.textField.text];
     }
