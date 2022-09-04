@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "CLTokenInputView"
-  s.version      = "2.5.0"
+  s.version      = "3.0.0"
   s.summary      = "A replica of iOS's native contact bubbles UI."
   s.description  = <<-DESC
                    CLTokenInputView is an almost pixel-perfect replica of iOS's contact bubbles
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Rizwan Sattar" => "rsattar@gmail.com" }
   s.social_media_url   = "http://twitter.com/rizzledizzle"
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "12.0"
   s.source       = { :git => "https://github.com/Dockwa/CLTokenInputView.git", :tag => s.version.to_s }
   s.source_files  = "CLTokenInputView/CLTokenInputView", "CLTokenInputView/CLTokenInputView/**/*.{h,m}"
   s.exclude_files = "CLTokenInputView/CLTokenInputView/Exclude"
