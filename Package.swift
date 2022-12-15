@@ -17,7 +17,7 @@ let package = Package(
     targets: [
         .target(
             name: "CLTokenInputView",
-            exclude: ["Supporting/Info.plist"],
+            exclude: ["Supporting/CLTokenInputView-Info.plist"],
             resources: [
                 .process("CLTokenInputView.bundle"),
                 .process("Assets"),
