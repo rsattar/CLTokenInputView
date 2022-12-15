@@ -76,7 +76,7 @@
 		65B16BC118BC26C9003AA819 /* CLToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLToken.m; path = CLTokenInputView/CLToken.m; sourceTree = "<group>"; };
 		65E86F811C407E3A0029E724 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFAC96BB1CE1F3CE00487252 /* CLTokenInputView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CLTokenInputView.bundle; sourceTree = "<group>"; };
-		AFAC96C11CE2144600487252 /* Combined Shape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Combined Shape@2x.png"; sourceTree = SOURCE_ROOT; };
+		AFAC96C11CE2144600487252 /* Combined Shape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Combined Shape@2x.png"; path = "Sources/Combined Shape@2x.png"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		65B16B7118BC16F6003AA819 = {
 			isa = PBXGroup;
 			children = (
-				65B16B8318BC16F6003AA819 /* CLTokenInputView */,
+				65B16B8318BC16F6003AA819 /* Sources */,
 				65B16B9C18BC16F7003AA819 /* CLTokenInputViewTests */,
 				65B16B7C18BC16F6003AA819 /* Frameworks */,
 				65B16B7B18BC16F6003AA819 /* Products */,
@@ -133,22 +133,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		65B16B8318BC16F6003AA819 /* CLTokenInputView */ = {
+		65B16B8318BC16F6003AA819 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				65B16BAC18BC17A5003AA819 /* CLTokenInputView */,
-				65B16B8C18BC16F6003AA819 /* CLAppDelegate.h */,
-				65B16B8D18BC16F6003AA819 /* CLAppDelegate.m */,
-				65B16BB518BC1826003AA819 /* CLTokenInputViewController.h */,
-				65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */,
-				65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */,
-				65E86F811C407E3A0029E724 /* LaunchScreen.storyboard */,
-				65B16B8F18BC16F6003AA819 /* Images.xcassets */,
-				AFAC96C11CE2144600487252 /* Combined Shape@2x.png */,
-				AFAC96BB1CE1F3CE00487252 /* CLTokenInputView.bundle */,
 				65B16B8418BC16F6003AA819 /* Supporting Files */,
 			);
-			path = CLTokenInputView;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		65B16B8418BC16F6003AA819 /* Supporting Files */ = {
@@ -183,16 +174,33 @@
 		65B16BAC18BC17A5003AA819 /* CLTokenInputView */ = {
 			isa = PBXGroup;
 			children = (
-				65B16BAD18BC17D2003AA819 /* CLTokenInputView.h */,
+				E0572132294B60F800160F9C /* include */,
+				AFAC96BB1CE1F3CE00487252 /* CLTokenInputView.bundle */,
+				65B16B8F18BC16F6003AA819 /* Images.xcassets */,
+				AFAC96C11CE2144600487252 /* Combined Shape@2x.png */,
 				65B16BAE18BC17D2003AA819 /* CLTokenInputView.m */,
-				65B16BB118BC17EC003AA819 /* CLTokenView.h */,
 				65B16BB218BC17EC003AA819 /* CLTokenView.m */,
-				65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */,
 				65B16BBD18BC1D9E003AA819 /* CLBackspaceDetectingTextField.m */,
-				65B16BC018BC26C9003AA819 /* CLToken.h */,
 				65B16BC118BC26C9003AA819 /* CLToken.m */,
+				65B16B8D18BC16F6003AA819 /* CLAppDelegate.m */,
+				65B16BB618BC1826003AA819 /* CLTokenInputViewController.m */,
+				65B16BB718BC1826003AA819 /* CLTokenInputViewController.xib */,
+				65E86F811C407E3A0029E724 /* LaunchScreen.storyboard */,
 			);
 			name = CLTokenInputView;
+			sourceTree = "<group>";
+		};
+		E0572132294B60F800160F9C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				65B16BAD18BC17D2003AA819 /* CLTokenInputView.h */,
+				65B16BB118BC17EC003AA819 /* CLTokenView.h */,
+				65B16BBC18BC1D9E003AA819 /* CLBackspaceDetectingTextField.h */,
+				65B16BC018BC26C9003AA819 /* CLToken.h */,
+				65B16B8C18BC16F6003AA819 /* CLAppDelegate.h */,
+				65B16BB518BC1826003AA819 /* CLTokenInputViewController.h */,
+			);
+			name = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +261,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 65B16B7118BC16F6003AA819;
