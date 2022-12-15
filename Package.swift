@@ -17,8 +17,11 @@ let package = Package(
     targets: [
         .target(
             name: "CLTokenInputView",
+            exclude: ["Supporting/Info.plist"],
             resources: [
-                .process("CLTokenInputView.bundle")
+                .process("CLTokenInputView.bundle"),
+                .process("Assets"),
+                .process("Resources")
             ]
         )
     ]
